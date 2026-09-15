@@ -1978,6 +1978,25 @@ function updateSelectedCount() {
   if(el) el.textContent = '已选 ' + count + ' 项';
 }
 
+const menuConfig = [
+  {icon:'🏠',name:'工作台',children:[{name:'店铺概览',page:'dashboard'},{name:'待办事项',page:'dash-todo'},{name:'实时数据',page:'dash-realtime'},{name:'经营分析',page:'dash-analysis'}]},
+  {icon:'📦',name:'发货管理',children:[{name:'订单查询',page:'ship-order'},{name:'发货中心',page:'ship-center'},{name:'包裹中心',page:'ship-package'},{name:'电子面单',page:'ship-waybill'},{name:'物流工具',page:'ship-logistics'},{name:'24小时发货',page:'ship-24h'},{name:'订单开票',page:'ship-invoice'},{name:'报备额度',page:'ship-report'}]},
+  {icon:'↩️',name:'售后管理',children:[{name:'售后工作台',page:'after-workbench'},{name:'商家举证',page:'after-evidence'},{name:'小额打款',page:'after-payment'},{name:'退货包运费',page:'after-freight'},{name:'极速退款',page:'after-refund'},{name:'售后设置',page:'after-settings'}]},
+  {icon:'🛍️',name:'商品管理',children:[{name:'商品列表',page:'product-list'},{name:'发布新商品',page:'product-publish'},{name:'商品分类',page:'prod-category'},{name:'品牌管理',page:'prod-brand'},{name:'商品素材',page:'prod-material'},{name:'商品体检',page:'prod-check'},{name:'回收站',page:'prod-recycle'}]},
+  {icon:'📈',name:'流量管理',children:[{name:'流量分析',page:'traffic-analysis'},{name:'搜索词分析',page:'traffic-keyword'},{name:'商品排行',page:'traffic-rank'},{name:'地域分析',page:'traffic-region'},{name:'流量来源',page:'traffic-source'}]},
+  {icon:'🎯',name:'推广平台',children:[{name:'推广概览',page:'promotion'},{name:'搜索推广',page:'promo-search'},{name:'场景推广',page:'promo-scene'},{name:'展示推广',page:'promo-display'},{name:'明星店铺',page:'promo-star'},{name:'推广报表',page:'promo-report'},{name:'推广账户',page:'promo-account'}]},
+  {icon:'📊',name:'数据中心',children:[{name:'实时数据',page:'data'},{name:'交易数据',page:'data-trade'},{name:'商品数据',page:'data-product'},{name:'服务数据',page:'data-service'},{name:'市场行情',page:'data-market'},{name:'流量数据',page:'data-traffic'}]},
+  {icon:'🎪',name:'营销中心',children:[{name:'活动报名',page:'marketing'},{name:'我的活动',page:'mkt-my'},{name:'优惠券',page:'mkt-coupon'},{name:'限时秒杀',page:'mkt-seckill'},{name:'多件优惠',page:'mkt-multi'},{name:'拼单返现',page:'mkt-cashback'},{name:'店铺营销',page:'mkt-shop'}]},
+  {icon:'🏪',name:'店铺管理',children:[{name:'店铺信息',page:'shop'},{name:'店铺装修',page:'shop-decorate'},{name:'子账号管理',page:'shop-subaccount'},{name:'角色权限',page:'shop-role'},{name:'违规记录',page:'shop-violation'},{name:'店铺认证',page:'shop-cert'},{name:'品牌资质',page:'shop-brandqual'}]},
+  {icon:'💬',name:'多多客服',children:[{name:'客服工作台',page:'service'},{name:'会话管理',page:'cs-session'},{name:'快捷短语',page:'cs-phrase'},{name:'自动回复',page:'cs-autoreply'},{name:'客服设置',page:'cs-settings'},{name:'客服数据',page:'cs-data'}]},
+  {icon:'💰',name:'账户资金',children:[{name:'资金总览',page:'fund'},{name:'账户充值',page:'fund',tab:'recharge'},{name:'申请提现',page:'fund',tab:'withdraw'},{name:'账单流水',page:'fund-bill'},{name:'保证金',page:'fund-deposit'},{name:'发票管理',page:'fund-invoice'},{name:'推广费',page:'fund-promo'}]},
+  {icon:'🛡️',name:'商家权益保护',children:[{name:'基本信息',page:'rights-basic'},{name:'主体信息',page:'rights-subject'},{name:'低价预警',page:'rights-lowprice'},{name:'售后申诉',page:'rights-appeal'},{name:'异常单申诉',page:'rights-abnormal'}]},
+  {icon:'🌱',name:'成长中心',children:[{name:'商家成长',page:'growth-index'},{name:'任务中心',page:'growth-task'},{name:'学习中心',page:'growth-learn'},{name:'等级权益',page:'growth-level'}]},
+  {icon:'🔧',name:'服务市场',children:[{name:'服务首页',page:'service-market'},{name:'我的服务',page:'service-mine'},{name:'订单管理',page:'service-order'},{name:'服务评价',page:'service-review'}]},
+  {icon:'🤝',name:'多多进宝',children:[{name:'推广设置',page:'ddk-setting'},{name:'推广效果',page:'ddk-effect'},{name:'推广计划',page:'ddk-plan'},{name:'推广工具',page:'ddk-tool'},{name:'店铺管理',page:'ddk-shop'}]}
+];
+
+
 function renderMenu() {
   document.getElementById('sidebarMenu').innerHTML = menuConfig.map((g,gi)=>{
     if(g.children){
