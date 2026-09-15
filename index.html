@@ -1628,9 +1628,9 @@ function renderDataCenter(){
     const visitors=Math.floor(Math.random()*500+50);
     const views=Math.floor(visitors*2.5);
     const payOrders=Math.floor(visitors*0.08);
-    const payAmount=(payOrders*p.price).toFixed(2);
+    const payAmount=(payOrders*Number(p.price)).toFixed(2);
     const conv=(payOrders/visitors*100).toFixed(2);
-    const avgPrice=p.price.toFixed(2);
+    const avgPrice=Number(p.price).toFixed(2);
     return '<tr><td>'+(i+1)+'</td><td><div style="display:flex;align-items:center;gap:6px">'+(p.image?'<img src="'+p.image+'" class="product-img">':'<span class="product-img">'+p.emoji+'</span>')+' '+p.name.substring(0,15)+'</div></td><td>'+visitors+'</td><td>'+views+'</td><td>'+payOrders+'</td><td>¥'+payAmount+'</td><td>'+conv+'%</td><td>¥'+avgPrice+'</td></tr>';
   }).join('');
 }
