@@ -730,6 +730,29 @@ tbody tr:hover{background:#fafafa}
     </div>
   </div>
 </div>
+
+
+<!-- 通用编辑弹窗 -->
+<div class="modal-mask" id="genericEditModal">
+  <div class="modal" style="max-width:560px;max-height:80vh;display:flex;flex-direction:column">
+    <div class="modal-header"><div class="title" id="genericEditTitle">编辑</div><span class="close" onclick="closeModal('genericEditModal')">✕</span></div>
+    <div class="modal-body" id="genericEditBody" style="overflow-y:auto;flex:1"></div>
+    <div class="modal-footer">
+      <button class="btn btn-default" onclick="closeModal('genericEditModal')">取消</button>
+      <button class="btn btn-primary" onclick="saveGenericEdit()">保存</button>
+    </div>
+  </div>
+</div>
+<!-- 通用详情弹窗 -->
+<div class="modal-mask" id="genericDetailModal">
+  <div class="modal" style="max-width:680px;max-height:80vh;display:flex;flex-direction:column">
+    <div class="modal-header"><div class="title" id="genericDetailTitle">详情</div><span class="close" onclick="closeModal('genericDetailModal')">✕</span></div>
+    <div class="modal-body" id="genericDetailBody" style="overflow-y:auto;flex:1"></div>
+    <div class="modal-footer" id="genericDetailFooter">
+      <button class="btn btn-default" onclick="closeModal('genericDetailModal')">关闭</button>
+    </div>
+  </div>
+</div>
 <!-- 活动详情弹窗 -->
 <div class="modal-mask" id="activityDetailModal">
   <div class="modal" style="max-width:600px">
@@ -956,6 +979,223 @@ const pageConfig = {
   'fund-invoice': {title:'发票管理',stats:[{l:'已开发票',v:23,c:'#52c41a'},{l:'待开票',v:5,c:'#fa8c16'},{l:'开票金额',v:'¥23,456',c:'#1890ff'},{l:'发票类型',v:'增值税普通发票',c:'#722ed1'}],table:{cols:['发票编号','开票类型','开票金额','抬头','申请时间','状态','操作'],rows:[['FP20260915001','推广费','¥356','杭州优品数码有限公司','2026-09-15','待开票','查看'],['FP20260914088','服务费','¥1,200','杭州优品数码有限公司','2026-09-14','已开票','查看|下载'],['FP20260910077','推广费','¥890','杭州优品数码有限公司','2026-09-10','已开票','查看|下载'],['FP20260905066','服务费','¥2,400','杭州优品数码有限公司','2026-09-05','已开票','查看|下载'],['FP20260828055','推广费','¥1,560','杭州优品数码有限公司','2026-08-28','已开票','查看|下载']]}}
 };
 
+// ==================== 详情数据配置 ====================
+const detailExtraConfig = {
+  'dash-todo': {icon:'📋',sections:[{title:'待办详情',fields:[['优先级','高'],['截止时间','2026-09-16 18:00'],['关联订单','DD20260915001'],['处理人','客服小王'],['创建时间','2026-09-15 10:23'],['备注','买家催发货，需优先处理']]},{title:'处理记录',fields:[['2026-09-15 10:23','系统自动创建待办'],['2026-09-15 10:25','客服小王已认领']]}]},
+  'prod-category': {icon:'📂',sections:[{title:'分类详情',fields:[['分类ID','C001'],['分类层级','一级'],['父级分类','无'],['排序','1'],['创建时间','2026-01-10'],['商品数量','156'],['状态','启用']]},{title:'分类设置',fields:[['分类佣金比例','5%'],['分类保证金','¥1,000'],['是否参与活动','是'],['分类描述','数码配件类商品，包括手机壳、钢化膜、充电器等']]}]},
+  'prod-brand': {icon:'🏷️',sections:[{title:'品牌详情',fields:[['品牌ID','B001'],['品牌名称','Apple'],['授权类型','官方授权'],['授权开始','2026-01-01'],['授权结束','2027-01-01'],['品牌商品数','45'],['审核状态','已通过']]},{title:'授权信息',fields:[['授权方','苹果（中国）有限公司'],['授权编号','AP2026001234'],['授权范围','中国大陆地区'],['可售品类','iPhone配件、iPad配件'],['备注','需定期更新授权书']]}]},
+  'prod-check': {icon:'🔍',sections:[{title:'体检报告',fields:[['商品ID','P001'],['体检得分','85分'],['体检时间','2026-09-15 09:00'],['问题数量','2个'],['建议优化','主图背景、标题关键词']]},{title:'详细问题',fields:[['主图问题','主图背景不纯净，建议使用白底图（800x800）'],['标题问题','标题长度45字，建议精简至30字以内，核心关键词前置'],['价格正常','价格在行业合理区间内'],['库存正常','库存充足'],['详情页正常','详情页图片数量达标（12张）']]}]},
+  'order-refund': {icon:'↩️',sections:[{title:'退款详情',fields:[['退款单号','TK20260915001'],['订单号','DD20260914089'],['退款类型','仅退款'],['退款金额','¥128'],['退款原因','商品与描述不符'],['申请时间','2026-09-15 09:23'],['买家','u***8'],['状态','待处理']]},{title:'退款商品',fields:[['商品名称','苹果15手机壳红色'],['商品单价','¥128'],['购买数量','1'],['退款数量','1']]},{title:'处理记录',fields:[['2026-09-15 09:23','买家提交退款申请'],['2026-09-15 09:25','系统通知商家处理']]}]},
+  'order-review': {icon:'⭐',sections:[{title:'评价详情',fields:[['评价ID','PV20260915001'],['订单号','DD20260913066'],['商品','苹果15手机壳红色'],['买家','u***8'],['评分','5星'],['评价时间','2026-09-15 10:23'],['状态','已显示']]},{title:'评价内容',fields:[['评价内容','质量很好，手感不错，发货也快，下次还会再来！'],['追评','用了一周了，确实不错，推荐购买'],['买家印象','质量好|发货快|手感不错']]},{title:'商家回复',fields:[['回复状态','已回复'],['回复内容','感谢亲的支持与认可，我们会继续努力为您提供更好的商品和服务！'],['回复时间','2026-09-15 11:00']]}]},
+  'promo-search': {icon:'🔎',sections:[{title:'推广计划详情',fields:[['计划ID','SP001'],['计划名称','手机壳-主推'],['推广类型','搜索推广'],['推广商品','苹果15手机壳红色'],['日限额','¥100'],['出价','¥0.8'],['状态','推广中'],['创建时间','2026-09-01']]},{title:'推广数据',fields:[['今日消耗','¥89.5'],['今日点击','324'],['今日转化','28'],['点击率','8.6%'],['转化率','8.6%'],['ROI','3.2'],['平均点击花费','¥0.28']]},{title:'关键词列表',fields:[['手机壳','出价¥0.8，点击156，转化15'],['苹果15手机壳','出价¥1.0，点击98，转化9'],['手机壳红色','出价¥0.6，点击70，转化4']]}]},
+  'mkt-seckill': {icon:'⚡',sections:[{title:'秒杀活动详情',fields:[['活动ID','SK001'],['活动名称','周三秒杀日'],['活动类型','限时秒杀'],['秒杀价','¥9.9'],['原价','¥29.9'],['活动库存','500'],['已售','324'],['开始时间','2026-09-17 10:00'],['结束时间','2026-09-17 23:59'],['状态','待开始']]},{title:'活动商品',fields:[['商品名称','苹果15手机壳红色'],['商品ID','P001'],['秒杀价','¥9.9'],['活动库存','500'],['每人限购','2件']]},{title:'活动设置',fields:[['活动预告','开启（提前24小时展示）'],['活动标签','显示"秒杀"标签'],['活动海报','已上传'],['客服话术','已配置']]}]},
+  'cs-session': {icon:'💬',sections:[{title:'会话详情',fields:[['会话ID','CS20260915001'],['买家','u***8'],['买家等级','VIP3'],['最后消息','这个手机壳有红色的吗？'],['最后时间','2026-09-15 10:23'],['状态','进行中'],['接待客服','客服小王'],['会话时长','12分36秒'],['消息数','23条']]},{title:'买家信息',fields:[['注册时间','2025-03-15'],['累计订单','56单'],['累计消费','¥8,960'],['好评率','98.5%'],['最近下单','2026-09-14']]},{title:'聊天记录',fields:[['10:15','买家：您好，在吗？'],['10:15','客服：您好，欢迎光临，请问有什么可以帮您？'],['10:18','买家：这个手机壳有红色的吗？'],['10:19','客服：有的亲，红色目前有现货哦~'],['10:23','买家：好的，那我拍一个']]}]},
+  'shop-subaccount': {icon:'👤',sections:[{title:'子账号详情',fields:[['账号','kefu01'],['姓名','小王'],['角色','客服'],['手机号','138****1234'],['邮箱','wang@example.com'],['最后登录','2026-09-15 09:23'],['登录IP','192.168.1.100'],['状态','启用'],['创建时间','2026-01-15']]},{title:'权限配置',fields:[['客服权限','会话管理、快捷短语、自动回复'],['订单权限','查看订单、订单备注'],['商品权限','查看商品'],['数据权限','查看客服数据'],['资金权限','无'],['系统设置','无']]},{title:'操作记录',fields:[['2026-09-15 09:23','登录系统'],['2026-09-15 09:30','接待会话CS20260915001'],['2026-09-15 10:15','回复买家消息'],['2026-09-14 18:00','退出登录']]}]},
+  'fund-bill': {icon:'📝',sections:[{title:'账单详情',fields:[['账单编号','BL20260915001'],['交易时间','2026-09-15 10:23'],['交易类型','订单收入'],['收入金额','+¥128'],['支出金额','-'],['账户余额','¥5,678'],['关联订单','DD20260915001'],['支付方式','微信支付'],['交易状态','已完成']]},{title:'订单信息',fields:[['订单号','DD20260915001'],['商品','苹果15手机壳红色'],['数量','1'],['订单金额','¥128'],['买家','u***8'],['下单时间','2026-09-15 10:20'],['支付时间','2026-09-15 10:23']]},{title:'资金流向',fields:[['买家支付','¥128 → 平台担保账户'],['确认收货','平台担保账户 → 商家可用余额'],['提现','商家可用余额 → 银行卡']]}]},
+  'dash-realtime': {icon:'📊',sections:[{title:'实时数据详情',fields:[['统计周期','今日'],['数据更新','实时（5秒刷新）'],['数据来源','拼多多数据中心'],['对比维度','昨日同期']]},{title:'小时级数据',fields:[['10:00-11:00','访客156，下单12，支付¥1,680'],['09:00-10:00','访客189，下单15，支付¥2,100'],['08:00-09:00','访客134，下单9，支付¥1,260']]}]},
+  'dash-analysis': {icon:'📈',sections:[{title:'经营分析报告',fields:[['分析周期','本周（2026-09-09至2026-09-15）'],['对比周期','上周'],['行业排名','前15%'],['核心结论','销售额环比增长12.5%，主要来自搜索推广优化']]},{title:'关键指标分析',fields:[['支付金额','¥86,420（+12.5%），增长主要来自客单价提升'],['订单数','608单（+12.2%），新客占比65%'],['转化率','6.8%（+1.5%），高于行业均值5.2%'],['客单价','¥142（+0.7%），连带率1.8']]}]},
+  'prod-material': {icon:'🖼️',sections:[{title:'素材详情',fields:[['素材ID','M001'],['素材名称','主图-手机壳-红色'],['素材类型','图片'],['尺寸','800x800'],['大小','234KB'],['格式','JPG'],['上传时间','2026-09-10 14:30'],['使用商品','苹果15手机壳红色等12个商品']]},{title:'素材使用记录',fields:[['2026-09-10','上传素材'],['2026-09-10 15:00','用于商品P001主图'],['2026-09-11 10:20','用于商品P002主图'],['2026-09-12 09:15','用于活动海报']]}]},
+  'prod-recycle': {icon:'🗑️',sections:[{title:'回收站详情',fields:[['商品ID','P001'],['商品名称','旧款手机壳-蓝色'],['删除时间','2026-09-10 14:30'],['删除原因','手动删除'],['操作人','管理员'],['剩余天数','25天（2026-10-10永久删除）'],['删除前状态','在售'],['删除前库存','156']]},{title:'恢复说明',fields:[['恢复方式','点击"恢复"按钮即可恢复商品'],['恢复后状态','恢复为下架状态，需手动上架'],['恢复后库存','恢复为删除前库存'],['注意事项','超过30天将永久删除，无法恢复']]}]},
+  'order-express': {icon:'📦',sections:[{title:'面单详情',fields:[['面单号','YD20260915001234'],['订单号','DD20260915001'],['快递公司','韵达快递'],['收件人','张**'],['收件电话','138****1234'],['收件地址','浙江省杭州市西湖区****'],['打印时间','2026-09-15 10:23'],['打印状态','已打印'],['揽收状态','已揽收']]},{title:'物流轨迹',fields:[['2026-09-15 10:23','商家已打印面单'],['2026-09-15 11:30','快递员已揽收'],['2026-09-15 14:20','到达杭州转运中心'],['2026-09-15 18:45','发往西湖区配送站']]}]},
+  'promo-scene': {icon:'🎯',sections:[{title:'场景推广详情',fields:[['计划ID','SC001'],['计划名称','手机壳-类目'],['推广类型','场景推广'],['定向方式','相似商品定向'],['出价','¥0.5'],['日限额','¥100'],['状态','推广中'],['创建时间','2026-09-05']]},{title:'推广数据',fields:[['今日消耗','¥67.8'],['今日曝光','8,956'],['今日点击','256'],['点击率','2.9%'],['今日转化','22'],['转化率','8.6%'],['ROI','3.5']]},{title:'定向设置',fields:[['相似商品','已选择12个相似商品'],['兴趣标签','数码爱好者、手机用户'],['人群溢价','新客+20%，老客+10%'],['投放位置','分类页、商品详情页、购物车']]}]},
+  'promo-display': {icon:'🖥️',sections:[{title:'展示推广详情',fields:[['计划ID','DP001'],['计划名称','首页banner'],['资源位置','首页顶部banner'],['广告尺寸','750x300'],['日预算','¥200'],['出价方式','CPM（千次曝光）'],['状态','投放中'],['创建时间','2026-09-01']]},{title:'推广数据',fields:[['今日消耗','¥89.5'],['今日曝光','23,456'],['今日点击','286'],['点击率','1.2%'],['CPM','¥3.8'],['CPC','¥0.31'],['转化','15'],['ROI','2.8']]},{title:'素材信息',fields:[['素材类型','图片'],['素材尺寸','750x300'],['素材大小','156KB'],['审核状态','已通过'],['审核时间','2026-09-01 10:30']]}]},
+  'promo-report': {icon:'📊',sections:[{title:'推广报表详情',fields:[['报表周期','近7天（2026-09-09至2026-09-15）'],['推广类型','全部'],['数据来源','推广中心'],['更新时间','2026-09-15 10:30']]},{title:'汇总数据',fields:[['总消耗','¥2,856'],['总曝光','89,567'],['总点击','8,956'],['总转化','678'],['平均点击率','10.0%'],['平均转化率','7.6%'],['平均ROI','2.8'],['平均CPC','¥0.32']]},{title:'分类型数据',fields:[['搜索推广','消耗¥1,256，点击3,456，转化256，ROI3.2'],['场景推广','消耗¥980，曝光35,678，点击2,345，转化234，ROI2.9'],['展示推广','消耗¥620，曝光53,456，点击1,155，转化188，ROI2.2']]}]},
+  'promo-account': {icon:'💳',sections:[{title:'推广账户详情',fields:[['账户ID','ACC001'],['账户类型','推广账户'],['账户余额','¥1,256'],['今日消耗','¥356'],['累计充值','¥10,000'],['累计消耗','¥8,744'],['账户状态','正常'],['开户时间','2026-01-01']]},{title:'充值记录',fields:[['2026-09-15 09:00','支付宝充值¥500，余额¥1,345.5'],['2026-09-01 10:00','支付宝充值¥1,000，余额¥2,156'],['2026-08-15 14:30','微信充值¥500，余额¥1,890']]},{title:'消耗明细',fields:[['2026-09-15','搜索推广¥89.5，场景推广¥67.8，展示推广¥45.2'],['2026-09-14','搜索推广¥112.3，场景推广¥78.5，展示推广¥56.2']]}]},
+  'mkt-multi': {icon:'🎁',sections:[{title:'多件优惠详情',fields:[['活动ID','MU001'],['活动名称','手机壳第二件半价'],['优惠类型','第二件半价'],['优惠内容','第二件5折'],['覆盖商品','12个'],['活动订单','89单'],['优惠金额','¥534'],['状态','进行中'],['创建时间','2026-09-01']]},{title:'活动设置',fields:[['优惠门槛','无门槛，购买2件及以上享受'],['优惠叠加','可与优惠券叠加'],['活动时间','长期有效'],['适用范围','指定商品'],['排除商品','无']]},{title:'活动效果',fields:[['活动订单','89单（占总订单15%）'],['活动商品销量','178件'],['客单价提升','+23%'],['连带率','1.8（活动前1.2）']]}]},
+  'mkt-cashback': {icon:'💰',sections:[{title:'拼单返现详情',fields:[['活动ID','CB001'],['活动名称','满100返10'],['返现条件','满100元返10元'],['返现金额','¥10'],['参与商品','全部商品'],['活动订单','89单'],['返现总额','¥890'],['状态','进行中'],['创建时间','2026-09-05']]},{title:'活动设置',fields:[['返现方式','返现到账户余额'],['返现时间','确认收货后24小时内'],['活动时间','2026-09-05至2026-10-05'],['每人限领','不限'],['新客专享','否']]},{title:'活动效果',fields:[['活动订单','89单'],['返现总额','¥890'],['活动GMV','¥12,560'],['ROI','14.1'],['复购率提升','+8%']]}]},
+  'data-product': {icon:'📦',sections:[{title:'商品数据详情',fields:[['商品ID','P001'],['商品名称','苹果15手机壳红色'],['统计周期','近7天'],['数据来源','数据中心'],['更新时间','2026-09-15 10:30']]},{title:'核心指标',fields:[['访客数','2,345（+8.5%）'],['浏览量','6,789（+12.3%）'],['支付订单','156（+15.2%）'],['支付金额','¥19,890（+18.5%）'],['转化率','6.7%（+0.5%）'],['客单价','¥127（+2.8%）'],['加购数','234（+10.2%）'],['收藏数','156（+8.5%）']]},{title:'流量来源',fields:[['搜索流量','访客1,234（52.6%），转化89，ROI3.5'],['推荐流量','访客567（24.2%），转化34，ROI2.8'],['活动流量','访客345（14.7%），转化23，ROI4.2'],['直接访问','访客199（8.5%），转化10，ROI2.1']]}]},
+  'data-traffic': {icon:'🚦',sections:[{title:'流量数据详情',fields:[['统计周期','近7天'],['数据来源','数据中心'],['对比维度','上周同期'],['更新时间','2026-09-15 10:30']]},{title:'流量概览',fields:[['总访客数','8,956（+10.5%）'],['总浏览量','23,456（+12.3%）'],['平均停留时长','2分36秒（+8.5%）'],['平均访问页数','2.6页（+5.2%）'],['跳出率','32.5%（-3.2%）'],['新访客占比','68.5%（+2.1%）']]},{title:'流量来源明细',fields:[['搜索流量','访客3,456，占比38.6%，转化率7.8%'],['推荐流量','访客2,345，占比26.2%，转化率6.5%'],['活动流量','访客1,567，占比17.5%，转化率8.2%'],['直接访问','访客890，占比9.9%，转化率5.6%'],['其他来源','访客698，占比7.8%，转化率4.2%']]}]},
+  'data-trade': {icon:'💹',sections:[{title:'交易数据详情',fields:[['统计周期','近7天'],['数据来源','数据中心'],['对比维度','上周同期'],['更新时间','2026-09-15 10:30']]},{title:'交易概览',fields:[['支付金额','¥86,420（+12.5%）'],['支付订单','608单（+12.2%）'],['客单价','¥142（+0.7%）'],['支付转化率','6.8%（+1.5%）'],['退款金额','¥1,889（-5.2%）'],['退款率','2.8%（-0.5%）']]},{title:'每日交易明细',fields:[['2026-09-15','支付¥12,580，订单89，客单价¥141，转化率7.1%'],['2026-09-14','支付¥15,230，订单108，客单价¥141，转化率7.5%'],['2026-09-13','支付¥13,450，订单95，客单价¥142，转化率6.8%'],['2026-09-12','支付¥14,560，订单102，客单价¥143，转化率7.0%'],['2026-09-11','支付¥12,890，订单89，客单价¥145，转化率6.5%']]}]},
+  'data-service': {icon:'🛎️',sections:[{title:'服务数据详情',fields:[['统计周期','近7天'],['数据来源','客服中心'],['对比维度','上周同期'],['更新时间','2026-09-15 10:30']]},{title:'服务概览',fields:[['5分钟回复率','98.5%（+1.2%），行业排名前10%'],['平均响应时间','45秒（-12.5%），行业均值1分20秒'],['好评率','98.2%（+0.5%），行业均值95.6%'],['纠纷率','0.3%（-0.2%），行业均值1.2%'],['退款率','2.8%（-0.5%），行业均值5.2%'],['客服满意度','96.5%（+1.8%）']]},{title:'客服绩效',fields:[['客服小王','会话89，回复率99.2%，平均响应38秒，满意度97.5%'],['客服小李','会话78，回复率98.5%，平均响应45秒，满意度96.8%'],['客服小张','会话67，回复率97.8%，平均响应52秒，满意度95.2%']]}]},
+  'data-market': {icon:'🌍',sections:[{title:'市场行情详情',fields:[['统计周期','近7天'],['数据来源','市场行情'],['行业','数码配件'],['更新时间','2026-09-15 10:30']]},{title:'行业概览',fields:[['行业搜索热度','+12.5%（环比上升）'],['行业平均客单价','¥128（+2.3%）'],['行业平均转化率','5.2%（+0.3%）'],['行业平均退款率','5.2%（-0.5%）'],['我的行业排名','前15%（上升5位）'],['行业商家数','45,678家（+2.1%）']]},{title:'关键词行情',fields:[['手机壳','搜索热度125,678（+8.5%），商品数45,678，均价¥25.6，我的排名128'],['钢化膜','搜索热度98,456（+12.3%），商品数32,456，均价¥15.8，我的排名89'],['充电器','搜索热度78,234（+5.6%），商品数28,908，均价¥45.2，我的排名156'],['数据线','搜索热度65,432（+3.2%），商品数25,678，均价¥12.5，我的排名203']]}]},
+  'cs-settings': {icon:'⚙️',sections:[{title:'客服设置详情',fields:[['设置项','客服设置'],['更新时间','2026-09-10 14:30'],['操作人','管理员'],['设置状态','已保存']]},{title:'详细设置',fields:[['客服昵称','优品数码客服（买家看到的客服名称）'],['自动接入','已开启（新会话自动分配给在线客服）'],['接待上限','50人/人（每个客服最多同时接待的会话数）'],['离线消息','已开启（客服离线时消息保留，上线后提醒）'],['快捷短语同步','已开启（团队短语自动同步给所有客服）'],['聊天记录保存','已开启（保存最近90天聊天记录）'],['敏感词过滤','已开启（自动过滤敏感词汇）']]},{title:'分配规则',fields:[['分配方式','轮流分配（按顺序轮流分配给在线客服）'],['优先分配','新客优先分配给资深客服'],['VIP客服','VIP客户优先分配给指定客服'],['离线转接','客服离线时自动转接给其他在线客服']]}]},
+  'shop-decorate': {icon:'🎨',sections:[{title:'店铺装修详情',fields:[['模板ID','T001'],['模板名称','简约数码风'],['模板风格','简约现代'],['适用行业','数码3C'],['模块数量','12个'],['状态','使用中'],['最后更新','2026-09-10 14:30'],['更新人','管理员']]},{title:'页面模块',fields:[['店招模块','店铺名称+LOGO+导航，高度120px'],['轮播模块','3张轮播图，自动播放，间隔5秒'],['分类导航','8个分类入口，图标+文字'],['商品推荐','4个商品位，按销量排序'],['活动专区','1个活动banner，可链接到活动页'],['优惠券模块','3张优惠券展示，可一键领取'],['新品上架','6个新品位，按上架时间排序'],['热销榜单','10个热销商品，按销量排序'],['店铺公告','滚动公告，最多5条'],['客服入口','在线客服按钮，悬浮显示'],['底部导航','首页/分类/购物车/我的'],['页脚信息','店铺信息+版权+联系方式']]}]},
+  'shop-role': {icon:'🔐',sections:[{title:'角色权限详情',fields:[['角色ID','R001'],['角色名称','客服'],['角色类型','系统角色'],['成员数量','3人'],['创建时间','2026-01-01'],['状态','启用']]},{title:'权限配置',fields:[['商品权限','查看（可查看商品列表和详情）'],['订单权限','查看+编辑（可查看订单、修改订单备注、标记发货）'],['客服权限','全部（可接待会话、管理快捷短语、设置自动回复）'],['资金权限','无（不可查看资金信息）'],['数据权限','查看客服数据（仅可查看自己的客服数据）'],['营销权限','无（不可创建和管理营销活动）'],['系统设置','无（不可修改系统设置）']]},{title:'成员列表',fields:[['kefu01 小王','2026-01-15加入，最后登录2026-09-15 09:23'],['kefu02 小李','2026-02-20加入，最后登录2026-09-15 08:45'],['kefu03 小张','2026-03-10加入，最后登录2026-09-14 16:30']]}]},
+  'shop-violation': {icon:'⚠️',sections:[{title:'违规详情',fields:[['违规编号','WG20260815001'],['违规类型','商品描述不符'],['处罚措施','商品下架'],['扣分','3分'],['违规时间','2026-08-15 14:30'],['处理时间','2026-08-16 10:00'],['状态','已处理'],['申诉状态','未申诉']]},{title:'违规详情',fields:[['违规商品','苹果15手机壳红色（P001）'],['违规原因','商品标题中使用了"最好"等极限词，违反广告法'],['违规依据','《拼多多平台规则》第三章第五条'],['处罚说明','商品下架处理，扣3分，限制参加活动7天'],['整改要求','修改商品标题，移除极限词，重新提交审核']]},{title:'处理记录',fields:[['2026-08-15 14:30','系统检测到违规，自动下架商品'],['2026-08-15 15:00','系统通知商家违规处理结果'],['2026-08-16 10:00','商家修改商品信息，重新提交审核'],['2026-08-16 14:30','审核通过，商品恢复上架']]}]},
+  'shop-cert': {icon:'✅',sections:[{title:'店铺认证详情',fields:[['认证状态','已认证'],['认证类型','企业认证'],['认证时间','2026-01-15'],['到期时间','2027-01-15'],['认证编号','CERT20260115001'],['认证机构','拼多多官方认证']]},{title:'企业信息',fields:[['企业名称','杭州优品数码有限公司'],['统一社会信用代码','91330106MA2XXXXXXX'],['法定代表人','张**'],['注册资本','100万元'],['成立日期','2020-05-20'],['经营范围','数码产品、电子产品、通讯设备销售'],['注册地址','浙江省杭州市西湖区****']]},{title:'认证资质',fields:[['营业执照','已上传，有效期至2027-01-15'],['法人身份证','已上传，已验证'],['银行账户','招商银行****1234，已验证'],['品牌授权','Apple/华为/小米等12个品牌，已验证'],['特殊资质','数码产品销售许可证，已验证'],['税务登记','已完成税务登记']]}]},
+  'fund-deposit': {icon:'🔒',sections:[{title:'保证金详情',fields:[['账户类型','基础保证金'],['保证金余额','¥5,000'],['可用保证金','¥4,500'],['冻结保证金','¥500'],['保证金状态','正常'],['缴纳时间','2026-01-15'],['最低要求','¥1,000（数码配件类）']]},{title:'保证金明细',fields:[['2026-01-15','缴纳基础保证金¥5,000，余额¥5,000'],['2026-08-15','违规处罚冻结¥500，可用¥4,500'],['2026-09-10','申诉成功解冻¥200，可用¥4,700'],['2026-09-12','保证金不足补缴¥300，余额¥5,000']]},{title:'保证金说明',fields:[['保证金用途','用于保障买家权益，违规时扣除'],['提取条件','店铺关闭且无未完成订单，可申请提取'],['提取周期','申请后30天内到账'],['不足影响','保证金低于最低要求，店铺将被限制功能'],['补缴方式','支付宝/微信/银行卡']]}]},
+  'fund-invoice': {icon:'🧾',sections:[{title:'发票详情',fields:[['发票编号','FP20260914088'],['发票类型','增值税普通发票'],['开票金额','¥1,200'],['开票内容','服务费'],['抬头','杭州优品数码有限公司'],['税号','91330106MA2XXXXXXX'],['申请时间','2026-09-14 10:30'],['开票时间','2026-09-14 14:30'],['状态','已开票'],['接收邮箱','finance@example.com']]},{title:'发票明细',fields:[['费用类型','平台服务费'],['费用周期','2026年8月'],['费用金额','¥1,200'],['税率','6%'],['税额','¥67.92'],['不含税金额','¥1,132.08']]},{title:'操作记录',fields:[['2026-09-14 10:30','财务小钱提交开票申请'],['2026-09-14 11:00','系统审核通过'],['2026-09-14 14:30','发票开具完成，已发送至邮箱'],['2026-09-14 14:35','买家确认收到发票']]}]},
+  'default': {icon:'📄',sections:[{title:'详细信息',fields:[]}]}
+};
+
+function showGenericDetail(pageId, rowIdx) {
+  const cfg = pageConfig[pageId];
+  if(!cfg || !cfg.table) return;
+  const row = cfg.table.rows[rowIdx];
+  if(!row) return;
+  const extra = detailExtraConfig[pageId] || detailExtraConfig['default'];
+  
+  // 标题
+  const title = cfg.title + ' - ' + (row[0] || row[1] || '详情');
+  document.getElementById('genericDetailTitle').textContent = title;
+  
+  // 基本信息（从表格行生成）
+  let basicHTML = '<div style="margin-bottom:20px"><div style="font-weight:600;font-size:15px;margin-bottom:10px;color:#1890ff">📋 基本信息</div>' +
+    '<div style="background:#f9f9f9;border-radius:8px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;line-height:1.8">';
+  cfg.table.cols.forEach((col, i) => {
+    if(row[i] !== undefined) {
+      basicHTML += '<div><span style="color:#999">' + col + '：</span><span style="font-weight:500">' + row[i] + '</span></div>';
+    }
+  });
+  basicHTML += '</div></div>';
+  
+  // 额外详情section
+  let extraHTML = '';
+  if(extra.sections) {
+    extra.sections.forEach(sec => {
+      extraHTML += '<div style="margin-bottom:20px"><div style="font-weight:600;font-size:15px;margin-bottom:10px;color:#1890ff">' + extra.icon + ' ' + sec.title + '</div>' +
+        '<div style="background:#f9f9f9;border-radius:8px;padding:12px;font-size:13px;line-height:2">';
+      sec.fields.forEach(f => {
+        extraHTML += '<div style="display:flex;gap:12px"><span style="color:#999;min-width:100px">' + f[0] + '：</span><span style="flex:1;font-weight:500">' + f[1] + '</span></div>';
+      });
+      extraHTML += '</div></div>';
+    });
+  }
+  
+  // 操作按钮
+  let footerHTML = '<button class="btn btn-default" onclick="closeModal(\'genericDetailModal\')">关闭</button>' +
+    '<button class="btn btn-primary" onclick="openGenericEdit(\'' + pageId + '\',' + rowIdx + ')">编辑</button>' +
+    '<button class="btn btn-danger" onclick="if(confirm(\'确定删除？\')){showToast(\'已删除\');closeModal(\'genericDetailModal\');}">删除</button>';
+  
+  document.getElementById('genericDetailBody').innerHTML = basicHTML + extraHTML;
+  document.getElementById('genericDetailFooter').innerHTML = footerHTML;
+  openModal('genericDetailModal');
+}
+
+// ==================== 编辑表单配置 ====================
+const editFormConfig = {
+  'prod-category': {title:'编辑分类',fields:[
+    {key:'name',label:'分类名称',type:'text',required:true},
+    {key:'parent',label:'父级分类',type:'select',options:['无','数码配件','手机配件','电脑配件']},
+    {key:'sort',label:'排序',type:'number'},
+    {key:'commission',label:'佣金比例(%)',type:'number'},
+    {key:'status',label:'状态',type:'select',options:['启用','禁用']},
+    {key:'desc',label:'分类描述',type:'textarea'}
+  ]},
+  'prod-brand': {title:'编辑品牌',fields:[
+    {key:'name',label:'品牌名称',type:'text',required:true},
+    {key:'authType',label:'授权类型',type:'select',options:['官方授权','经销商授权','自主品牌']},
+    {key:'authStart',label:'授权开始',type:'date'},
+    {key:'authEnd',label:'授权结束',type:'date'},
+    {key:'authNo',label:'授权编号',type:'text'},
+    {key:'status',label:'审核状态',type:'select',options:['已通过','审核中','已拒绝']}
+  ]},
+  'order-refund': {title:'处理退款',fields:[
+    {key:'status',label:'处理结果',type:'select',options:['同意退款','拒绝退款','需要退货']},
+    {key:'amount',label:'退款金额',type:'number'},
+    {key:'reason',label:'处理说明',type:'textarea',required:true},
+    {key:'notify',label:'通知买家',type:'select',options:['是','否']}
+  ]},
+  'order-review': {title:'回复评价',fields:[
+    {key:'reply',label:'商家回复',type:'textarea',required:true},
+    {key:'replyType',label:'回复类型',type:'select',options:['感谢回复','解释说明','致歉回复','通用回复']},
+    {key:'top',label:'是否置顶',type:'select',options:['否','是']}
+  ]},
+  'promo-search': {title:'编辑推广计划',fields:[
+    {key:'name',label:'计划名称',type:'text',required:true},
+    {key:'dailyLimit',label:'日限额(元)',type:'number'},
+    {key:'bid',label:'出价(元)',type:'number'},
+    {key:'status',label:'状态',type:'select',options:['推广中','已暂停']},
+    {key:'target',label:'推广目标',type:'select',options:['点击量','转化量','曝光量']},
+    {key:'timeRange',label:'投放时段',type:'select',options:['全天','白天(8-22)','夜间(22-8)','自定义']}
+  ]},
+  'mkt-seckill': {title:'编辑秒杀活动',fields:[
+    {key:'name',label:'活动名称',type:'text',required:true},
+    {key:'seckillPrice',label:'秒杀价(元)',type:'number',required:true},
+    {key:'stock',label:'活动库存',type:'number'},
+    {key:'limit',label:'每人限购',type:'number'},
+    {key:'startTime',label:'开始时间',type:'datetime-local'},
+    {key:'endTime',label:'结束时间',type:'datetime-local'}
+  ]},
+  'cs-phrase': {title:'编辑快捷短语',fields:[
+    {key:'content',label:'短语内容',type:'textarea',required:true},
+    {key:'category',label:'分类',type:'select',options:['问候','发货','售后','商品','结束']},
+    {key:'type',label:'类型',type:'select',options:['个人','团队']},
+    {key:'sort',label:'排序',type:'number'}
+  ]},
+  'cs-autoreply': {title:'编辑自动回复',fields:[
+    {key:'name',label:'规则名称',type:'text',required:true},
+    {key:'keyword',label:'触发关键词',type:'text',required:true},
+    {key:'reply',label:'回复内容',type:'textarea',required:true},
+    {key:'matchType',label:'匹配方式',type:'select',options:['精确匹配','模糊匹配','正则匹配']},
+    {key:'status',label:'状态',type:'select',options:['启用','停用']}
+  ]},
+  'shop-subaccount': {title:'编辑子账号',fields:[
+    {key:'username',label:'账号',type:'text',required:true},
+    {key:'name',label:'姓名',type:'text',required:true},
+    {key:'role',label:'角色',type:'select',options:['客服','仓储','财务','运营','管理员']},
+    {key:'phone',label:'手机号',type:'text'},
+    {key:'email',label:'邮箱',type:'text'},
+    {key:'status',label:'状态',type:'select',options:['启用','禁用']}
+  ]},
+  'shop-role': {title:'编辑角色权限',fields:[
+    {key:'name',label:'角色名称',type:'text',required:true},
+    {key:'desc',label:'角色描述',type:'textarea'},
+    {key:'product',label:'商品权限',type:'select',options:['无','查看','编辑','全部']},
+    {key:'order',label:'订单权限',type:'select',options:['无','查看','编辑','全部']},
+    {key:'fund',label:'资金权限',type:'select',options:['无','查看','全部']},
+    {key:'service',label:'客服权限',type:'select',options:['无','查看','全部']}
+  ]},
+  'fund-deposit': {title:'保证金操作',fields:[
+    {key:'type',label:'操作类型',type:'select',options:['补缴保证金','提取保证金','查看明细']},
+    {key:'amount',label:'金额(元)',type:'number'},
+    {key:'payMethod',label:'支付方式',type:'select',options:['支付宝','微信','银行卡']},
+    {key:'remark',label:'备注',type:'textarea'}
+  ]},
+  'fund-invoice': {title:'开具发票',fields:[
+    {key:'type',label:'发票类型',type:'select',options:['增值税普通发票','增值税专用发票']},
+    {key:'title',label:'发票抬头',type:'text',required:true},
+    {key:'taxNo',label:'税号',type:'text'},
+    {key:'amount',label:'开票金额',type:'number',required:true},
+    {key:'content',label:'开票内容',type:'select',options:['商品明细','服务费','推广费','办公用品']},
+    {key:'email',label:'接收邮箱',type:'text',required:true}
+  ]},
+  'default': {title:'编辑',fields:[
+    {key:'name',label:'名称',type:'text',required:true},
+    {key:'status',label:'状态',type:'select',options:['启用','禁用']},
+    {key:'remark',label:'备注',type:'textarea'}
+  ]}
+};
+
+let currentEditPage = null;
+let currentEditRow = null;
+
+function openGenericEdit(pageId, rowIdx) {
+  currentEditPage = pageId;
+  currentEditRow = rowIdx;
+  const cfg = pageConfig[pageId];
+  const formCfg = editFormConfig[pageId] || editFormConfig['default'];
+  const row = cfg && cfg.table ? cfg.table.rows[rowIdx] : null;
+  
+  document.getElementById('genericEditTitle').textContent = formCfg.title;
+  
+  let formHTML = '';
+  formCfg.fields.forEach(f => {
+    const val = row ? (row[0] || '') : '';
+    formHTML += '<div class="form-item"><label class="' + (f.required ? 'required' : '') + '">' + f.label + '</label><div class="form-control">';
+    if(f.type === 'textarea') {
+      formHTML += '<textarea id="edit_' + f.key + '" rows="3" placeholder="请输入' + f.label + '">' + val + '</textarea>';
+    } else if(f.type === 'select') {
+      formHTML += '<select id="edit_' + f.key + '">' + f.options.map(o => '<option value="' + o + '">' + o + '</option>').join('') + '</select>';
+    } else {
+      formHTML += '<input type="' + f.type + '" id="edit_' + f.key + '" value="' + val + '" placeholder="请输入' + f.label + '">';
+    }
+    formHTML += '</div></div>';
+  });
+  
+  document.getElementById('genericEditBody').innerHTML = formHTML;
+  openModal('genericEditModal');
+}
+
+function saveGenericEdit() {
+  showToast('保存成功');
+  closeModal('genericEditModal');
+  closeModal('genericDetailModal');
+  if(currentEditPage) {
+    navTo(currentEditPage, '编辑', currentEditPage);
+  }
+}
+
 function renderGenericPage(pageId) {
   const cfg = pageConfig[pageId];
   if(!cfg) return;
@@ -980,14 +1220,14 @@ function renderGenericPage(pageId) {
     tableHTML = '<div class="card"><div class="card-header"><div class="title">' + (cfg.tableTitle||'数据列表') + '</div>' +
       '<div class="extra"><button class="btn btn-default btn-sm" onclick="showToast(\'已导出\')">📥 导出</button></div></div>' +
       '<div class="card-body" style="padding:0"><div class="table-wrap"><table><thead><tr>' +
-      cfg.table.cols.map(c => '<th>' + c + '</th>').join('') +
+      cfg.table.cols.map(c => '<th>' + c + '</th>').join('') + '<th>操作</th>' +
       '</tr></thead><tbody>' +
-      cfg.table.rows.map(r => '<tr>' + r.map((cell, i) => {
+      cfg.table.rows.map((r, ri) => '<tr>' + r.map((cell, i) => {
         if(typeof cell === 'number' && i === 1 && cfg.table.cols[i] === '体检得分') {
           return '<td><span style="color:' + (cell >= 90 ? '#52c41a' : cell >= 70 ? '#fa8c16' : '#e02e24') + ';font-weight:600">' + cell + '分</span></td>';
         }
         return '<td>' + cell + '</td>';
-      }).join('') + '</tr>').join('') +
+      }).join('') + '<td><button class=\"btn btn-link btn-sm\" onclick=\"showGenericDetail(\'' + pageId + '\',' + ri + ')\">详情</button></td></tr>').join('') +
       '</tbody></table></div></div></div>';
   }
   pageEl.innerHTML = '<div class="page-header"><h2>' + cfg.title + '</h2>' +
