@@ -289,6 +289,63 @@ tbody tr:hover{background:#fafafa}
 
 .product-img{width:48px;height:48px;border-radius:6px;object-fit:cover;background:#f5f5f5;display:inline-flex;align-items:center;justify-content:center;font-size:24px;vertical-align:middle}
 .product-img-lg{width:80px;height:80px;border-radius:8px;object-fit:cover;background:#f5f5f5}
+
+.breadcrumb { padding: 12px 24px; background: #fff; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+.bc-item { color: #666; cursor: pointer; }
+.bc-item:hover { color: #1890ff; }
+.bc-current { color: #333; font-weight: 500; cursor: default; }
+.bc-sep { margin: 0 8px; color: #ccc; }
+.detail-header { display: flex; align-items: center; padding: 16px 24px; background: #fff; border-bottom: 1px solid #f0f0f0; }
+.detail-body { padding: 24px; }
+.detail-section { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+.detail-section h3 { margin: 0 0 16px 0; font-size: 16px; color: #333; border-left: 3px solid #1890ff; padding-left: 12px; }
+.detail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.detail-item { display: flex; flex-direction: column; }
+.detail-item label { font-size: 12px; color: #999; margin-bottom: 4px; }
+.detail-item value { font-size: 14px; color: #333; }
+.detail-table { width: 100%; border-collapse: collapse; }
+.detail-table th { background: #fafafa; padding: 12px; text-align: left; font-size: 13px; color: #666; border-bottom: 1px solid #f0f0f0; }
+.detail-table td { padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+.product-images { display: flex; gap: 12px; flex-wrap: wrap; }
+.product-img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 1px solid #f0f0f0; }
+.product-img-placeholder { width: 120px; height: 120px; background: #fafafa; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px; border: 1px dashed #d9d9d9; }
+.product-img-thumb { width: 50px; height: 50px; background: #fafafa; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.product-desc { padding: 16px; background: #fafafa; border-radius: 4px; line-height: 1.8; color: #666; }
+.logistics-timeline { position: relative; padding-left: 24px; }
+.logistics-step { position: relative; padding-bottom: 20px; }
+.logistics-step .dot { position: absolute; left: -24px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #d9d9d9; border: 2px solid #fff; }
+.logistics-step.active .dot { background: #1890ff; }
+.logistics-step .time { font-size: 12px; color: #999; margin-bottom: 4px; }
+.logistics-step .text { font-size: 14px; color: #333; }
+.logistics-info { display: flex; gap: 24px; align-items: center; margin-top: 16px; padding: 12px; background: #fafafa; border-radius: 4px; font-size: 13px; color: #666; }
+.proof-images { display: flex; gap: 12px; }
+.proof-img { width: 150px; height: 150px; background: #fafafa; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 13px; border: 1px dashed #d9d9d9; }
+.order-remark { padding: 16px; background: #fffbe6; border-radius: 4px; border-left: 3px solid #faad14; color: #666; }
+.wizard-steps { display: flex; justify-content: space-between; margin-bottom: 24px; padding: 20px; background: #fff; border-radius: 8px; }
+.wizard-step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+.wizard-dot { width: 32px; height: 32px; border-radius: 50%; background: #f0f0f0; color: #999; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; z-index: 1; }
+.wizard-step.active .wizard-dot { background: #1890ff; color: #fff; }
+.wizard-step.completed .wizard-dot { background: #52c41a; color: #fff; }
+.wizard-label { margin-top: 8px; font-size: 13px; color: #999; }
+.wizard-step.active .wizard-label { color: #1890ff; font-weight: 500; }
+.wizard-step.completed .wizard-label { color: #52c41a; }
+.wizard-line { position: absolute; top: 16px; left: 50%; width: 100%; height: 2px; background: #f0f0f0; z-index: 0; }
+.wizard-step.completed .wizard-line { background: #52c41a; }
+.wizard-footer { display: flex; justify-content: flex-end; gap: 12px; padding: 16px 0; }
+.category-selector { display: flex; gap: 16px; }
+.category-col { flex: 1; border: 1px solid #f0f0f0; border-radius: 8px; padding: 12px; }
+.category-col h4 { margin: 0 0 12px 0; font-size: 14px; color: #333; }
+.category-item { padding: 10px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; color: #666; margin-bottom: 4px; }
+.category-item:hover { background: #f5f5f5; }
+.category-item.active { background: #e6f7ff; color: #1890ff; font-weight: 500; }
+.promo-type-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.promo-type-card { border: 2px solid #f0f0f0; border-radius: 8px; padding: 24px; cursor: pointer; transition: all 0.3s; }
+.promo-type-card:hover { border-color: #91d5ff; }
+.promo-type-card.active { border-color: #1890ff; background: #e6f7ff; }
+.promo-type-icon { font-size: 40px; margin-bottom: 12px; }
+.promo-type-name { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.promo-type-desc { font-size: 13px; color: #999; line-height: 1.6; }
+.chart-container { margin-top: 16px; }
 </style>
 </head>
 <body>
@@ -1261,6 +1318,25 @@ function renderGenericPage(pageId) {
     pageEl.id = 'page-' + pageId;
     document.getElementById('content').appendChild(pageEl);
   }
+  // 隐藏其他页面
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  pageEl.style.display = 'block';
+  
+  // 筛选器
+  let filterHTML = '';
+  if(cfg.filters !== false) {
+    filterHTML = '<div class="filter-bar" style="background:#fff;padding:16px 24px;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:center;flex-wrap:wrap">' +
+      '<input type="text" class="input input-sm" placeholder="搜索关键词..." style="width:200px">' +
+      '<select class="input input-sm" style="width:120px"><option>全部状态</option><option>进行中</option><option>已完成</option><option>已取消</option></select>' +
+      '<input type="date" class="input input-sm" style="width:150px">' +
+      '<span style="color:#999">至</span>' +
+      '<input type="date" class="input input-sm" style="width:150px">' +
+      '<button class="btn btn-primary btn-sm">🔍 查询</button>' +
+      '<button class="btn btn-default btn-sm">重置</button>' +
+      '<div style="margin-left:auto"><button class="btn btn-default btn-sm" onclick="showToast(\'高级筛选\')">⚙️ 高级筛选</button></div>' +
+      '</div>';
+  }
+  
   // 统计卡片
   let statsHTML = '';
   if(cfg.stats) {
@@ -1268,45 +1344,105 @@ function renderGenericPage(pageId) {
       cfg.stats.map(s => '<div class="stat-card"><div class="label">' + s.l + '</div><div class="value" style="color:' + (s.c||'#333') + '">' + s.v + '</div></div>').join('') +
       '</div>';
   }
+  
+  // 批量操作栏
+  let batchHTML = '<div class="batch-bar" style="background:#fff;padding:12px 24px;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:center">' +
+    '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" onclick="toggleSelectAll(this)"> 全选</label>' +
+    '<span id="selectedCount" style="color:#999;font-size:13px">已选 0 项</span>' +
+    '<div style="margin-left:auto;display:flex;gap:8px">' +
+    '<button class="btn btn-default btn-sm" onclick="showToast(\'批量导出\')">📥 批量导出</button>' +
+    '<button class="btn btn-default btn-sm" onclick="showToast(\'批量打印\')">🖨️ 批量打印</button>' +
+    '<button class="btn btn-danger btn-sm" onclick="showToast(\'批量操作\')">批量操作 ▾</button>' +
+    '</div></div>';
+  
   // 表格
   let tableHTML = '';
   if(cfg.table) {
     tableHTML = '<div class="card"><div class="card-header"><div class="title">' + (cfg.tableTitle||'数据列表') + '</div>' +
-      '<div class="extra"><button class="btn btn-default btn-sm" onclick="showToast(\'已导出\')">📥 导出</button></div></div>' +
+      '<div class="extra"><button class="btn btn-primary btn-sm" onclick="showToast(\'新增\')">+ 新增</button>' +
+      '<button class="btn btn-default btn-sm" onclick="showToast(\'已导出\')">📥 导出</button></div></div>' +
       '<div class="card-body" style="padding:0"><div class="table-wrap"><table><thead><tr>' +
-      cfg.table.cols.map(c => '<th>' + c + '</th>').join('') + '<th>操作</th>' +
+      '<th style="width:40px"><input type="checkbox"></th>' +
+      cfg.table.cols.map(c => '<th>' + c + '</th>').join('') + '<th style="width:200px">操作</th>' +
       '</tr></thead><tbody>' +
-      cfg.table.rows.map((r, ri) => '<tr>' + r.map((cell, i) => {
+      cfg.table.rows.map((r, ri) => '<tr class="table-row" onclick="handleRowClick(\'' + pageId + '\',' + ri + ')">' +
+      '<td onclick="event.stopPropagation()"><input type="checkbox" class="row-checkbox" onchange="updateSelectedCount()"></td>' +
+      r.map((cell, i) => {
         if(typeof cell === 'number' && i === 1 && cfg.table.cols[i] === '体检得分') {
           return '<td><span style="color:' + (cell >= 90 ? '#52c41a' : cell >= 70 ? '#fa8c16' : '#e02e24') + ';font-weight:600">' + cell + '分</span></td>';
         }
+        if(typeof cell === 'string' && (cell.includes('待') || cell.includes('审核中') || cell.includes('进行中'))) {
+          return '<td><span class="badge badge-warning">' + cell + '</span></td>';
+        }
+        if(typeof cell === 'string' && (cell.includes('已完成') || cell.includes('已通过') || cell.includes('成功') || cell.includes('已上架') || cell.includes('推广中') || cell.includes('正常'))) {
+          return '<td><span class="badge badge-success">' + cell + '</span></td>';
+        }
+        if(typeof cell === 'string' && (cell.includes('已拒绝') || cell.includes('失败') || cell.includes('已下架') || cell.includes('异常'))) {
+          return '<td><span class="badge badge-danger">' + cell + '</span></td>';
+        }
         return '<td>' + cell + '</td>';
-      }).join('') + '<td><button class=\"btn btn-link btn-sm\" onclick=\"showGenericDetail(\'' + pageId + '\',' + ri + ')\">详情</button></td></tr>').join('') +
-      '</tbody></table></div></div></div>';
+      }).join('') +
+      '<td onclick="event.stopPropagation()">' +
+      '<button class="btn btn-link btn-sm" onclick="handleRowClick(\'' + pageId + '\',' + ri + ')">详情</button>' +
+      '<button class="btn btn-link btn-sm" onclick="showToast(\'编辑\')">编辑</button>' +
+      '<button class="btn btn-link btn-sm" onclick="showToast(\'更多操作\')">更多</button>' +
+      '</td></tr>').join('') +
+      '</tbody></table></div>' +
+      // 分页
+      '<div class="pagination" style="padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f0f0f0">' +
+      '<span style="color:#999;font-size:13px">共 ' + (cfg.table.rows.length * 10) + ' 条记录</span>' +
+      '<div style="display:flex;gap:4px">' +
+      '<button class="btn btn-default btn-sm" disabled>上一页</button>' +
+      '<button class="btn btn-primary btn-sm">1</button>' +
+      '<button class="btn btn-default btn-sm">2</button>' +
+      '<button class="btn btn-default btn-sm">3</button>' +
+      '<span style="padding:0 8px;color:#999">...</span>' +
+      '<button class="btn btn-default btn-sm">10</button>' +
+      '<button class="btn btn-default btn-sm">下一页</button>' +
+      '<select class="input input-sm" style="width:100px;margin-left:8px"><option>10条/页</option><option>20条/页</option><option>50条/页</option></select>' +
+      '</div></div></div>';
   }
-  pageEl.innerHTML = '<div class="page-header"><h2>' + cfg.title + '</h2>' +
-    '<div class="actions"><button class="btn btn-default btn-sm" onclick="showToast(\'数据已刷新\')">🔄 刷新</button>' +
-    '<button class="btn btn-primary btn-sm" onclick="showToast(\'操作成功\')">+ 新建</button></div></div>' +
-    statsHTML + tableHTML;
+  
+  pageEl.innerHTML = filterHTML + batchHTML + statsHTML + tableHTML;
 }
 
-const menuConfig = [
-  {icon:'🏠',name:'工作台',children:[{name:'店铺概览',page:'dashboard'},{name:'待办事项',page:'dash-todo'},{name:'实时数据',page:'dash-realtime'},{name:'经营分析',page:'dash-analysis'}]},
-  {icon:'📦',name:'发货管理',children:[{name:'订单查询',page:'ship-order'},{name:'发货中心',page:'ship-center'},{name:'包裹中心',page:'ship-package'},{name:'电子面单',page:'order-express'},{name:'物流工具',page:'ship-logistics'},{name:'24小时发货',page:'ship-24h'},{name:'订单开票',page:'ship-invoice'},{name:'报备额度',page:'ship-report'}]},
-  {icon:'↩️',name:'售后管理',children:[{name:'售后工作台',page:'after-workbench'},{name:'商家举证',page:'after-evidence'},{name:'小额打款',page:'after-payment'},{name:'退货包运费',page:'after-freight'},{name:'极速退款',page:'after-refund'},{name:'售后设置',page:'after-settings'}]},
-  {icon:'🛍️',name:'商品管理',children:[{name:'商品列表',page:'product-list'},{name:'发布新商品',page:'product-list',action:'add'},{name:'商品分类',page:'prod-category'},{name:'品牌管理',page:'prod-brand'},{name:'商品素材',page:'prod-material'},{name:'商品体检',page:'prod-check'},{name:'回收站',page:'prod-recycle'}]},
-  {icon:'📈',name:'流量管理',children:[{name:'流量分析',page:'traffic-analysis'},{name:'搜索词分析',page:'traffic-keyword'},{name:'商品排行',page:'traffic-rank'},{name:'地域分析',page:'traffic-region'},{name:'流量来源',page:'traffic-source'}]},
-  {icon:'🎯',name:'推广平台',children:[{name:'推广概览',page:'promotion'},{name:'搜索推广',page:'promo-search'},{name:'场景推广',page:'promo-scene'},{name:'展示推广',page:'promo-display'},{name:'明星店铺',page:'promo-star'},{name:'推广报表',page:'promo-report'},{name:'推广账户',page:'promo-account'}]},
-  {icon:'📊',name:'数据中心',children:[{name:'实时数据',page:'data'},{name:'交易数据',page:'data-trade'},{name:'商品数据',page:'data-product'},{name:'服务数据',page:'data-service'},{name:'市场行情',page:'data-market'}]},
-  {icon:'🎪',name:'营销中心',children:[{name:'活动报名',page:'marketing'},{name:'我的活动',page:'marketing',tab:'my'},{name:'优惠券',page:'marketing',tab:'coupon'},{name:'限时秒杀',page:'mkt-seckill'},{name:'多件优惠',page:'mkt-multi'},{name:'拼单返现',page:'mkt-cashback'},{name:'店铺营销',page:'mkt-shop'}]},
-  {icon:'🏪',name:'店铺管理',children:[{name:'店铺信息',page:'shop'},{name:'店铺装修',page:'shop-decorate'},{name:'子账号管理',page:'shop-subaccount'},{name:'角色权限',page:'shop-role'},{name:'违规记录',page:'shop-violation'},{name:'店铺认证',page:'shop-cert'},{name:'品牌资质',page:'shop-brandqual'}]},
-  {icon:'💬',name:'多多客服',children:[{name:'客服工作台',page:'service'},{name:'会话管理',page:'cs-session'},{name:'快捷短语',page:'cs-phrase'},{name:'自动回复',page:'cs-autoreply'},{name:'客服设置',page:'cs-settings'},{name:'客服数据',page:'cs-data'}]},
-  {icon:'💰',name:'账户资金',children:[{name:'资金总览',page:'fund'},{name:'账户充值',page:'fund',tab:'recharge'},{name:'申请提现',page:'fund',tab:'withdraw'},{name:'账单流水',page:'fund-bill'},{name:'保证金',page:'fund-deposit'},{name:'发票管理',page:'fund-invoice'},{name:'推广费',page:'fund-promo'}]},
-  {icon:'🛡️',name:'商家权益保护',children:[{name:'基本信息',page:'rights-basic'},{name:'主体信息',page:'rights-subject'},{name:'低价预警',page:'rights-lowprice'},{name:'售后申诉',page:'rights-appeal'},{name:'异常单申诉',page:'rights-abnormal'}]},
-  {icon:'🌱',name:'成长中心',children:[{name:'商家成长',page:'growth-index'},{name:'任务中心',page:'growth-task'},{name:'学习中心',page:'growth-learn'},{name:'等级权益',page:'growth-level'}]},
-  {icon:'🔧',name:'服务市场',children:[{name:'服务首页',page:'service-market'},{name:'我的服务',page:'service-mine'},{name:'订单管理',page:'service-order'},{name:'服务评价',page:'service-review'}]},
-  {icon:'🤝',name:'多多进宝',children:[{name:'推广设置',page:'ddk-setting'},{name:'推广效果',page:'ddk-effect'},{name:'推广计划',page:'ddk-plan'},{name:'推广工具',page:'ddk-tool'},{name:'店铺管理',page:'ddk-shop'}]}
-];
+// 表格行点击处理
+function handleRowClick(pageId, rowIndex) {
+  // 根据页面类型跳转到对应的详情页
+  if(pageId === 'product-list' || pageId.startsWith('prod-')) {
+    const products = Store.get('products', []);
+    const product = products[rowIndex] || products[0];
+    if(product) renderPage('product-detail-' + product.id);
+    else showToast('查看详情');
+  } else if(pageId === 'order-list' || pageId.startsWith('order-')) {
+    const orders = Store.get('orders', []);
+    const order = orders[rowIndex] || orders[0];
+    if(order) renderPage('order-detail-' + order.id);
+    else showToast('查看详情');
+  } else if(pageId.startsWith('after-')) {
+    renderPage('after-detail-TK2026091500' + (rowIndex+1));
+  } else if(pageId === 'promotion' || pageId.startsWith('promo-')) {
+    renderPage('promo-detail-PLAN2026090100' + (rowIndex+1));
+  } else if(pageId === 'marketing' || pageId.startsWith('mkt-')) {
+    renderPage('activity-detail-ACT2026090100' + (rowIndex+1));
+  } else {
+    // 其他页面显示详情弹窗
+    showGenericDetail(pageId, rowIndex);
+  }
+}
+
+// 全选/取消全选
+function toggleSelectAll(checkbox) {
+  document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = checkbox.checked);
+  updateSelectedCount();
+}
+
+// 更新选中数量
+function updateSelectedCount() {
+  const count = document.querySelectorAll('.row-checkbox:checked').length;
+  const el = document.getElementById('selectedCount');
+  if(el) el.textContent = '已选 ' + count + ' 项';
+}
 
 function renderMenu() {
   document.getElementById('sidebarMenu').innerHTML = menuConfig.map((g,gi)=>{
@@ -1357,16 +1493,724 @@ function navTo(page, parent, child, tab, action) {
 
 
 function renderPage(page) {
+  currentPage = page;
+  // 三级页面路由
+  if(page.startsWith('product-detail-')) { renderProductDetail(page.replace('product-detail-','')); return; }
+  if(page.startsWith('order-detail-')) { renderOrderDetail(page.replace('order-detail-','')); return; }
+  if(page.startsWith('after-detail-')) { renderAfterSaleDetail(page.replace('after-detail-','')); return; }
+  if(page.startsWith('promo-detail-')) { renderPromoPlanDetail(page.replace('promo-detail-','')); return; }
+  if(page.startsWith('activity-detail-')) { renderActivityDetail(page.replace('activity-detail-','')); return; }
+  if(page==='product-publish') { renderProductPublishWizard(); return; }
+  if(page==='promo-create') { renderPromoCreateWizard(); return; }
+  // 二级页面路由
   if(page==='dashboard') renderDashboard();
-  if(page==='product-list') renderProductPage();
-  if(page==='order-list') renderOrderPage();
-  if(page==='promotion') renderPromoPage();
-  if(page==='marketing') renderMarketingPage();
-  if(page==='data') renderDataCenter();
-  if(page==='service') renderServicePage();
-  if(page==='shop') renderShopPage();
-  if(page==='fund') renderFundPage();
+  else if(page==='product-list') renderProductPage();
+  else if(page==='order-list') renderOrderPage();
+  else if(page==='promotion') renderPromoPage();
+  else if(page==='marketing') renderMarketingPage();
+  else if(page==='data') renderDataCenter();
+  else if(page==='service') renderServicePage();
+  else if(page==='shop') renderShopPage();
+  else if(page==='fund') renderFundPage();
+  else renderGenericPage(page);
+  // 更新面包屑
+  updateBreadcrumb(page);
 }
+
+// 面包屑导航
+function updateBreadcrumb(page) {
+  const bcMap = {
+    'dashboard': ['工作台'],
+    'product-list': ['商品管理','商品列表'],
+    'order-list': ['订单管理','订单列表'],
+    'promotion': ['推广平台','推广概览'],
+    'marketing': ['营销中心','活动报名'],
+    'data': ['数据中心','实时数据'],
+    'service': ['多多客服','客服工作台'],
+    'shop': ['店铺管理','店铺信息'],
+    'fund': ['账户资金','资金总览']
+  };
+  let bc = bcMap[page];
+  if(!bc) {
+    // 从menuConfig查找
+    for(const mod of menuConfig) {
+      if(mod.children) {
+        for(const child of mod.children) {
+          if(child.page === page) { bc = [mod.name, child.name]; break; }
+        }
+      }
+      if(bc) break;
+    }
+  }
+  if(page.startsWith('product-detail-')) bc = ['商品管理','商品列表','商品详情'];
+  if(page.startsWith('order-detail-')) bc = ['订单管理','订单列表','订单详情'];
+  if(page.startsWith('after-detail-')) bc = ['售后管理','售后工作台','售后详情'];
+  if(page.startsWith('promo-detail-')) bc = ['推广平台','搜索推广','推广计划详情'];
+  if(page.startsWith('activity-detail-')) bc = ['营销中心','活动报名','活动详情'];
+  if(page === 'product-publish') bc = ['商品管理','商品列表','发布新商品'];
+  if(page === 'promo-create') bc = ['推广平台','搜索推广','创建推广计划'];
+  
+  const bcEl = document.getElementById('breadcrumb');
+  if(bcEl && bc) {
+    bcEl.innerHTML = bc.map((item, i) => 
+      i < bc.length - 1 
+        ? '<span class="bc-item" onclick="renderPage(\'' + (i===0?'dashboard':'product-list') + '\')">' + item + '</span><span class="bc-sep">/</span>'
+        : '<span class="bc-item bc-current">' + item + '</span>'
+    ).join('');
+  }
+}
+
+// 商品详情页
+function renderProductDetail(productId) {
+  const products = Store.get('products', []);
+  const product = products.find(p => p.id === productId) || products[0];
+  if(!product) { showToast('商品不存在'); renderPage('product-list'); return; }
+  
+  const html = '<div class="page" id="page-product-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'product-list\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">商品详情</h2>' +
+    '<span class="badge badge-' + (product.status==='online'?'success':'warning') + '">' + (product.status==='online'?'在售':'下架') + '</span>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'进入编辑商品页\')">✏️ 编辑商品</button>' +
+    '<button class="btn btn-default" onclick="showToast(\'已复制链接\')">🔗 复制链接</button></div></div>' +
+    '<div class="detail-body">' +
+    '<div class="detail-section"><h3>基本信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>商品ID</label><value>' + product.id + '</value></div>' +
+    '<div class="detail-item"><label>商品名称</label><value>' + product.name + '</value></div>' +
+    '<div class="detail-item"><label>商品分类</label><value>' + (product.category||'数码配件') + '</value></div>' +
+    '<div class="detail-item"><label>商品品牌</label><value>' + (product.brand||'Apple') + '</value></div>' +
+    '<div class="detail-item"><label>商品价格</label><value style="color:#e02e24;font-weight:600">¥' + product.price + '</value></div>' +
+    '<div class="detail-item"><label>库存数量</label><value>' + product.stock + '</value></div>' +
+    '<div class="detail-item"><label>商品销量</label><value>' + (product.sales||Math.floor(Math.random()*500)) + '</value></div>' +
+    '<div class="detail-item"><label>创建时间</label><value>' + (product.createTime||'2026-08-01 10:00') + '</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>商品图片</h3>' +
+    '<div class="product-images">' + (product.images ? product.images.map(img => '<img src="' + img + '" class="product-img">').join('') : '<div class="product-img-placeholder">📷 主图</div><div class="product-img-placeholder">📷 详情图1</div><div class="product-img-placeholder">📷 详情图2</div><div class="product-img-placeholder">📷 详情图3</div>') + '</div></div>' +
+    '<div class="detail-section"><h3>SKU规格</h3>' +
+    '<table class="detail-table"><thead><tr><th>规格名称</th><th>规格值</th><th>价格</th><th>库存</th><th>SKU编码</th><th>操作</th></tr></thead><tbody>' +
+    '<tr><td>颜色</td><td>红色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.4) + '</td><td>SKU' + product.id + '01</td><td><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '<tr><td>颜色</td><td>蓝色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.3) + '</td><td>SKU' + product.id + '02</td><td><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '<tr><td>颜色</td><td>黑色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.3) + '</td><td>SKU' + product.id + '03</td><td><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>商品描述</h3>' +
+    '<div class="product-desc">' + (product.description||'这是一款高品质的商品，采用优质材料制作，做工精细，品质保证。适合各种场合使用，是您的理想选择。') + '</div></div>' +
+    '<div class="detail-section"><h3>商品数据</h3>' +
+    '<div class="stat-cards" style="grid-template-columns:repeat(4,1fr)">' +
+    '<div class="stat-card"><div class="label">浏览量</div><div class="value">' + (product.views||Math.floor(Math.random()*5000)) + '</div></div>' +
+    '<div class="stat-card"><div class="label">访客数</div><div class="value">' + (product.visitors||Math.floor(Math.random()*2000)) + '</div></div>' +
+    '<div class="stat-card"><div class="label">转化率</div><div class="value">' + (product.conversion||(Math.random()*5+2).toFixed(1)) + '%</div></div>' +
+    '<div class="stat-card"><div class="label">GMV</div><div class="value">¥' + (product.gmv||Math.floor(Math.random()*50000)) + '</div></div>' +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('product-detail-' + productId);
+}
+
+// 订单详情页
+function renderOrderDetail(orderId) {
+  const orders = Store.get('orders', []);
+  const order = orders.find(o => o.id === orderId) || orders[0];
+  if(!order) { showToast('订单不存在'); renderPage('order-list'); return; }
+  
+  const statusMap = {'pending':'待付款','paid':'待发货','shipped':'待收货','completed':'已完成','cancelled':'已取消','refunding':'退款中'};
+  const statusColor = {'pending':'#fa8c16','paid':'#1890ff','shipped':'#722ed1','completed':'#52c41a','cancelled':'#999','refunding':'#e02e24'};
+  
+  const html = '<div class="page" id="page-order-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'order-list\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">订单详情</h2>' +
+    '<span class="badge" style="background:' + (statusColor[order.status]||'#999') + '">' + (statusMap[order.status]||order.status) + '</span>' +
+    '<div style="margin-left:auto">' +
+    (order.status==='paid' ? '<button class="btn btn-primary" onclick="showToast(\'进入发货页面\')">📦 立即发货</button>' : '') +
+    (order.status==='shipped' ? '<button class="btn btn-primary" onclick="showToast(\'已提醒买家收货\')">🔔 提醒收货</button>' : '') +
+    '<button class="btn btn-default" onclick="showToast(\'已打印订单\')">🖨️ 打印订单</button></div></div>' +
+    '<div class="detail-body">' +
+    '<div class="detail-section"><h3>订单信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>订单编号</label><value>' + order.id + '</value></div>' +
+    '<div class="detail-item"><label>下单时间</label><value>' + (order.createTime||'2026-09-15 10:23:45') + '</value></div>' +
+    '<div class="detail-item"><label>付款时间</label><value>' + (order.payTime||'2026-09-15 10:25:12') + '</value></div>' +
+    '<div class="detail-item"><label>订单状态</label><value style="color:' + (statusColor[order.status]||'#333') + '">' + (statusMap[order.status]||order.status) + '</value></div>' +
+    '<div class="detail-item"><label>商品金额</label><value>¥' + (order.totalAmount||order.price) + '</value></div>' +
+    '<div class="detail-item"><label>运费</label><value>¥' + (order.shippingFee||'0.00') + '</value></div>' +
+    '<div class="detail-item"><label>优惠金额</label><value style="color:#52c41a">-¥' + (order.discount||'10.00') + '</value></div>' +
+    '<div class="detail-item"><label>实付金额</label><value style="color:#e02e24;font-weight:600;font-size:18px">¥' + (order.payAmount||order.price) + '</value></div>' +
+    '<div class="detail-item"><label>支付方式</label><value>' + (order.payMethod||'微信支付') + '</value></div>' +
+    '<div class="detail-item"><label>订单来源</label><value>' + (order.source||'APP端') + '</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>收货信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>收货人</label><value>' + (order.buyer||'张**') + '</value></div>' +
+    '<div class="detail-item"><label>联系电话</label><value>' + (order.phone||'138****1234') + '</value></div>' +
+    '<div class="detail-item" style="grid-column:span 2"><label>收货地址</label><value>' + (order.address||'浙江省金华市***区***街道***号') + '</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>商品信息</h3>' +
+    '<table class="detail-table"><thead><tr><th>商品图片</th><th>商品名称</th><th>规格</th><th>单价</th><th>数量</th><th>小计</th><th>操作</th></tr></thead><tbody>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>' + (order.productName||'苹果15手机壳红色') + '</td><td>红色/标准版</td><td>¥' + (order.price||'29.9') + '</td><td>' + (order.quantity||1) + '</td><td>¥' + (order.payAmount||order.price) + '</td><td><button class="btn btn-link btn-sm" onclick="renderPage(\'product-detail-P001\')">查看商品</button></td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>物流信息</h3>' +
+    (order.status==='shipped'||order.status==='completed' ? 
+      '<div class="logistics-timeline">' +
+      '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 18:30</div><div class="text">【金华市】已到达【金华转运中心】</div></div></div>' +
+      '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 14:20</div><div class="text">【杭州市】已离开【杭州转运中心】</div></div></div>' +
+      '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 10:30</div><div class="text">【杭州市】已到达【杭州转运中心】</div></div></div>' +
+      '<div class="logistics-step"><div class="dot"></div><div class="content"><div class="time">2026-09-15 09:15</div><div class="text">商家已发货，快递员已揽收</div></div></div>' +
+      '</div><div class="logistics-info"><span>物流公司：' + (order.logisticsCompany||'中通快递') + '</span><span>物流单号：' + (order.trackingNo||'7312345678901') + '</span><button class="btn btn-link btn-sm" onclick="showToast(\'已复制物流单号\')">复制单号</button></div>'
+      : '<div class="empty-state">订单尚未发货</div>') +
+    '</div>' +
+    '<div class="detail-section"><h3>订单备注</h3>' +
+    '<div class="order-remark">' + (order.remark||'买家留言：请尽快发货，谢谢！') + '</div></div>' +
+    '<div class="detail-section"><h3>操作记录</h3>' +
+    '<div class="logistics-timeline">' +
+    '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 10:25:12</div><div class="text">买家付款成功</div></div></div>' +
+    '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 10:23:45</div><div class="text">买家提交订单</div></div></div>' +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('order-detail-' + orderId);
+}
+
+// 售后详情页
+function renderAfterSaleDetail(afterId) {
+  const html = '<div class="page" id="page-after-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'after-workbench\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">售后详情</h2>' +
+    '<span class="badge" style="background:#e02e24">待处理</span>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'同意售后申请\')">✅ 同意申请</button>' +
+    '<button class="btn btn-default" onclick="showToast(\'拒绝售后申请\')">❌ 拒绝申请</button></div></div>' +
+    '<div class="detail-body">' +
+    '<div class="detail-section"><h3>售后信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>售后单号</label><value>TK20260915001</value></div>' +
+    '<div class="detail-item"><label>关联订单</label><value style="color:#1890ff;cursor:pointer" onclick="renderPage(\'order-detail-DD20260914089\')">DD20260914089</value></div>' +
+    '<div class="detail-item"><label>售后类型</label><value>仅退款</value></div>' +
+    '<div class="detail-item"><label>售后原因</label><value>商品与描述不符</value></div>' +
+    '<div class="detail-item"><label>申请金额</label><value style="color:#e02e24;font-weight:600">¥128.00</value></div>' +
+    '<div class="detail-item"><label>申请时间</label><value>2026-09-15 09:23:45</value></div>' +
+    '<div class="detail-item"><label>售后状态</label><value style="color:#e02e24">待商家处理</value></div>' +
+    '<div class="detail-item"><label>处理时限</label><value style="color:#fa8c16">剩余23小时45分</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>商品信息</h3>' +
+    '<table class="detail-table"><thead><tr><th>商品图片</th><th>商品名称</th><th>规格</th><th>单价</th><th>数量</th><th>小计</th></tr></thead><tbody>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>红色/标准版</td><td>¥128.00</td><td>1</td><td>¥128.00</td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>买家信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>买家账号</label><value>u***8</value></div>' +
+    '<div class="detail-item"><label>联系电话</label><value>138****1234</value></div>' +
+    '<div class="detail-item"><label>买家信用</label><value>良好</value></div>' +
+    '<div class="detail-item"><label>历史售后</label><value>3次</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>售后凭证</h3>' +
+    '<div class="proof-images">' +
+    '<div class="proof-img">📷 商品问题图1</div>' +
+    '<div class="proof-img">📷 商品问题图2</div>' +
+    '<div class="proof-img">📷 聊天记录</div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>售后说明</h3>' +
+    '<div class="product-desc">买家收到商品后发现颜色与描述不符，要求退款。商品未使用，包装完好。</div></div>' +
+    '<div class="detail-section"><h3>处理记录</h3>' +
+    '<div class="logistics-timeline">' +
+    '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 09:23:45</div><div class="text">买家提交售后申请</div></div></div>' +
+    '<div class="logistics-step"><div class="dot"></div><div class="content"><div class="time">-</div><div class="text">等待商家处理</div></div></div>' +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('after-detail-' + afterId);
+}
+
+// 推广计划详情页
+function renderPromoPlanDetail(planId) {
+  const html = '<div class="page" id="page-promo-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'promotion\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">推广计划详情</h2>' +
+    '<span class="badge badge-success">推广中</span>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'暂停推广\')">⏸️ 暂停推广</button>' +
+    '<button class="btn btn-default" onclick="showToast(\'编辑推广计划\')">✏️ 编辑计划</button></div></div>' +
+    '<div class="detail-body">' +
+    '<div class="stat-cards" style="grid-template-columns:repeat(6,1fr)">' +
+    '<div class="stat-card"><div class="label">今日消耗</div><div class="value" style="color:#e02e24">¥156.80</div></div>' +
+    '<div class="stat-card"><div class="label">今日曝光</div><div class="value">12,560</div></div>' +
+    '<div class="stat-card"><div class="label">今日点击</div><div class="value">156</div></div>' +
+    '<div class="stat-card"><div class="label">点击率</div><div class="value">1.24%</div></div>' +
+    '<div class="stat-card"><div class="label">点击单价</div><div class="value">¥1.01</div></div>' +
+    '<div class="stat-card"><div class="label">今日成交</div><div class="value" style="color:#52c41a">23笔/¥2,890</div></div>' +
+    '</div>' +
+    '<div class="detail-section"><h3>计划信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>计划ID</label><value>PLAN20260901001</value></div>' +
+    '<div class="detail-item"><label>计划名称</label><value>手机壳-搜索推广-主力计划</value></div>' +
+    '<div class="detail-item"><label>推广类型</label><value>搜索推广</value></div>' +
+    '<div class="detail-item"><label>推广状态</label><value style="color:#52c41a">推广中</value></div>' +
+    '<div class="detail-item"><label>日预算</label><value>¥200.00</value></div>' +
+    '<div class="detail-item"><label>出价方式</label><value>手动出价</value></div>' +
+    '<div class="detail-item"><label>创建时间</label><value>2026-09-01 10:00:00</value></div>' +
+    '<div class="detail-item"><label>推广时长</label><value>已推广14天</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>推广商品</h3>' +
+    '<table class="detail-table"><thead><tr><th>商品图片</th><th>商品名称</th><th>价格</th><th>库存</th><th>销量</th><th>推广状态</th><th>操作</th></tr></thead><tbody>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>¥29.9</td><td>568</td><td>1,234</td><td><span class="badge badge-success">推广中</span></td><td><button class="btn btn-link btn-sm">暂停</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>华为Mate60钢化膜</td><td>¥19.9</td><td>890</td><td>987</td><td><span class="badge badge-success">推广中</span></td><td><button class="btn btn-link btn-sm">暂停</button></td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>关键词管理</h3>' +
+    '<div class="card-header" style="margin-bottom:12px"><div class="title">关键词列表（共15个）</div><button class="btn btn-primary btn-sm" onclick="showToast(\'添加关键词\')">+ 添加关键词</button></div>' +
+    '<table class="detail-table"><thead><tr><th>关键词</th><th>匹配方式</th><th>出价</th><th>质量分</th><th>今日曝光</th><th>今日点击</th><th>点击率</th><th>今日消耗</th><th>状态</th><th>操作</th></tr></thead><tbody>' +
+    '<tr><td>手机壳</td><td>广泛匹配</td><td>¥1.5</td><td style="color:#52c41a">9分</td><td>3,456</td><td>45</td><td>1.30%</td><td>¥67.5</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '<tr><td>苹果15手机壳</td><td>精确匹配</td><td>¥2.0</td><td style="color:#52c41a">10分</td><td>2,345</td><td>34</td><td>1.45%</td><td>¥68.0</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '<tr><td>手机壳 防摔</td><td>短语匹配</td><td>¥1.2</td><td style="color:#fa8c16">7分</td><td>1,234</td><td>15</td><td>1.22%</td><td>¥18.0</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '<tr><td>手机壳 透明</td><td>广泛匹配</td><td>¥0.8</td><td style="color:#fa8c16">6分</td><td>890</td><td>8</td><td>0.90%</td><td>¥6.4</td><td><span class="badge badge-warning">待优化</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>推广数据趋势（近7天）</h3>' +
+    '<div class="chart-container" style="height:200px;background:#fafafa;border-radius:8px;display:flex;align-items:flex-end;justify-content:space-around;padding:20px">' +
+    ['9/9','9/10','9/11','9/12','9/13','9/14','9/15'].map((day,i) => {
+      const h = [60,75,80,70,85,90,95][i];
+      return '<div style="text-align:center"><div style="width:40px;height:' + h + 'px;background:linear-gradient(180deg,#1890ff,#40a9ff);border-radius:4px 4px 0 0"></div><div style="font-size:12px;color:#666;margin-top:8px">' + day + '</div></div>';
+    }).join('') +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('promo-detail-' + planId);
+}
+
+// 活动详情页
+function renderActivityDetail(activityId) {
+  const html = '<div class="page" id="page-activity-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'marketing\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">活动详情</h2>' +
+    '<span class="badge badge-success">进行中</span>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'添加活动商品\')">+ 添加商品</button>' +
+    '<button class="btn btn-default" onclick="showToast(\'导出活动数据\')">📥 导出数据</button></div></div>' +
+    '<div class="detail-body">' +
+    '<div class="stat-cards" style="grid-template-columns:repeat(4,1fr)">' +
+    '<div class="stat-card"><div class="label">活动商品</div><div class="value">45个</div></div>' +
+    '<div class="stat-card"><div class="label">活动订单</div><div class="value" style="color:#52c41a">234笔</div></div>' +
+    '<div class="stat-card"><div class="label">活动GMV</div><div class="value" style="color:#e02e24">¥12,560</div></div>' +
+    '<div class="stat-card"><div class="label">活动转化率</div><div class="value">8.5%</div></div>' +
+    '</div>' +
+    '<div class="detail-section"><h3>活动信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>活动ID</label><value>ACT20260901001</value></div>' +
+    '<div class="detail-item"><label>活动名称</label><value>9.9特卖日</value></div>' +
+    '<div class="detail-item"><label>活动类型</label><value>平台活动</value></div>' +
+    '<div class="detail-item"><label>活动状态</label><value style="color:#52c41a">进行中</value></div>' +
+    '<div class="detail-item"><label>开始时间</label><value>2026-09-10 00:00:00</value></div>' +
+    '<div class="detail-item"><label>结束时间</label><value>2026-09-20 23:59:59</value></div>' +
+    '<div class="detail-item"><label>折扣要求</label><value>最低9.9元</value></div>' +
+    '<div class="detail-item"><label>最大商品数</label><value>100个</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>活动商品</h3>' +
+    '<table class="detail-table"><thead><tr><th>商品图片</th><th>商品名称</th><th>原价</th><th>活动价</th><th>折扣</th><th>库存</th><th>活动销量</th><th>活动GMV</th><th>状态</th><th>操作</th></tr></thead><tbody>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>¥29.9</td><td style="color:#e02e24">¥9.9</td><td>3.3折</td><td>568</td><td>89</td><td>¥881</td><td><span class="badge badge-success">已上架</span></td><td><button class="btn btn-link btn-sm">下架</button><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>华为Mate60钢化膜</td><td>¥19.9</td><td style="color:#e02e24">¥9.9</td><td>5.0折</td><td>890</td><td>67</td><td>¥663</td><td><span class="badge badge-success">已上架</span></td><td><button class="btn btn-link btn-sm">下架</button><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>小米充电器65W</td><td>¥59.9</td><td style="color:#e02e24">¥9.9</td><td>1.7折</td><td>234</td><td>45</td><td>¥446</td><td><span class="badge badge-warning">已下架</span></td><td><button class="btn btn-link btn-sm">上架</button><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>活动数据趋势</h3>' +
+    '<div class="chart-container" style="height:200px;background:#fafafa;border-radius:8px;display:flex;align-items:flex-end;justify-content:space-around;padding:20px">' +
+    ['9/10','9/11','9/12','9/13','9/14','9/15'].map((day,i) => {
+      const h = [40,55,70,65,80,90][i];
+      return '<div style="text-align:center"><div style="width:50px;height:' + h + 'px;background:linear-gradient(180deg,#e02e24,#ff4d4f);border-radius:4px 4px 0 0"></div><div style="font-size:12px;color:#666;margin-top:8px">' + day + '</div></div>';
+    }).join('') +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('activity-detail-' + activityId);
+}
+
+// 发布商品向导
+function renderProductPublishWizard() {
+  const steps = ['选择类目','填写基本信息','设置SKU规格','编辑商品详情','设置物流信息','发布审核'];
+  const currentStep = 1;
+  
+  const html = '<div class="page" id="page-product-publish">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'product-list\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">发布新商品</h2></div>' +
+    '<div class="detail-body">' +
+    '<div class="wizard-steps">' +
+    steps.map((step, i) => 
+      '<div class="wizard-step ' + (i < currentStep ? 'completed' : i === currentStep ? 'active' : '') + '">' +
+      '<div class="wizard-dot">' + (i < currentStep ? '✓' : i+1) + '</div>' +
+      '<div class="wizard-label">' + step + '</div>' +
+      (i < steps.length - 1 ? '<div class="wizard-line"></div>' : '') +
+      '</div>'
+    ).join('') +
+    '</div>' +
+    '<div class="detail-section"><h3>选择商品类目</h3>' +
+    '<div class="category-selector">' +
+    '<div class="category-col"><h4>一级类目</h4><div class="category-item active">数码配件</div><div class="category-item">手机通讯</div><div class="category-item">电脑办公</div><div class="category-item">家用电器</div></div>' +
+    '<div class="category-col"><h4>二级类目</h4><div class="category-item active">手机保护套/壳</div><div class="category-item">手机贴膜</div><div class="category-item">充电器</div><div class="category-item">数据线</div></div>' +
+    '<div class="category-col"><h4>三级类目</h4><div class="category-item active">软壳</div><div class="category-item">硬壳</div><div class="category-item">翻盖式</div><div class="category-item">磁吸壳</div></div>' +
+    '</div>' +
+    '<div class="selected-category" style="margin-top:16px;padding:12px;background:#e6f7ff;border-radius:4px">已选类目：数码配件 / 手机保护套/壳 / 软壳</div>' +
+    '</div>' +
+    '<div class="wizard-footer"><button class="btn btn-default" onclick="renderPage(\'product-list\')">取消</button>' +
+    '<button class="btn btn-primary" onclick="showToast(\'进入下一步：填写基本信息\')">下一步 →</button></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('product-publish');
+}
+
+// 创建推广计划向导
+function renderPromoCreateWizard() {
+  const steps = ['选择推广类型','设置计划信息','选择推广商品','设置关键词','设置出价预算','完成创建'];
+  const currentStep = 0;
+  
+  const html = '<div class="page" id="page-promo-create">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'promotion\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">创建推广计划</h2></div>' +
+    '<div class="detail-body">' +
+    '<div class="wizard-steps">' +
+    steps.map((step, i) => 
+      '<div class="wizard-step ' + (i < currentStep ? 'completed' : i === currentStep ? 'active' : '') + '">' +
+      '<div class="wizard-dot">' + (i < currentStep ? '✓' : i+1) + '</div>' +
+      '<div class="wizard-label">' + step + '</div>' +
+      (i < steps.length - 1 ? '<div class="wizard-line"></div>' : '') +
+      '</div>'
+    ).join('') +
+    '</div>' +
+    '<div class="detail-section"><h3>选择推广类型</h3>' +
+    '<div class="promo-type-grid">' +
+    '<div class="promo-type-card active" onclick="this.classList.toggle(\'active\')">' +
+    '<div class="promo-type-icon">🔍</div><div class="promo-type-name">搜索推广</div>' +
+    '<div class="promo-type-desc">通过关键词搜索展示商品，精准引流，按点击付费</div></div>' +
+    '<div class="promo-type-card" onclick="this.classList.toggle(\'active\')">' +
+    '<div class="promo-type-icon">🎯</div><div class="promo-type-name">场景推广</div>' +
+    '<div class="promo-type-desc">在商品详情页、分类页等场景展示，覆盖更多潜在买家</div></div>' +
+    '<div class="promo-type-card" onclick="this.classList.toggle(\'active\')">' +
+    '<div class="promo-type-icon">📺</div><div class="promo-type-name">展示推广</div>' +
+    '<div class="promo-type-desc">在首页、个人中心等位置展示品牌广告，提升品牌曝光</div></div>' +
+    '<div class="promo-type-card" onclick="this.classList.toggle(\'active\')">' +
+    '<div class="promo-type-icon">⭐</div><div class="promo-type-name">明星店铺</div>' +
+    '<div class="promo-type-desc">搜索品牌词时展示店铺信息，提升品牌认知和店铺流量</div></div>' +
+    '</div></div>' +
+    '<div class="wizard-footer"><button class="btn btn-default" onclick="renderPage(\'promotion\')">取消</button>' +
+    '<button class="btn btn-primary" onclick="showToast(\'进入下一步：设置计划信息\')">下一步 →</button></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('promo-create');
+
+// 发货详情页
+function renderShipDetail(orderId) {
+  const html = '<div class="page" id="page-ship-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'ship-order\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">发货详情</h2>' +
+    '<span class="badge" style="background:#1890ff">待发货</span>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'进入打印面单页面\')">🖨️ 打印面单</button>' +
+    '<button class="btn btn-success" onclick="showToast(\'确认发货\')">✅ 确认发货</button></div></div>' +
+    '<div class="detail-body">' +
+    '<div class="detail-section"><h3>订单信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>订单编号</label><value>DD20260915001</value></div>' +
+    '<div class="detail-item"><label>下单时间</label><value>2026-09-15 10:23:45</value></div>' +
+    '<div class="detail-item"><label>付款时间</label><value>2026-09-15 10:25:12</value></div>' +
+    '<div class="detail-item"><label>订单状态</label><value style="color:#1890ff">待发货</value></div>' +
+    '<div class="detail-item"><label>商品金额</label><value>¥128.00</value></div>' +
+    '<div class="detail-item"><label>运费</label><value>¥0.00</value></div>' +
+    '<div class="detail-item"><label>实付金额</label><value style="color:#e02e24;font-weight:600">¥128.00</value></div>' +
+    '<div class="detail-item"><label>支付方式</label><value>微信支付</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>收货信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>收货人</label><value>张**</value></div>' +
+    '<div class="detail-item"><label>联系电话</label><value>138****1234</value></div>' +
+    '<div class="detail-item" style="grid-column:span 2"><label>收货地址</label><value>浙江省金华市***区***街道***号</value></div>' +
+    '<div class="detail-item"><label>买家留言</label><value>请尽快发货，谢谢！</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>商品信息</h3>' +
+    '<table class="detail-table"><thead><tr><th>商品图片</th><th>商品名称</th><th>规格</th><th>单价</th><th>数量</th><th>小计</th></tr></thead><tbody>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>红色/标准版</td><td>¥128.00</td><td>1</td><td>¥128.00</td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>发货信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>物流公司</label><value><select class="input input-sm" style="width:150px"><option>中通快递</option><option>圆通速递</option><option>申通快递</option><option>韵达快递</option><option>顺丰速运</option></select></value></div>' +
+    '<div class="detail-item"><label>物流单号</label><value><input type="text" class="input input-sm" value="7312345678901" style="width:200px"></value></div>' +
+    '<div class="detail-item"><label>发货时间</label><value>2026-09-15 14:30:00</value></div>' +
+    '<div class="detail-item"><label>发货人</label><value>仓储-小王</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>电子面单</h3>' +
+    '<div style="display:flex;gap:24px;align-items:flex-start">' +
+    '<div style="width:300px;height:400px;border:2px solid #333;border-radius:4px;padding:16px;background:#fff">' +
+    '<div style="text-align:center;font-weight:600;font-size:16px;border-bottom:2px solid #333;padding-bottom:8px;margin-bottom:12px">中通快递</div>' +
+    '<div style="font-size:12px;line-height:1.8">' +
+    '<div><strong>收件人：</strong>张** 138****1234</div>' +
+    '<div><strong>地址：</strong>浙江省金华市***区***街道***号</div>' +
+    '<div style="border-top:1px dashed #999;margin:8px 0"></div>' +
+    '<div><strong>寄件人：</strong>优品数码 138****5678</div>' +
+    '<div><strong>地址：</strong>浙江省杭州市***区***园区</div>' +
+    '<div style="border-top:1px dashed #999;margin:8px 0"></div>' +
+    '<div><strong>物品：</strong>手机壳 x1</div>' +
+    '<div><strong>重量：</strong>0.2kg</div>' +
+    '</div>' +
+    '<div style="text-align:center;margin-top:16px;font-size:32px;letter-spacing:4px">|||| |||| ||||</div>' +
+    '<div style="text-align:center;font-size:14px">7312 3456 7890 1</div>' +
+    '</div>' +
+    '<div><button class="btn btn-primary" onclick="showToast(\'打印面单\')">🖨️ 打印面单</button>' +
+    '<button class="btn btn-default" style="margin-top:8px" onclick="showToast(\'预览面单\')">👁️ 预览面单</button>' +
+    '<button class="btn btn-default" style="margin-top:8px" onclick="showToast(\'修改模板\')">⚙️ 面单模板设置</button></div>' +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('ship-detail-' + orderId);
+}
+
+// 客服会话详情页
+function renderChatDetail(sessionId) {
+  const html = '<div class="page" id="page-chat-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'service\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">会话详情</h2>' +
+    '<span class="badge badge-success">在线</span>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'转接客服\')">🔄 转接</button>' +
+    '<button class="btn btn-default" onclick="showToast(\'结束会话\')">⏹️ 结束会话</button></div></div>' +
+    '<div class="detail-body" style="display:flex;gap:16px;height:calc(100vh - 200px)">' +
+    // 左侧买家信息
+    '<div style="width:280px;background:#fff;border-radius:8px;padding:16px;flex-shrink:0">' +
+    '<div style="text-align:center;margin-bottom:16px">' +
+    '<div style="width:64px;height:64px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto">👤</div>' +
+    '<div style="font-weight:600;margin-top:8px">u***8</div>' +
+    '<div style="font-size:12px;color:#999">买家等级：V5</div>' +
+    '</div>' +
+    '<div style="border-top:1px solid #f0f0f0;padding-top:12px">' +
+    '<div style="font-size:13px;color:#666;margin-bottom:8px"><strong>联系电话：</strong>138****1234</div>' +
+    '<div style="font-size:13px;color:#666;margin-bottom:8px"><strong>最近下单：</strong>2026-09-15</div>' +
+    '<div style="font-size:13px;color:#666;margin-bottom:8px"><strong>累计订单：</strong>23笔</div>' +
+    '<div style="font-size:13px;color:#666;margin-bottom:8px"><strong>售后次数：</strong>2次</div>' +
+    '<div style="font-size:13px;color:#666"><strong>黑名单：</strong><span style="color:#52c41a">否</span></div>' +
+    '</div>' +
+    '<div style="border-top:1px solid #f0f0f0;padding-top:12px;margin-top:12px">' +
+    '<div style="font-weight:600;margin-bottom:8px;font-size:14px">最近订单</div>' +
+    '<div style="font-size:12px;color:#666;line-height:1.8">' +
+    '<div style="padding:8px;background:#fafafa;border-radius:4px;margin-bottom:4px;cursor:pointer" onclick="renderPage(\'order-detail-DD20260915001\')">DD20260915001<br>苹果15手机壳 ¥128</div>' +
+    '<div style="padding:8px;background:#fafafa;border-radius:4px;cursor:pointer" onclick="renderPage(\'order-detail-DD20260914089\')">DD20260914089<br>华为钢化膜 ¥58</div>' +
+    '</div></div></div>' +
+    // 中间聊天区域
+    '<div style="flex:1;background:#fff;border-radius:8px;display:flex;flex-direction:column">' +
+    '<div style="padding:12px 16px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center">' +
+    '<span style="font-weight:600">会话 #CHAT20260915001</span>' +
+    '<span style="font-size:12px;color:#999">开始时间：2026-09-15 10:30:00 | 时长：15分23秒</span>' +
+    '</div>' +
+    '<div style="flex:1;padding:16px;overflow-y:auto;background:#f5f5f5">' +
+    '<div style="text-align:center;font-size:12px;color:#999;margin-bottom:16px">2026-09-15 10:30:00</div>' +
+    '<div style="display:flex;margin-bottom:16px"><div style="width:36px;height:36px;border-radius:50%;background:#1890ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">客</div>' +
+    '<div style="margin-left:8px;background:#fff;padding:10px 14px;border-radius:0 8px 8px 8px;max-width:70%;font-size:14px">您好，欢迎光临优品数码旗舰店，请问有什么可以帮您？</div></div>' +
+    '<div style="display:flex;justify-content:flex-end;margin-bottom:16px"><div style="margin-right:8px;background:#95ec69;padding:10px 14px;border-radius:8px 0 8px 8px;max-width:70%;font-size:14px">你好，我想问一下这个手机壳适合苹果15吗？</div>' +
+    '<div style="width:36px;height:36px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">买</div></div>' +
+    '<div style="display:flex;margin-bottom:16px"><div style="width:36px;height:36px;border-radius:50%;background:#1890ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">客</div>' +
+    '<div style="margin-left:8px;background:#fff;padding:10px 14px;border-radius:0 8px 8px 8px;max-width:70%;font-size:14px">是的亲，这款手机壳是专门为苹果15设计的，完美贴合，您可以放心购买哦~</div></div>' +
+    '<div style="display:flex;justify-content:flex-end;margin-bottom:16px"><div style="margin-right:8px;background:#95ec69;padding:10px 14px;border-radius:8px 0 8px 8px;max-width:70%;font-size:14px">好的，那有红色的吗？我看图片上红色挺好看的</div>' +
+    '<div style="width:36px;height:36px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">买</div></div>' +
+    '<div style="display:flex;margin-bottom:16px"><div style="width:36px;height:36px;border-radius:50%;background:#1890ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">客</div>' +
+    '<div style="margin-left:8px;background:#fff;padding:10px 14px;border-radius:0 8px 8px 8px;max-width:70%;font-size:14px">有的亲，红色、蓝色、黑色都有现货，现在下单还能享受9.9特卖活动价哦~</div></div>' +
+    '</div>' +
+    // 快捷短语
+    '<div style="padding:8px 16px;border-top:1px solid #f0f0f0;display:flex;gap:8px;flex-wrap:wrap">' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">您好，欢迎光临</button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">请稍等，我帮您查询</button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">感谢您的支持</button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">祝您生活愉快</button>' +
+    '<button class="btn btn-link btn-xs" onclick="showToast(\'更多短语\')">更多短语 →</button>' +
+    '</div>' +
+    // 输入框
+    '<div style="padding:12px 16px;border-top:1px solid #f0f0f0;display:flex;gap:8px">' +
+    '<textarea class="input" rows="2" placeholder="输入消息，按Enter发送..." style="flex:1;resize:none"></textarea>' +
+    '<div style="display:flex;flex-direction:column;gap:8px">' +
+    '<button class="btn btn-default btn-sm" onclick="showToast(\'发送图片\')">🖼️ 图片</button>' +
+    '<button class="btn btn-primary btn-sm" onclick="showToast(\'消息已发送\')">发送</button>' +
+    '</div></div></div>' +
+    // 右侧订单/商品信息
+    '<div style="width:280px;background:#fff;border-radius:8px;padding:16px;flex-shrink:0">' +
+    '<div style="font-weight:600;margin-bottom:12px;font-size:14px">关联订单</div>' +
+    '<div style="padding:12px;background:#fafafa;border-radius:4px;margin-bottom:12px;cursor:pointer" onclick="renderPage(\'order-detail-DD20260915001\')">' +
+    '<div style="font-size:12px;color:#999;margin-bottom:4px">DD20260915001</div>' +
+    '<div style="font-size:13px;margin-bottom:4px">苹果15手机壳红色</div>' +
+    '<div style="display:flex;justify-content:space-between"><span style="color:#e02e24;font-weight:600">¥128</span><span style="font-size:12px;color:#fa8c16">待发货</span></div>' +
+    '</div>' +
+    '<div style="font-weight:600;margin-bottom:12px;font-size:14px;border-top:1px solid #f0f0f0;padding-top:12px">快捷操作</div>' +
+    '<button class="btn btn-default btn-sm btn-block" style="margin-bottom:8px" onclick="showToast(\'修改订单地址\')">📍 修改收货地址</button>' +
+    '<button class="btn btn-default btn-sm btn-block" style="margin-bottom:8px" onclick="showToast(\'修改订单价格\')">💰 修改订单价格</button>' +
+    '<button class="btn btn-default btn-sm btn-block" style="margin-bottom:8px" onclick="showToast(\'发送优惠券\')">🎫 发送优惠券</button>' +
+    '<button class="btn btn-default btn-sm btn-block" onclick="showToast(\'添加买家备注\')">📝 添加买家备注</button>' +
+    '</div></div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('chat-detail-' + sessionId);
+}
+
+// 资金流水详情页
+function renderFundDetail(billId) {
+  const html = '<div class="page" id="page-fund-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'fund-bill\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">账单详情</h2>' +
+    '<span class="badge badge-success">收入</span></div>' +
+    '<div class="detail-body">' +
+    '<div class="detail-section"><h3>账单信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>账单编号</label><value>BILL20260915001</value></div>' +
+    '<div class="detail-item"><label>账单类型</label><value>订单收入</value></div>' +
+    '<div class="detail-item"><label>收支方向</label><value style="color:#52c41a">收入</value></div>' +
+    '<div class="detail-item"><label>金额</label><value style="color:#52c41a;font-weight:600;font-size:18px">+¥128.00</value></div>' +
+    '<div class="detail-item"><label>发生时间</label><value>2026-09-15 10:25:12</value></div>' +
+    '<div class="detail-item"><label>关联订单</label><value style="color:#1890ff;cursor:pointer" onclick="renderPage(\'order-detail-DD20260915001\')">DD20260915001</value></div>' +
+    '<div class="detail-item"><label>支付方式</label><value>微信支付</value></div>' +
+    '<div class="detail-item"><label>交易状态</label><value style="color:#52c41a">已完成</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>费用明细</h3>' +
+    '<table class="detail-table"><thead><tr><th>项目</th><th>金额</th><th>说明</th></tr></thead><tbody>' +
+    '<tr><td>商品金额</td><td>¥128.00</td><td>买家实付金额</td></tr>' +
+    '<tr><td>平台佣金</td><td style="color:#e02e24">-¥6.40</td><td>技术服务费（5%）</td></tr>' +
+    '<tr><td>支付手续费</td><td style="color:#e02e24">-¥0.77</td><td>微信支付手续费（0.6%）</td></tr>' +
+    '<tr><td>实际到账</td><td style="color:#52c41a;font-weight:600">¥120.83</td><td>扣除费用后实际到账金额</td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="detail-section"><h3>资金流向</h3>' +
+    '<div class="logistics-timeline">' +
+    '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 10:25:12</div><div class="text">买家付款成功，资金进入平台担保账户</div></div></div>' +
+    '<div class="logistics-step active"><div class="dot"></div><div class="content"><div class="time">2026-09-15 14:30:00</div><div class="text">商家发货</div></div></div>' +
+    '<div class="logistics-step"><div class="dot"></div><div class="content"><div class="time">预计2026-09-18</div><div class="text">买家确认收货后，资金结算到商家账户</div></div></div>' +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('fund-detail-' + billId);
+
+// 商品编辑页（四级页面）
+function renderProductEdit(productId) {
+  const products = Store.get('products', []);
+  const product = products.find(p => p.id === productId) || products[0];
+  
+  const html = '<div class="page" id="page-product-edit">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'product-detail-' + (product?product.id:'P001') + '\')">← 返回详情</button>' +
+    '<h2 style="margin:0 16px">编辑商品</h2>' +
+    '<span class="badge badge-warning">草稿</span>' +
+    '<div style="margin-left:auto"><button class="btn btn-default" onclick="showToast(\'已保存草稿\')">💾 保存草稿</button>' +
+    '<button class="btn btn-primary" onclick="showToast(\'提交审核\')">✅ 提交审核</button></div></div>' +
+    '<div class="detail-body" style="max-width:900px;margin:0 auto">' +
+    // 基本信息
+    '<div class="detail-section"><h3>基本信息</h3>' +
+    '<div class="form-item"><label class="required">商品标题</label><div class="form-control"><input type="text" class="input" value="' + (product?product.name:'苹果15手机壳红色防摔硅胶软壳') + '" style="width:100%"><div style="font-size:12px;color:#999;margin-top:4px">标题最多60个字符，当前45/60</div></div></div>' +
+    '<div class="form-item"><label class="required">商品分类</label><div class="form-control"><select class="input"><option>数码配件 / 手机保护套/壳 / 软壳</option><option>数码配件 / 手机贴膜 / 钢化膜</option><option>数码配件 / 充电器 / 快充</option></select></div></div>' +
+    '<div class="form-item"><label class="required">商品品牌</label><div class="form-control"><select class="input"><option>Apple</option><option>华为</option><option>小米</option><option>无品牌</option></select></div></div>' +
+    '<div class="form-item"><label>商品卖点</label><div class="form-control"><textarea class="input" rows="2" placeholder="请输入商品卖点，最多100字">防摔硅胶材质，完美贴合苹果15，手感舒适，保护到位</textarea></div></div>' +
+    '</div>' +
+    // 商品图片
+    '<div class="detail-section"><h3>商品图片</h3>' +
+    '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">' +
+    '<div style="width:120px;height:120px;border:2px solid #1890ff;border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative;background:#fafafa"><span style="font-size:40px">📷</span><span style="position:absolute;top:4px;left:4px;background:#1890ff;color:#fff;font-size:10px;padding:2px 6px;border-radius:2px">主图</span></div>' +
+    '<div style="width:120px;height:120px;border:1px solid #d9d9d9;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#fafafa"><span style="font-size:40px">📷</span></div>' +
+    '<div style="width:120px;height:120px;border:1px solid #d9d9d9;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#fafafa"><span style="font-size:40px">📷</span></div>' +
+    '<div style="width:120px;height:120px;border:1px dashed #d9d9d9;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#999" onclick="showToast(\'上传图片\')"><span style="text-align:center"><span style="font-size:32px;display:block">+</span>上传图片</span></div>' +
+    '</div>' +
+    '<div style="font-size:12px;color:#999">建议尺寸800x800像素，最多上传10张图片，支持JPG/PNG格式</div>' +
+    '</div>' +
+    // SKU规格
+    '<div class="detail-section"><h3>SKU规格</h3>' +
+    '<div class="form-item"><label class="required">规格名称</label><div class="form-control" style="display:flex;gap:8px"><input type="text" class="input" value="颜色" style="flex:1"><button class="btn btn-default btn-sm">+ 添加规格</button></div></div>' +
+    '<div class="form-item"><label class="required">规格值</label><div class="form-control"><div style="display:flex;gap:8px;flex-wrap:wrap">' +
+    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px">红色 ×</span>' +
+    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px">蓝色 ×</span>' +
+    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px">黑色 ×</span>' +
+    '<span style="padding:4px 12px;border:1px dashed #d9d9d9;border-radius:4px;font-size:13px;cursor:pointer;color:#999" onclick="showToast(\'添加规格值\')">+ 添加</span>' +
+    '</div></div></div>' +
+    '<table class="detail-table" style="margin-top:16px"><thead><tr><th>规格</th><th>价格(元)</th><th>库存</th><th>SKU编码</th><th>重量(kg)</th><th>操作</th></tr></thead><tbody>' +
+    '<tr><td>红色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="568" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001RED" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '<tr><td>蓝色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="423" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001BLUE" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '<tr><td>黑色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="389" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001BLACK" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+    // 商品详情
+    '<div class="detail-section"><h3>商品详情</h3>' +
+    '<div style="border:1px solid #d9d9d9;border-radius:4px;overflow:hidden">' +
+    '<div style="padding:8px 12px;background:#fafafa;border-bottom:1px solid #d9d9d9;display:flex;gap:8px">' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'加粗\')"><b>B</b></button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'斜体\')"><i>I</i></button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'下划线\')"><u>U</u></button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'插入图片\')">🖼️ 图片</button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'插入链接\')">🔗 链接</button>' +
+    '<button class="btn btn-default btn-xs" onclick="showToast(\'插入视频\')">🎬 视频</button>' +
+    '</div>' +
+    '<textarea class="input" rows="8" style="border:none;border-radius:0;resize:vertical" placeholder="请输入商品详情描述...">这是一款高品质的苹果15手机壳，采用优质硅胶材料制作，具有以下特点：\n\n1. 防摔保护：四角加厚设计，有效缓冲撞击\n2. 完美贴合：精准开孔，不影响按键和接口使用\n3. 手感舒适：磨砂表面，防滑防指纹\n4. 轻薄设计：仅1.2mm厚度，保持手机原有机身手感</textarea>' +
+    '</div></div>' +
+    // 物流设置
+    '<div class="detail-section"><h3>物流设置</h3>' +
+    '<div class="form-item"><label class="required">运费模板</label><div class="form-control"><select class="input"><option>全国包邮（除偏远地区）</option><option>满99元包邮</option><option>自定义运费</option></select></div></div>' +
+    '<div class="form-item"><label class="required">发货时间</label><div class="form-control"><select class="input"><option>24小时内发货</option><option>48小时内发货</option><option>72小时内发货</option></select></div></div>' +
+    '<div class="form-item"><label>发货地址</label><div class="form-control"><select class="input"><option>浙江省杭州市***区***园区（默认）</option><option>广东省深圳市***区***仓库</option></select></div></div>' +
+    '<div class="form-item"><label>重量</label><div class="form-control"><input type="number" class="input" value="0.2" style="width:150px"> kg</div></div>' +
+    '</div>' +
+    // 售后设置
+    '<div class="detail-section"><h3>售后设置</h3>' +
+    '<div class="form-item"><label>七天无理由</label><div class="form-control"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" checked> 支持七天无理由退换货</label></div></div>' +
+    '<div class="form-item"><label>运费险</label><div class="form-control"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" checked> 为买家购买运费险（0.8元/单）</label></div></div>' +
+    '<div class="form-item"><label>假一赔十</label><div class="form-control"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox"> 承诺假一赔十</label></div></div>' +
+    '</div>' +
+    '<div style="text-align:center;padding:24px 0"><button class="btn btn-default" style="margin-right:12px" onclick="showToast(\'已保存草稿\')">💾 保存草稿</button>' +
+    '<button class="btn btn-primary btn-lg" onclick="showToast(\'提交审核，预计24小时内完成审核\')">✅ 提交审核</button></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('product-edit-' + productId);
+}
+
+// 物流详情页
+function renderLogisticsDetail(trackingNo) {
+  const html = '<div class="page" id="page-logistics-detail">' +
+    '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'ship-package\')">← 返回列表</button>' +
+    '<h2 style="margin:0 16px">物流详情</h2>' +
+    '<span class="badge badge-success">运输中</span></div>' +
+    '<div class="detail-body">' +
+    '<div class="detail-section"><h3>物流信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>物流公司</label><value>中通快递</value></div>' +
+    '<div class="detail-item"><label>物流单号</label><value>7312345678901</value></div>' +
+    '<div class="detail-item"><label>当前状态</label><value style="color:#1890ff">运输中</value></div>' +
+    '<div class="detail-item"><label>发货时间</label><value>2026-09-15 14:30:00</value></div>' +
+    '<div class="detail-item"><label>预计送达</label><value>2026-09-17 18:00前</value></div>' +
+    '<div class="detail-item"><label>关联订单</label><value style="color:#1890ff;cursor:pointer" onclick="renderPage(\'order-detail-DD20260915001\')">DD20260915001</value></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>收寄信息</h3>' +
+    '<div style="display:flex;gap:24px">' +
+    '<div style="flex:1;padding:16px;background:#f6ffed;border-radius:8px;border-left:4px solid #52c41a">' +
+    '<div style="font-weight:600;margin-bottom:8px;color:#52c41a">📦 寄件人</div>' +
+    '<div style="font-size:14px;line-height:1.8">' +
+    '<div><strong>优品数码旗舰店</strong></div>' +
+    '<div>联系人：王** 138****5678</div>' +
+    '<div>地址：浙江省杭州市***区***园区***栋</div>' +
+    '</div></div>' +
+    '<div style="flex:1;padding:16px;background:#e6f7ff;border-radius:8px;border-left:4px solid #1890ff">' +
+    '<div style="font-weight:600;margin-bottom:8px;color:#1890ff">🏠 收件人</div>' +
+    '<div style="font-size:14px;line-height:1.8">' +
+    '<div><strong>张**</strong></div>' +
+    '<div>电话：138****1234</div>' +
+    '<div>地址：浙江省金华市***区***街道***号***小区</div>' +
+    '</div></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>物流轨迹</h3>' +
+    '<div class="logistics-timeline" style="padding-left:32px">' +
+    '<div class="logistics-step active" style="padding-bottom:24px"><div class="dot" style="width:16px;height:16px;left:-32px;top:2px"></div><div class="content"><div class="time" style="font-size:13px;color:#1890ff;font-weight:600">2026-09-15 18:30:25</div><div class="text" style="font-size:14px">【金华市】已到达【金华转运中心】</div></div></div>' +
+    '<div class="logistics-step active" style="padding-bottom:24px"><div class="dot" style="width:16px;height:16px;left:-32px;top:2px"></div><div class="content"><div class="time" style="font-size:13px;color:#666">2026-09-15 16:20:18</div><div class="text" style="font-size:14px">【杭州市】已离开【杭州转运中心】，发往【金华转运中心】</div></div></div>' +
+    '<div class="logistics-step active" style="padding-bottom:24px"><div class="dot" style="width:16px;height:16px;left:-32px;top:2px"></div><div class="content"><div class="time" style="font-size:13px;color:#666">2026-09-15 14:35:42</div><div class="text" style="font-size:14px">【杭州市】已到达【杭州转运中心】</div></div></div>' +
+    '<div class="logistics-step active" style="padding-bottom:24px"><div class="dot" style="width:16px;height:16px;left:-32px;top:2px"></div><div class="content"><div class="time" style="font-size:13px;color:#666">2026-09-15 14:30:00</div><div class="text" style="font-size:14px">【杭州市】商家已发货，快递员已揽收</div></div></div>' +
+    '<div class="logistics-step" style="padding-bottom:24px"><div class="dot" style="width:16px;height:16px;left:-32px;top:2px"></div><div class="content"><div class="time" style="font-size:13px;color:#999">2026-09-15 10:25:12</div><div class="text" style="font-size:14px">买家付款成功，等待商家发货</div></div></div>' +
+    '</div></div>' +
+    '<div class="detail-section"><h3>包裹信息</h3>' +
+    '<div class="detail-grid">' +
+    '<div class="detail-item"><label>包裹重量</label><value>0.25 kg</value></div>' +
+    '<div class="detail-item"><label>包裹体积</label><value>20×15×5 cm</value></div>' +
+    '<div class="detail-item"><label>物品名称</label><value>手机壳 x1</value></div>' +
+    '<div class="detail-item"><label>保价金额</label><value>未保价</value></div>' +
+    '</div></div>' +
+    '</div></div>';
+  
+  document.getElementById('content').innerHTML = html;
+  updateBreadcrumb('logistics-detail-' + trackingNo);
+}
+}
+}
+
 
 function toggleSidebar() {
   const sb = document.getElementById('sidebar');
