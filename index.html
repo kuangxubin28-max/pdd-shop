@@ -349,6 +349,13 @@ tbody tr:hover{background:#fafafa}
 </style>
 </head>
 <body>
+<div id="loadingOverlay" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#001529;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;">
+  <div style="width:60px;height:60px;border:4px solid rgba(255,255,255,.2);border-top-color:#e02e24;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;"></div>
+  <div style="font-size:18px;font-weight:600;margin-bottom:8px;">拼多多商家后台</div>
+  <div style="font-size:14px;color:rgba(255,255,255,.6);">正在加载，请稍候...</div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
 <div class="toast" id="toast"></div>
 <div class="mask-overlay" id="maskOverlay" onclick="closeMobileSidebar()"></div>
 
@@ -4112,10 +4119,17 @@ function confirmWithdraw() {
 }
 
 // ==================== 初始化 ====================
+// 先渲染菜单框架
 renderMenu();
-renderDashboard();
 // 默认展开商品管理菜单
 document.querySelectorAll('.menu-group')[1]?.classList.add('open');
+// 延迟渲染工作台内容，避免阻塞
+setTimeout(function(){
+  renderDashboard();
+  // 隐藏loading
+  var loading = document.getElementById('loadingOverlay');
+  if(loading){ loading.style.opacity = '0'; loading.style.transition = 'opacity .3s'; setTimeout(function(){ loading.style.display = 'none'; }, 300); }
+}, 50);
 
 // 定时刷新工作台实时数据
 setInterval(()=>{
