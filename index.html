@@ -374,7 +374,7 @@ tbody tr:hover{background:#fafafa}
       <span class="collapse-btn" onclick="toggleSidebar()">☰</span>
       <div class="breadcrumb" id="breadcrumb">首页 <span class="sep">/</span> <span>工作台</span></div>
       <div class="topbar-right">
-        <div class="item" title="帮助">❓</div>
+        <div class="item" title="帮助" onclick="openHelpModal()">❓</div>
         <div class="item" title="消息" onclick="navTo('service','客服工具','客服工作台')">🔔<span class="badge" id="msgBadge">0</span></div>
         <div class="shop-info" onclick="navTo('shop','店铺管理','店铺信息')">
           <div class="avatar">优</div>
@@ -388,7 +388,7 @@ tbody tr:hover{background:#fafafa}
       <div class="page active" id="page-dashboard">
         <div class="page-header"><h2>工作台</h2>
           <div class="actions">
-            <button class="btn btn-default btn-sm" onclick="showToast('数据已刷新')">🔄 刷新数据</button>
+            <button class="btn btn-default btn-sm" onclick="refreshDashboard()">🔄 刷新数据</button>
             <button class="btn btn-default btn-sm" onclick="exportOrdersCSV()">📊 导出报表</button>
           </div>
         </div>
@@ -818,11 +818,57 @@ tbody tr:hover{background:#fafafa}
   </div>
 </div>
 <!-- 活动详情弹窗 -->
-<div class="modal-mask" id="activityDetailModal">
+<div class="modal-mask" id="activityDetailModal" onclick="if(event.target===this)closeModal('activityDetailModal')">
   <div class="modal" style="max-width:600px">
     <div class="modal-header"><div class="title">活动详情</div><span class="close" onclick="closeModal('activityDetailModal')">✕</span></div>
     <div class="modal-body" id="activityDetailBody"></div>
     <div class="modal-footer"><button class="btn btn-default" onclick="closeModal('activityDetailModal')">关闭</button></div>
+  </div>
+</div>
+
+<!-- 帮助中心弹窗 -->
+<div class="modal-mask" id="helpModal" onclick="if(event.target===this)closeModal('helpModal')">
+  <div class="modal" style="max-width:680px">
+    <div class="modal-header"><div class="title">❓ 帮助中心</div><span class="close" onclick="closeModal('helpModal')">✕</span></div>
+    <div class="modal-body">
+      <div style="margin-bottom:16px">
+        <input type="text" id="helpSearch" placeholder="搜索帮助文档..." style="width:100%;padding:8px 12px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px" oninput="filterHelpDocs()">
+      </div>
+      <div id="helpDocList">
+        <div style="margin-bottom:12px;padding:12px;background:#f9f9f9;border-radius:6px;cursor:pointer" onclick="showToast('打开文档：新手开店指南')">
+          <div style="font-weight:600;font-size:14px;margin-bottom:4px">📖 新手开店指南</div>
+          <div style="font-size:12px;color:#999">从入驻到开业的完整流程，帮助您快速上手拼多多商家后台</div>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:#f9f9f9;border-radius:6px;cursor:pointer" onclick="showToast('打开文档：商品发布流程')">
+          <div style="font-weight:600;font-size:14px;margin-bottom:4px">📦 商品发布流程</div>
+          <div style="font-size:12px;color:#999">商品类目选择、信息填写、图片上传、SKU设置、上架审核全流程</div>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:#f9f9f9;border-radius:6px;cursor:pointer" onclick="showToast('打开文档：订单发货管理')">
+          <div style="font-weight:600;font-size:14px;margin-bottom:4px">🚚 订单发货管理</div>
+          <div style="font-size:12px;color:#999">订单处理、电子面单打印、物流跟踪、批量发货操作指南</div>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:#f9f9f9;border-radius:6px;cursor:pointer" onclick="showToast('打开文档：售后处理规范')">
+          <div style="font-weight:600;font-size:14px;margin-bottom:4px">↩️ 售后处理规范</div>
+          <div style="font-size:12px;color:#999">退款退货处理流程、售后凭证举证、平台规则与商家权益保护</div>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:#f9f9f9;border-radius:6px;cursor:pointer" onclick="showToast('打开文档：推广投放指南')">
+          <div style="font-weight:600;font-size:14px;margin-bottom:4px">📈 推广投放指南</div>
+          <div style="font-size:12px;color:#999">搜索推广、场景推广、展示推广的投放策略与ROI优化技巧</div>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:#f9f9f9;border-radius:6px;cursor:pointer" onclick="showToast('打开文档：数据中心解读')">
+          <div style="font-weight:600;font-size:14px;margin-bottom:4px">📊 数据中心解读</div>
+          <div style="font-size:12px;color:#999">核心指标说明、流量分析方法、经营数据优化建议</div>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:#fff7e6;border-radius:6px;cursor:pointer;border:1px solid #ffd591" onclick="showToast('正在转接人工客服...')">
+          <div style="font-weight:600;font-size:14px;margin-bottom:4px">💬 联系人工客服</div>
+          <div style="font-size:12px;color:#999">工作时间：9:00-21:00 · 平均响应时间30秒</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" onclick="closeModal('helpModal')">关闭</button>
+      <button class="btn btn-primary" onclick="showToast('已提交反馈，感谢您的建议')">📝 意见反馈</button>
+    </div>
   </div>
 </div>
 
@@ -1217,7 +1263,7 @@ function showGenericDetail(pageId, rowIdx) {
   // 操作按钮
   let footerHTML = '<button class="btn btn-default" onclick="closeModal(\'genericDetailModal\')">关闭</button>' +
     '<button class="btn btn-primary" onclick="openGenericEdit(\'' + pageId + '\',' + rowIdx + ')">编辑</button>' +
-    '<button class="btn btn-danger" onclick="if(confirm(\'确定删除？\')){showToast(\'已删除\');closeModal(\'genericDetailModal\');}">删除</button>';
+    '<button class="btn btn-danger" onclick="if(confirm(\'确定删除该条记录？删除后不可恢复。\')){showToast(\'已删除\');closeModal(\'genericDetailModal\');if(currentEditPage)renderGenericPage(currentEditPage);}">删除</button>';
   
   document.getElementById('genericDetailBody').innerHTML = basicHTML + extraHTML;
   document.getElementById('genericDetailFooter').innerHTML = footerHTML;
@@ -1816,38 +1862,83 @@ function openGenericEdit(pageId, rowIdx) {
   currentEditPage = pageId;
   currentEditRow = rowIdx;
   const cfg = pageConfig[pageId];
-  const formCfg = editFormConfig[pageId] || editFormConfig['default'];
+  const formCfg = editFormConfig[pageId] || editFormConfig['default'] || {title:'编辑',fields:[]};
   const row = cfg && cfg.table ? cfg.table.rows[rowIdx] : null;
-  
+
   document.getElementById('genericEditTitle').textContent = formCfg.title;
-  
+
   let formHTML = '';
-  formCfg.fields.forEach(f => {
-    const val = row ? (row[0] || '') : '';
+  (formCfg.fields||[]).forEach((f, fi) => {
+    // 从行数据中智能匹配默认值
+    let val = '';
+    if(row) {
+      // 尝试从列名匹配
+      const colName = cfg.table.cols[fi] || '';
+      if(colName) {
+        // 直接用对应列的值
+        val = row[fi] != null ? String(row[fi]) : '';
+      }
+      if(!val) val = row[0] || '';
+    }
+    // select类型：如果选项中包含当前值则选中
     formHTML += '<div class="form-item"><label class="' + (f.required ? 'required' : '') + '">' + f.label + '</label><div class="form-control">';
     if(f.type === 'textarea') {
-      formHTML += '<textarea id="edit_' + f.key + '" rows="3" placeholder="请输入' + f.label + '">' + val + '</textarea>';
+      formHTML += '<textarea id="edit_' + f.key + '" rows="3" placeholder="请输入' + f.label + '">' + val.replace(/</g,'&lt;') + '</textarea>';
     } else if(f.type === 'select') {
-      formHTML += '<select id="edit_' + f.key + '">' + f.options.map(o => '<option value="' + o + '">' + o + '</option>').join('') + '</select>';
+      const opts = (f.options||[]).map(o => '<option value="' + o + '"' + (o === val ? ' selected' : '') + '>' + o + '</option>').join('');
+      formHTML += '<select id="edit_' + f.key + '">' + opts + '</select>';
+    } else if(f.type === 'date' || f.type === 'datetime-local') {
+      formHTML += '<input type="' + f.type + '" id="edit_' + f.key + '" value="' + val + '" placeholder="请选择' + f.label + '">';
     } else {
-      formHTML += '<input type="' + f.type + '" id="edit_' + f.key + '" value="' + val + '" placeholder="请输入' + f.label + '">';
+      formHTML += '<input type="' + (f.type||'text') + '" id="edit_' + f.key + '" value="' + val.replace(/"/g,'&quot;') + '" placeholder="请输入' + f.label + '">';
     }
     formHTML += '</div></div>';
   });
-  
+  // 如果没有配置表单字段，显示一个简单提示
+  if(!(formCfg.fields && formCfg.fields.length)) {
+    formHTML = '<div style="text-align:center;padding:40px;color:#999">编辑表单已打开，修改后点击保存即可</div>';
+  }
+
   document.getElementById('genericEditBody').innerHTML = formHTML;
   openModal('genericEditModal');
 }
 
 function saveGenericEdit() {
-  showToast('保存成功');
+  if(currentEditPage === null || currentEditPage === undefined) {
+    // 新增模式
+    showToast('新增成功');
+    closeModal('genericEditModal');
+    if(currentEditPage) renderGenericPage(currentEditPage);
+    return;
+  }
+  // 验证必填
+  const formCfg = editFormConfig[currentEditPage] || {fields:[]};
+  for(const f of (formCfg.fields||[])) {
+    if(f.required) {
+      const el = document.getElementById('edit_' + f.key);
+      if(el && !el.value.trim()) {
+        showToast('请填写' + f.label);
+        el.focus();
+        return;
+      }
+    }
+  }
+  // 收集表单数据并存入Store
+  const formData = {};
+  (formCfg.fields||[]).forEach(f => {
+    const el = document.getElementById('edit_' + f.key);
+    if(el) formData[f.key] = el.value;
+  });
+  Store.set('generic_edit_' + currentEditPage + '_' + currentEditRow, formData);
   closeModal('genericEditModal');
   closeModal('genericDetailModal');
+  showToast('保存成功，数据已更新');
   if(currentEditPage) {
-    navTo(currentEditPage, '编辑', currentEditPage);
+    renderGenericPage(currentEditPage);
   }
 }
 
+const GENERIC_PAGE_SIZE = 8;
 function renderGenericPage(pageId) {
   const cfg = pageConfig[pageId];
   if(!cfg) return;
@@ -1862,89 +1953,170 @@ function renderGenericPage(pageId) {
   // 隐藏其他页面
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
   pageEl.style.display = 'block';
-  
+
+  const st = getGenericPageState(pageId);
+  const allRows = cfg.table ? cfg.table.rows : [];
+
   // 筛选器
   let filterHTML = '';
   if(cfg.filters !== false) {
-    filterHTML = '<div class="filter-bar" style="background:#fff;padding:16px 24px;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:center;flex-wrap:wrap">' +
-      '<input type="text" class="input input-sm" placeholder="搜索关键词..." style="width:200px">' +
-      '<select class="input input-sm" style="width:120px"><option>全部状态</option><option>进行中</option><option>已完成</option><option>已取消</option></select>' +
-      '<input type="date" class="input input-sm" style="width:150px">' +
-      '<span style="color:#999">至</span>' +
-      '<input type="date" class="input input-sm" style="width:150px">' +
-      '<button class="btn btn-primary btn-sm">🔍 查询</button>' +
-      '<button class="btn btn-default btn-sm">重置</button>' +
-      '<div style="margin-left:auto"><button class="btn btn-default btn-sm" onclick="showToast(\'高级筛选\')">⚙️ 高级筛选</button></div>' +
-      '</div>';
+    filterHTML = '<div class="filter-bar">' +
+      '<div class="item"><label>关键词</label><input type="text" id="gf_kw_'+pageId+'" placeholder="搜索关键词..." value="'+st.filter+'" style="width:160px" onkeydown="if(event.key===\'Enter\')genericQuery(\''+pageId+'\')"></div>' +
+      '<div class="item"><label>状态</label><select id="gf_status_'+pageId+'" onchange="genericQuery(\''+pageId+'\')"><option value="">全部状态</option><option'+(st.status==='进行中'?' selected':'')+'>进行中</option><option'+(st.status==='已完成'?' selected':'')+'>已完成</option><option'+(st.status==='待处理'?' selected':'')+'>待处理</option><option'+(st.status==='已暂停'?' selected':'')+'>已暂停</option></select></div>' +
+      '<button class="btn btn-primary btn-sm" onclick="genericQuery(\''+pageId+'\')">🔍 查询</button>' +
+      '<button class="btn btn-default btn-sm" onclick="genericReset(\''+pageId+'\')">重置</button>' +
+      '<button class="btn btn-default btn-sm" onclick="toggleAdvancedFilter(\''+pageId+'\')">⚙️ 高级筛选</button>' +
+      '</div>' +
+      '<div id="advFilter_'+pageId+'" style="display:none;background:#fff;border-radius:8px;padding:12px 16px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)">' +
+      '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">' +
+      '<div class="item"><label>开始日期</label><input type="date" id="gf_dateFrom_'+pageId+'" style="width:140px"></div>' +
+      '<div class="item"><label>结束日期</label><input type="date" id="gf_dateTo_'+pageId+'" style="width:140px"></div>' +
+      '<div class="item"><label>排序方式</label><select id="gf_sort_'+pageId+'"><option value="default">默认排序</option><option value="time_desc">时间最新</option><option value="time_asc">时间最早</option></select></div>' +
+      '<button class="btn btn-primary btn-sm" onclick="genericQuery(\''+pageId+'\')">应用筛选</button>' +
+      '</div></div>';
   }
-  
+
   // 统计卡片
   let statsHTML = '';
   if(cfg.stats) {
     statsHTML = '<div class="stat-cards" style="grid-template-columns:repeat(' + cfg.stats.length + ',1fr)">' +
-      cfg.stats.map(s => '<div class="stat-card"><div class="label">' + s.l + '</div><div class="value" style="color:' + (s.c||'#333') + '">' + s.v + '</div></div>').join('') +
+      cfg.stats.map(s => '<div class="stat-card" style="cursor:pointer" onclick="showToast(\''+s.l+'：'+s.v+'\')"><div class="label">' + s.l + '</div><div class="value" style="color:' + (s.c||'#333') + '">' + s.v + '</div></div>').join('') +
       '</div>';
   }
-  
+
   // 批量操作栏
-  let batchHTML = '<div class="batch-bar" style="background:#fff;padding:12px 24px;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:center">' +
-    '<label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" onclick="toggleSelectAll(this)"> 全选</label>' +
+  let batchHTML = '<div class="batch-bar" style="background:#fff;padding:12px 16px;margin-bottom:16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;gap:12px;align-items:center;flex-wrap:wrap">' +
+    '<label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px"><input type="checkbox" onclick="toggleSelectAll(this)"> 全选</label>' +
     '<span id="selectedCount" style="color:#999;font-size:13px">已选 0 项</span>' +
     '<div style="margin-left:auto;display:flex;gap:8px">' +
-    '<button class="btn btn-default btn-sm" onclick="showToast(\'批量导出\')">📥 批量导出</button>' +
-    '<button class="btn btn-default btn-sm" onclick="showToast(\'批量打印\')">🖨️ 批量打印</button>' +
-    '<button class="btn btn-danger btn-sm" onclick="showToast(\'批量操作\')">批量操作 ▾</button>' +
+    '<button class="btn btn-default btn-sm" onclick="batchExport(\''+pageId+'\')">📥 批量导出</button>' +
+    '<button class="btn btn-default btn-sm" onclick="batchPrint(\''+pageId+'\')">🖨️ 批量打印</button>' +
+    '<button class="btn btn-danger btn-sm" onclick="batchDelete(\''+pageId+'\')">🗑️ 批量删除</button>' +
     '</div></div>';
-  
+
+  // 表格数据筛选
+  let displayRows = allRows;
+  if(st.filter) {
+    const kw = st.filter.toLowerCase();
+    displayRows = displayRows.filter(r => r.some(c => String(c).toLowerCase().includes(kw)));
+  }
+  if(st.status) {
+    displayRows = displayRows.filter(r => r.some(c => String(c).includes(st.status)));
+  }
+  const totalFiltered = displayRows.length;
+  const totalPages = Math.max(1, Math.ceil(totalFiltered / GENERIC_PAGE_SIZE));
+  if(st.page > totalPages) st.page = totalPages;
+  const pageRows = displayRows.slice((st.page-1)*GENERIC_PAGE_SIZE, st.page*GENERIC_PAGE_SIZE);
+
   // 表格
   let tableHTML = '';
   if(cfg.table) {
-    tableHTML = '<div class="card"><div class="card-header"><div class="title">' + (cfg.tableTitle||'数据列表') + '</div>' +
-      '<div class="extra"><button class="btn btn-primary btn-sm" onclick="showToast(\'新增\')">+ 新增</button>' +
-      '<button class="btn btn-default btn-sm" onclick="showToast(\'已导出\')">📥 导出</button></div></div>' +
+    // 生成页码按钮
+    let pgBtns = '<button class="btn btn-default btn-sm" '+(st.page<=1?'disabled style="opacity:.5;cursor:not-allowed"':'')+' onclick="genericGotoPage(\''+pageId+'\','+(st.page-1)+')">‹ 上一页</button>';
+    let startP = Math.max(1, st.page-2);
+    let endP = Math.min(totalPages, st.page+2);
+    for(let i=startP;i<=endP;i++){
+      pgBtns += '<button class="btn btn-sm '+(i===st.page?'btn-primary':'btn-default')+'" onclick="genericGotoPage(\''+pageId+'\','+i+')">'+i+'</button>';
+    }
+    pgBtns += '<button class="btn btn-default btn-sm" '+(st.page>=totalPages?'disabled style="opacity:.5;cursor:not-allowed"':'')+' onclick="genericGotoPage(\''+pageId+'\','+(st.page+1)+')">下一页 ›</button>';
+
+    tableHTML = '<div class="card"><div class="card-header"><div class="title">' + (cfg.tableTitle||cfg.title+' - 数据列表') + '</div>' +
+      '<div class="extra"><button class="btn btn-primary btn-sm" onclick="genericAdd(\''+pageId+'\')">+ 新增</button>' +
+      '<button class="btn btn-default btn-sm" onclick="genericExportCSV(\''+pageId+'\')">📥 导出</button></div></div>' +
       '<div class="card-body" style="padding:0"><div class="table-wrap"><table><thead><tr>' +
-      '<th style="width:40px"><input type="checkbox"></th>' +
-      cfg.table.cols.map(c => '<th>' + c + '</th>').join('') + '<th style="width:200px">操作</th>' +
+      '<th style="width:40px"><input type="checkbox" id="selectAll_'+pageId+'" onclick="toggleSelectAll(this)"></th>' +
+      cfg.table.cols.map(c => '<th>' + c + '</th>').join('') + '<th style="width:180px">操作</th>' +
       '</tr></thead><tbody>' +
-      cfg.table.rows.map((r, ri) => '<tr class="table-row" onclick="handleRowClick(\'' + pageId + '\',' + ri + ')">' +
-      '<td onclick="event.stopPropagation()"><input type="checkbox" class="row-checkbox" onchange="updateSelectedCount()"></td>' +
-      r.map((cell, i) => {
-        if(typeof cell === 'number' && i === 1 && cfg.table.cols[i] === '体检得分') {
-          return '<td><span style="color:' + (cell >= 90 ? '#52c41a' : cell >= 70 ? '#fa8c16' : '#e02e24') + ';font-weight:600">' + cell + '分</span></td>';
-        }
-        if(typeof cell === 'string' && (cell.includes('待') || cell.includes('审核中') || cell.includes('进行中'))) {
-          return '<td><span class="badge badge-warning">' + cell + '</span></td>';
-        }
-        if(typeof cell === 'string' && (cell.includes('已完成') || cell.includes('已通过') || cell.includes('成功') || cell.includes('已上架') || cell.includes('推广中') || cell.includes('正常'))) {
-          return '<td><span class="badge badge-success">' + cell + '</span></td>';
-        }
-        if(typeof cell === 'string' && (cell.includes('已拒绝') || cell.includes('失败') || cell.includes('已下架') || cell.includes('异常'))) {
-          return '<td><span class="badge badge-danger">' + cell + '</span></td>';
-        }
-        return '<td>' + cell + '</td>';
-      }).join('') +
-      '<td onclick="event.stopPropagation()">' +
-      '<button class="btn btn-link btn-sm" onclick="handleRowClick(\'' + pageId + '\',' + ri + ')">详情</button>' +
-      '<button class="btn btn-link btn-sm" onclick="showToast(\'编辑\')">编辑</button>' +
-      '<button class="btn btn-link btn-sm" onclick="showToast(\'更多操作\')">更多</button>' +
-      '</td></tr>').join('') +
+      (pageRows.length ? pageRows.map((r) => {
+        const ri = allRows.indexOf(r);
+        return '<tr style="cursor:pointer" onclick="handleRowClick(\'' + pageId + '\',' + ri + ')">' +
+        '<td onclick="event.stopPropagation()"><input type="checkbox" class="row-checkbox" onchange="updateSelectedCount()"></td>' +
+        r.map((cell, i) => {
+          if(typeof cell === 'number' && i === 1 && cfg.table.cols[i] === '体检得分') {
+            return '<td><span style="color:' + (cell >= 90 ? '#52c41a' : cell >= 70 ? '#fa8c16' : '#e02e24') + ';font-weight:600">' + cell + '分</span></td>';
+          }
+          if(typeof cell === 'string' && (cell.includes('待') || cell.includes('审核中') || cell.includes('进行中') || cell.includes('待处理') || cell.includes('待发货'))) {
+            return '<td><span class="tag tag-orange" style="cursor:pointer" onclick="event.stopPropagation();showToast(\'状态：'+cell+'，点击可切换\')">'+cell+'</span></td>';
+          }
+          if(typeof cell === 'string' && (cell.includes('已完成') || cell.includes('已通过') || cell.includes('成功') || cell.includes('已上架') || cell.includes('推广中') || cell.includes('正常') || cell.includes('启用') || cell.includes('已打印') || cell.includes('已签收'))) {
+            return '<td><span class="tag tag-green" style="cursor:pointer" onclick="event.stopPropagation();showToast(\'状态：'+cell+'\')">'+cell+'</span></td>';
+          }
+          if(typeof cell === 'string' && (cell.includes('已拒绝') || cell.includes('失败') || cell.includes('已下架') || cell.includes('异常') || cell.includes('已禁用') || cell.includes('已作废') || cell.includes('已超时'))) {
+            return '<td><span class="tag tag-red" style="cursor:pointer" onclick="event.stopPropagation();showToast(\'状态：'+cell+'\')">'+cell+'</span></td>';
+          }
+          return '<td>' + cell + '</td>';
+        }).join('') +
+        '<td onclick="event.stopPropagation()">' +
+        '<button class="btn btn-link btn-sm" onclick="showGenericDetail(\'' + pageId + '\',' + ri + ')">详情</button>' +
+        '<button class="btn btn-link btn-sm" onclick="openGenericEdit(\'' + pageId + '\',' + ri + ')">编辑</button>' +
+        '<button class="btn btn-link btn-sm" onclick="genericMoreAction(\''+pageId+'\','+ri+')">更多</button>' +
+        '</td></tr>';
+      }).join('') : '<tr><td colspan="'+(cfg.table.cols.length+2)+'" style="text-align:center;color:#999;padding:40px">暂无数据</td></tr>') +
       '</tbody></table></div>' +
-      // 分页
-      '<div class="pagination" style="padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f0f0f0">' +
-      '<span style="color:#999;font-size:13px">共 ' + (cfg.table.rows.length * 10) + ' 条记录</span>' +
-      '<div style="display:flex;gap:4px">' +
-      '<button class="btn btn-default btn-sm" disabled>上一页</button>' +
-      '<button class="btn btn-primary btn-sm">1</button>' +
-      '<button class="btn btn-default btn-sm">2</button>' +
-      '<button class="btn btn-default btn-sm">3</button>' +
-      '<span style="padding:0 8px;color:#999">...</span>' +
-      '<button class="btn btn-default btn-sm">10</button>' +
-      '<button class="btn btn-default btn-sm">下一页</button>' +
-      '<select class="input input-sm" style="width:100px;margin-left:8px"><option>10条/页</option><option>20条/页</option><option>50条/页</option></select>' +
-      '</div></div></div>';
+      '<div class="pagination">' + pgBtns + '<span class="info">共 ' + totalFiltered + ' 条，第 ' + st.page + '/' + totalPages + ' 页</span></div>' +
+      '</div></div>';
   }
-  
-  pageEl.innerHTML = filterHTML + batchHTML + statsHTML + tableHTML;
+
+  pageEl.innerHTML = filterHTML + (cfg.filters !== false ? '' : '') + statsHTML + batchHTML + tableHTML;
+}
+
+// 通用页面分页/筛选操作
+function genericGotoPage(pageId, page){
+  const st = getGenericPageState(pageId);
+  st.page = page;
+  renderGenericPage(pageId);
+}
+function genericQuery(pageId){
+  const st = getGenericPageState(pageId);
+  st.filter = document.getElementById('gf_kw_'+pageId)?.value || '';
+  st.status = document.getElementById('gf_status_'+pageId)?.value || '';
+  st.page = 1;
+  renderGenericPage(pageId);
+  showToast('查询完成');
+}
+function genericReset(pageId){
+  const st = getGenericPageState(pageId);
+  st.filter = ''; st.status = ''; st.page = 1;
+  renderGenericPage(pageId);
+  showToast('筛选条件已重置');
+}
+function toggleAdvancedFilter(pageId){
+  const el = document.getElementById('advFilter_'+pageId);
+  if(el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+function batchExport(pageId){
+  const n = document.querySelectorAll('.row-checkbox:checked').length;
+  showToast(n>0 ? '已导出 '+n+' 条选中数据' : '请先勾选要导出的记录');
+}
+function batchPrint(pageId){
+  const n = document.querySelectorAll('.row-checkbox:checked').length;
+  showToast(n>0 ? '已发送 '+n+' 条记录到打印机' : '请先勾选要打印的记录');
+}
+function batchDelete(pageId){
+  const n = document.querySelectorAll('.row-checkbox:checked').length;
+  if(n===0){ showToast('请先勾选要删除的记录'); return; }
+  if(confirm('确定删除选中的 '+n+' 条记录？')){
+    showToast('已删除 '+n+' 条记录');
+    renderGenericPage(pageId);
+  }
+}
+function genericMoreAction(pageId, rowIdx){
+  const cfg = pageConfig[pageId];
+  if(!cfg || !cfg.table) return;
+  const row = cfg.table.rows[rowIdx];
+  showGenericDetail(pageId, rowIdx);
+}
+function genericExportCSV(pageId){
+  const cfg = pageConfig[pageId];
+  if(!cfg || !cfg.table) return;
+  const rows = [cfg.table.cols].concat(cfg.table.rows);
+  const csv = rows.map(r => r.map(c => '"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = cfg.title + '.csv';
+  a.click();
+  showToast('已导出 CSV 文件');
 }
 
 // 表格行点击处理
@@ -2033,7 +2205,9 @@ function navTo(page, parent, child, tab, action) {
   }
   document.querySelectorAll('.submenu-item').forEach(i=>i.classList.remove('active'));
   document.querySelector(`.submenu-item[data-page="${page}"]`)?.classList.add('active');
-  document.getElementById('breadcrumb').innerHTML = parent ? `首页 <span class="sep">/</span> <span>${parent}</span> <span class="sep">/</span> <span>${child||''}</span>` : `首页 <span class="sep">/</span> <span>${child||parent||''}</span>`;
+  document.getElementById('breadcrumb').innerHTML = parent
+    ? '<span class="bc-item" onclick="renderPage(\'dashboard\')">首页</span><span class="bc-sep">/</span><span class="bc-item" onclick="renderPage(\''+page+'\')">'+parent+'</span><span class="bc-sep">/</span><span class="bc-item bc-current">'+(child||'')+'</span>'
+    : '<span class="bc-item" onclick="renderPage(\'dashboard\')">首页</span><span class="bc-sep">/</span><span class="bc-item bc-current">'+(child||parent||'')+'</span>';
   if(action==='add'&&page==='product-list'){openProductModal();}
   if(tab&&page==='order-list'){renderOrderPage(tab);}
   if(tab&&page==='promotion'){renderPromoPage(tab);}
@@ -2062,8 +2236,14 @@ function renderPage(page) {
   if(page.startsWith('activity-detail-')) { renderActivityDetail(page.replace('activity-detail-','')); return; }
   if(page==='product-publish') { renderProductPublishWizard(); return; }
   if(page==='promo-create') { renderPromoCreateWizard(); return; }
+  // 隐藏所有页面，显示目标页面
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  const dashPage = document.getElementById('page-dashboard');
   // 二级页面路由
-  if(page==='dashboard') renderDashboard();
+  if(page==='dashboard') {
+    if(dashPage) dashPage.style.display = 'block';
+    renderDashboard();
+  }
   else if(page==='product-list') renderProductPage();
   else if(page==='order-list') renderOrderPage();
   else if(page==='promotion') renderPromoPage();
@@ -2078,6 +2258,7 @@ function renderPage(page) {
 }
 
 // 面包屑导航
+let breadcrumbStack = []; // [{label, page}]
 function updateBreadcrumb(page) {
   const bcMap = {
     'dashboard': ['工作台'],
@@ -2092,7 +2273,6 @@ function updateBreadcrumb(page) {
   };
   let bc = bcMap[page];
   if(!bc) {
-    // 从menuConfig查找
     for(const mod of menuConfig) {
       if(mod.children) {
         for(const child of mod.children) {
@@ -2107,16 +2287,57 @@ function updateBreadcrumb(page) {
   if(page.startsWith('after-detail-')) bc = ['售后管理','售后工作台','售后详情'];
   if(page.startsWith('promo-detail-')) bc = ['推广平台','搜索推广','推广计划详情'];
   if(page.startsWith('activity-detail-')) bc = ['营销中心','活动报名','活动详情'];
+  if(page.startsWith('chat-detail-')) bc = ['多多客服','客服工作台','会话详情'];
+  if(page.startsWith('ship-detail-')) bc = ['发货管理','发货中心','发货详情'];
+  if(page.startsWith('fund-detail-')) bc = ['账户资金','账单流水','账单详情'];
+  if(page.startsWith('logistics-detail-')) bc = ['发货管理','包裹中心','物流详情'];
+  if(page.startsWith('product-edit-')) bc = ['商品管理','商品列表','商品详情','编辑商品'];
   if(page === 'product-publish') bc = ['商品管理','商品列表','发布新商品'];
   if(page === 'promo-create') bc = ['推广平台','搜索推广','创建推广计划'];
-  
+
+  // 构建面包屑栈：首页 -> 模块 -> 页面
+  const stack = [{label:'首页', page:'dashboard'}];
+  if(bc) {
+    bc.forEach((item,i)=>{
+      let targetPage = null;
+      if(i === 0) {
+        // 模块名 -> 找到对应模块的第一个子页面
+        for(const mod of menuConfig) {
+          if(mod.name === item && mod.children && mod.children[0]) {
+            targetPage = mod.children[0].page;
+            break;
+          }
+        }
+      } else if(i === bc.length - 1) {
+        targetPage = null; // 当前页不可点击
+      } else {
+        // 中间层级
+        if(bc[0] === '商品管理' && item === '商品列表') targetPage = 'product-list';
+        else if(bc[0] === '订单管理' && item === '订单列表') targetPage = 'order-list';
+        else if(bc[0] === '推广平台' && item === '搜索推广') targetPage = 'promotion';
+        else if(bc[0] === '营销中心' && item === '活动报名') targetPage = 'marketing';
+        else if(bc[0] === '多多客服' && item === '客服工作台') targetPage = 'service';
+        else if(bc[0] === '店铺管理' && item === '店铺信息') targetPage = 'shop';
+        else if(bc[0] === '账户资金' && item === '资金总览') targetPage = 'fund';
+        else if(bc[0] === '发货管理' && item === '发货中心') targetPage = 'ship-center';
+        else if(bc[0] === '售后管理' && item === '售后工作台') targetPage = 'after-workbench';
+        else if(bc[0] === '数据中心' && item === '实时数据') targetPage = 'data';
+      }
+      stack.push({label:item, page:targetPage});
+    });
+  }
+  breadcrumbStack = stack;
+
   const bcEl = document.getElementById('breadcrumb');
-  if(bcEl && bc) {
-    bcEl.innerHTML = bc.map((item, i) => 
-      i < bc.length - 1 
-        ? '<span class="bc-item" onclick="renderPage(\'' + (i===0?'dashboard':'product-list') + '\')">' + item + '</span><span class="bc-sep">/</span>'
-        : '<span class="bc-item bc-current">' + item + '</span>'
-    ).join('');
+  if(bcEl) {
+    bcEl.innerHTML = stack.map((item, i) => {
+      const sep = i > 0 ? '<span class="bc-sep">/</span>' : '';
+      if(item.page && i < stack.length - 1) {
+        return sep + '<span class="bc-item" onclick="renderPage(\''+item.page+'\')">'+item.label+'</span>';
+      } else {
+        return sep + '<span class="bc-item bc-current">'+item.label+'</span>';
+      }
+    }).join('');
   }
 }
 
@@ -2130,8 +2351,8 @@ function renderProductDetail(productId) {
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'product-list\')">← 返回列表</button>' +
     '<h2 style="margin:0 16px">商品详情</h2>' +
     '<span class="badge badge-' + (product.status==='online'?'success':'warning') + '">' + (product.status==='online'?'在售':'下架') + '</span>' +
-    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'进入编辑商品页\')">✏️ 编辑商品</button>' +
-    '<button class="btn btn-default" onclick="showToast(\'已复制链接\')">🔗 复制链接</button></div></div>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="renderPage(\'product-edit-' + (product?product.id:'P001') + '\')">✏️ 编辑商品</button>' +
+    '<button class="btn btn-default" onclick="showToast(\'商品链接已复制到剪贴板\')">🔗 复制链接</button></div></div>' +
     '<div class="detail-body">' +
     '<div class="detail-section"><h3>基本信息</h3>' +
     '<div class="detail-grid">' +
@@ -2145,21 +2366,21 @@ function renderProductDetail(productId) {
     '<div class="detail-item"><label>创建时间</label><value>' + (product.createTime||'2026-08-01 10:00') + '</value></div>' +
     '</div></div>' +
     '<div class="detail-section"><h3>商品图片</h3>' +
-    '<div class="product-images">' + (product.images ? product.images.map(img => '<img src="' + img + '" class="product-img">').join('') : '<div class="product-img-placeholder">📷 主图</div><div class="product-img-placeholder">📷 详情图1</div><div class="product-img-placeholder">📷 详情图2</div><div class="product-img-placeholder">📷 详情图3</div>') + '</div></div>' +
+    '<div class="product-images">' + (product.images ? product.images.map(img => '<img src="' + img + '" class="product-img" style="cursor:pointer" onclick="showToast(\'查看大图\')">').join('') : '<div class="product-img-placeholder" style="cursor:pointer" onclick="showToast(\'查看大图：主图\')">📷 主图</div><div class="product-img-placeholder" style="cursor:pointer" onclick="showToast(\'查看大图：详情图1\')">📷 详情图1</div><div class="product-img-placeholder" style="cursor:pointer" onclick="showToast(\'查看大图：详情图2\')">📷 详情图2</div><div class="product-img-placeholder" style="cursor:pointer" onclick="showToast(\'查看大图：详情图3\')">📷 详情图3</div>') + '</div></div>' +
     '<div class="detail-section"><h3>SKU规格</h3>' +
     '<table class="detail-table"><thead><tr><th>规格名称</th><th>规格值</th><th>价格</th><th>库存</th><th>SKU编码</th><th>操作</th></tr></thead><tbody>' +
-    '<tr><td>颜色</td><td>红色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.4) + '</td><td>SKU' + product.id + '01</td><td><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
-    '<tr><td>颜色</td><td>蓝色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.3) + '</td><td>SKU' + product.id + '02</td><td><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
-    '<tr><td>颜色</td><td>黑色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.3) + '</td><td>SKU' + product.id + '03</td><td><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '<tr><td>颜色</td><td>红色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.4) + '</td><td>SKU' + product.id + '01</td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑SKU：红色\')">编辑</button></td></tr>' +
+    '<tr><td>颜色</td><td>蓝色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.3) + '</td><td>SKU' + product.id + '02</td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑SKU：蓝色\')">编辑</button></td></tr>' +
+    '<tr><td>颜色</td><td>黑色</td><td>¥' + product.price + '</td><td>' + Math.floor(product.stock*0.3) + '</td><td>SKU' + product.id + '03</td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑SKU：黑色\')">编辑</button></td></tr>' +
     '</tbody></table></div>' +
     '<div class="detail-section"><h3>商品描述</h3>' +
     '<div class="product-desc">' + (product.description||'这是一款高品质的商品，采用优质材料制作，做工精细，品质保证。适合各种场合使用，是您的理想选择。') + '</div></div>' +
     '<div class="detail-section"><h3>商品数据</h3>' +
     '<div class="stat-cards" style="grid-template-columns:repeat(4,1fr)">' +
-    '<div class="stat-card"><div class="label">浏览量</div><div class="value">' + (product.views||Math.floor(Math.random()*5000)) + '</div></div>' +
-    '<div class="stat-card"><div class="label">访客数</div><div class="value">' + (product.visitors||Math.floor(Math.random()*2000)) + '</div></div>' +
-    '<div class="stat-card"><div class="label">转化率</div><div class="value">' + (product.conversion||(Math.random()*5+2).toFixed(1)) + '%</div></div>' +
-    '<div class="stat-card"><div class="label">GMV</div><div class="value">¥' + (product.gmv||Math.floor(Math.random()*50000)) + '</div></div>' +
+    '<div class="stat-card" style="cursor:pointer" onclick="showToast(\'浏览量：'+(product.views||Math.floor(Math.random()*5000))+'，点击查看流量分析\')"><div class="label">浏览量</div><div class="value">' + (product.views||Math.floor(Math.random()*5000)) + '</div></div>' +
+    '<div class="stat-card" style="cursor:pointer" onclick="showToast(\'访客数：'+(product.visitors||Math.floor(Math.random()*2000))+'\')"><div class="label">访客数</div><div class="value">' + (product.visitors||Math.floor(Math.random()*2000)) + '</div></div>' +
+    '<div class="stat-card" style="cursor:pointer" onclick="showToast(\'转化率：'+(product.conversion||(Math.random()*5+2).toFixed(1))+'%\')"><div class="label">转化率</div><div class="value">' + (product.conversion||(Math.random()*5+2).toFixed(1)) + '%</div></div>' +
+    '<div class="stat-card" style="cursor:pointer" onclick="showToast(\'GMV：¥'+(product.gmv||Math.floor(Math.random()*50000))+'\')"><div class="label">GMV</div><div class="value">¥' + (product.gmv||Math.floor(Math.random()*50000)) + '</div></div>' +
     '</div></div>' +
     '</div></div>';
   
@@ -2181,9 +2402,9 @@ function renderOrderDetail(orderId) {
     '<h2 style="margin:0 16px">订单详情</h2>' +
     '<span class="badge" style="background:' + (statusColor[order.status]||'#999') + '">' + (statusMap[order.status]||order.status) + '</span>' +
     '<div style="margin-left:auto">' +
-    (order.status==='paid' ? '<button class="btn btn-primary" onclick="showToast(\'进入发货页面\')">📦 立即发货</button>' : '') +
-    (order.status==='shipped' ? '<button class="btn btn-primary" onclick="showToast(\'已提醒买家收货\')">🔔 提醒收货</button>' : '') +
-    '<button class="btn btn-default" onclick="showToast(\'已打印订单\')">🖨️ 打印订单</button></div></div>' +
+    (order.status==='pending_ship' || order.status==='paid' ? '<button class="btn btn-primary" onclick="renderPage(\'ship-detail-' + (order?order.id:'DD20260915001') + '\')">📦 立即发货</button>' : '') +
+    (order.status==='pending_receive' || order.status==='shipped' ? '<button class="btn btn-primary" onclick="showToast(\'已通知买家确认收货\')">🔔 提醒收货</button>' : '') +
+    '<button class="btn btn-default" onclick="showToast(\'订单面单已发送到打印机\')">🖨️ 打印订单</button></div></div>' +
     '<div class="detail-body">' +
     '<div class="detail-section"><h3>订单信息</h3>' +
     '<div class="detail-grid">' +
@@ -2237,8 +2458,8 @@ function renderAfterSaleDetail(afterId) {
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'after-workbench\')">← 返回列表</button>' +
     '<h2 style="margin:0 16px">售后详情</h2>' +
     '<span class="badge" style="background:#e02e24">待处理</span>' +
-    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'同意售后申请\')">✅ 同意申请</button>' +
-    '<button class="btn btn-default" onclick="showToast(\'拒绝售后申请\')">❌ 拒绝申请</button></div></div>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'已同意售后申请，退款已原路退回\');renderPage(\'after-workbench\')">✅ 同意申请</button>' +
+    '<button class="btn btn-default" onclick="if(confirm(\'确定拒绝该售后申请？\')){showToast(\'已拒绝售后申请，等待买家协商\');renderPage(\'after-workbench\')}">❌ 拒绝申请</button></div></div>' +
     '<div class="detail-body">' +
     '<div class="detail-section"><h3>售后信息</h3>' +
     '<div class="detail-grid">' +
@@ -2264,9 +2485,9 @@ function renderAfterSaleDetail(afterId) {
     '</div></div>' +
     '<div class="detail-section"><h3>售后凭证</h3>' +
     '<div class="proof-images">' +
-    '<div class="proof-img">📷 商品问题图1</div>' +
-    '<div class="proof-img">📷 商品问题图2</div>' +
-    '<div class="proof-img">📷 聊天记录</div>' +
+    '<div class="proof-img" style="cursor:pointer" onclick="showToast(\'查看大图：商品问题图1\')">📷 商品问题图1</div>' +
+    '<div class="proof-img" style="cursor:pointer" onclick="showToast(\'查看大图：商品问题图2\')">📷 商品问题图2</div>' +
+    '<div class="proof-img" style="cursor:pointer" onclick="showToast(\'查看大图：聊天记录\')">📷 聊天记录</div>' +
     '</div></div>' +
     '<div class="detail-section"><h3>售后说明</h3>' +
     '<div class="product-desc">买家收到商品后发现颜色与描述不符，要求退款。商品未使用，包装完好。</div></div>' +
@@ -2287,8 +2508,8 @@ function renderPromoPlanDetail(planId) {
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'promotion\')">← 返回列表</button>' +
     '<h2 style="margin:0 16px">推广计划详情</h2>' +
     '<span class="badge badge-success">推广中</span>' +
-    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'暂停推广\')">⏸️ 暂停推广</button>' +
-    '<button class="btn btn-default" onclick="showToast(\'编辑推广计划\')">✏️ 编辑计划</button></div></div>' +
+    '<div style="margin-left:auto"><button class="btn btn-primary" onclick="showToast(\'推广计划已暂停\')">⏸️ 暂停推广</button>' +
+    '<button class="btn btn-default" onclick="openPromoModal()">✏️ 编辑计划</button></div></div>' +
     '<div class="detail-body">' +
     '<div class="stat-cards" style="grid-template-columns:repeat(6,1fr)">' +
     '<div class="stat-card"><div class="label">今日消耗</div><div class="value" style="color:#e02e24">¥156.80</div></div>' +
@@ -2311,22 +2532,22 @@ function renderPromoPlanDetail(planId) {
     '</div></div>' +
     '<div class="detail-section"><h3>推广商品</h3>' +
     '<table class="detail-table"><thead><tr><th>商品图片</th><th>商品名称</th><th>价格</th><th>库存</th><th>销量</th><th>推广状态</th><th>操作</th></tr></thead><tbody>' +
-    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>¥29.9</td><td>568</td><td>1,234</td><td><span class="badge badge-success">推广中</span></td><td><button class="btn btn-link btn-sm">暂停</button></td></tr>' +
-    '<tr><td><div class="product-img-thumb">📷</div></td><td>华为Mate60钢化膜</td><td>¥19.9</td><td>890</td><td>987</td><td><span class="badge badge-success">推广中</span></td><td><button class="btn btn-link btn-sm">暂停</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>¥29.9</td><td>568</td><td>1,234</td><td><span class="badge badge-success">推广中</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'已暂停推广：苹果15手机壳红色\')">暂停</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>华为Mate60钢化膜</td><td>¥19.9</td><td>890</td><td>987</td><td><span class="badge badge-success">推广中</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'已暂停推广：华为Mate60钢化膜\')">暂停</button></td></tr>' +
     '</tbody></table></div>' +
     '<div class="detail-section"><h3>关键词管理</h3>' +
     '<div class="card-header" style="margin-bottom:12px"><div class="title">关键词列表（共15个）</div><button class="btn btn-primary btn-sm" onclick="showToast(\'添加关键词\')">+ 添加关键词</button></div>' +
     '<table class="detail-table"><thead><tr><th>关键词</th><th>匹配方式</th><th>出价</th><th>质量分</th><th>今日曝光</th><th>今日点击</th><th>点击率</th><th>今日消耗</th><th>状态</th><th>操作</th></tr></thead><tbody>' +
-    '<tr><td>手机壳</td><td>广泛匹配</td><td>¥1.5</td><td style="color:#52c41a">9分</td><td>3,456</td><td>45</td><td>1.30%</td><td>¥67.5</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
-    '<tr><td>苹果15手机壳</td><td>精确匹配</td><td>¥2.0</td><td style="color:#52c41a">10分</td><td>2,345</td><td>34</td><td>1.45%</td><td>¥68.0</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
-    '<tr><td>手机壳 防摔</td><td>短语匹配</td><td>¥1.2</td><td style="color:#fa8c16">7分</td><td>1,234</td><td>15</td><td>1.22%</td><td>¥18.0</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
-    '<tr><td>手机壳 透明</td><td>广泛匹配</td><td>¥0.8</td><td style="color:#fa8c16">6分</td><td>890</td><td>8</td><td>0.90%</td><td>¥6.4</td><td><span class="badge badge-warning">待优化</span></td><td><button class="btn btn-link btn-sm">编辑</button><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '<tr><td>手机壳</td><td>广泛匹配</td><td>¥1.5</td><td style="color:#52c41a">9分</td><td>3,456</td><td>45</td><td>1.30%</td><td>¥67.5</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑关键词：手机壳\')">编辑</button><button class="btn btn-link btn-sm danger" onclick="if(confirm(\'确定删除关键词：手机壳？\'))showToast(\'已删除关键词\')">删除</button></td></tr>' +
+    '<tr><td>苹果15手机壳</td><td>精确匹配</td><td>¥2.0</td><td style="color:#52c41a">10分</td><td>2,345</td><td>34</td><td>1.45%</td><td>¥68.0</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑关键词：苹果15手机壳\')">编辑</button><button class="btn btn-link btn-sm danger" onclick="if(confirm(\'确定删除关键词？\'))showToast(\'已删除关键词\')">删除</button></td></tr>' +
+    '<tr><td>手机壳 防摔</td><td>短语匹配</td><td>¥1.2</td><td style="color:#fa8c16">7分</td><td>1,234</td><td>15</td><td>1.22%</td><td>¥18.0</td><td><span class="badge badge-success">有效</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑关键词：手机壳 防摔\')">编辑</button><button class="btn btn-link btn-sm danger" onclick="if(confirm(\'确定删除关键词？\'))showToast(\'已删除关键词\')">删除</button></td></tr>' +
+    '<tr><td>手机壳 透明</td><td>广泛匹配</td><td>¥0.8</td><td style="color:#fa8c16">6分</td><td>890</td><td>8</td><td>0.90%</td><td>¥6.4</td><td><span class="badge badge-warning">待优化</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑关键词：手机壳 透明\')">编辑</button><button class="btn btn-link btn-sm danger" onclick="if(confirm(\'确定删除关键词？\'))showToast(\'已删除关键词\')">删除</button></td></tr>' +
     '</tbody></table></div>' +
     '<div class="detail-section"><h3>推广数据趋势（近7天）</h3>' +
     '<div class="chart-container" style="height:200px;background:#fafafa;border-radius:8px;display:flex;align-items:flex-end;justify-content:space-around;padding:20px">' +
     ['9/9','9/10','9/11','9/12','9/13','9/14','9/15'].map((day,i) => {
       const h = [60,75,80,70,85,90,95][i];
-      return '<div style="text-align:center"><div style="width:40px;height:' + h + 'px;background:linear-gradient(180deg,#1890ff,#40a9ff);border-radius:4px 4px 0 0"></div><div style="font-size:12px;color:#666;margin-top:8px">' + day + '</div></div>';
+      return '<div style="text-align:center;cursor:pointer" onclick="showToast(\''+day+' 消耗'+[45,58,62,55,70,78,89][i]+'元，点击'+[120,156,168,145,189,210,245][i]+'次\')"><div style="width:40px;height:' + h + 'px;background:linear-gradient(180deg,#1890ff,#40a9ff);border-radius:4px 4px 0 0"></div><div style="font-size:12px;color:#666;margin-top:8px">' + day + '</div></div>';
     }).join('') +
     '</div></div>' +
     '</div></div>';
@@ -2363,15 +2584,15 @@ function renderActivityDetail(activityId) {
     '</div></div>' +
     '<div class="detail-section"><h3>活动商品</h3>' +
     '<table class="detail-table"><thead><tr><th>商品图片</th><th>商品名称</th><th>原价</th><th>活动价</th><th>折扣</th><th>库存</th><th>活动销量</th><th>活动GMV</th><th>状态</th><th>操作</th></tr></thead><tbody>' +
-    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>¥29.9</td><td style="color:#e02e24">¥9.9</td><td>3.3折</td><td>568</td><td>89</td><td>¥881</td><td><span class="badge badge-success">已上架</span></td><td><button class="btn btn-link btn-sm">下架</button><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
-    '<tr><td><div class="product-img-thumb">📷</div></td><td>华为Mate60钢化膜</td><td>¥19.9</td><td style="color:#e02e24">¥9.9</td><td>5.0折</td><td>890</td><td>67</td><td>¥663</td><td><span class="badge badge-success">已上架</span></td><td><button class="btn btn-link btn-sm">下架</button><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
-    '<tr><td><div class="product-img-thumb">📷</div></td><td>小米充电器65W</td><td>¥59.9</td><td style="color:#e02e24">¥9.9</td><td>1.7折</td><td>234</td><td>45</td><td>¥446</td><td><span class="badge badge-warning">已下架</span></td><td><button class="btn btn-link btn-sm">上架</button><button class="btn btn-link btn-sm">编辑</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>苹果15手机壳红色</td><td>¥29.9</td><td style="color:#e02e24">¥9.9</td><td>3.3折</td><td>568</td><td>89</td><td>¥881</td><td><span class="badge badge-success">已上架</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'已下架：苹果15手机壳红色\')">下架</button><button class="btn btn-link btn-sm" onclick="showToast(\'编辑活动商品\')">编辑</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>华为Mate60钢化膜</td><td>¥19.9</td><td style="color:#e02e24">¥9.9</td><td>5.0折</td><td>890</td><td>67</td><td>¥663</td><td><span class="badge badge-success">已上架</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'已下架：华为Mate60钢化膜\')">下架</button><button class="btn btn-link btn-sm" onclick="showToast(\'编辑活动商品\')">编辑</button></td></tr>' +
+    '<tr><td><div class="product-img-thumb">📷</div></td><td>小米充电器65W</td><td>¥59.9</td><td style="color:#e02e24">¥9.9</td><td>1.7折</td><td>234</td><td>45</td><td>¥446</td><td><span class="badge badge-warning">已下架</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'已上架：小米充电器65W\')">上架</button><button class="btn btn-link btn-sm" onclick="showToast(\'编辑活动商品\')">编辑</button></td></tr>' +
     '</tbody></table></div>' +
     '<div class="detail-section"><h3>活动数据趋势</h3>' +
     '<div class="chart-container" style="height:200px;background:#fafafa;border-radius:8px;display:flex;align-items:flex-end;justify-content:space-around;padding:20px">' +
     ['9/10','9/11','9/12','9/13','9/14','9/15'].map((day,i) => {
       const h = [40,55,70,65,80,90][i];
-      return '<div style="text-align:center"><div style="width:50px;height:' + h + 'px;background:linear-gradient(180deg,#e02e24,#ff4d4f);border-radius:4px 4px 0 0"></div><div style="font-size:12px;color:#666;margin-top:8px">' + day + '</div></div>';
+      return '<div style="text-align:center;cursor:pointer" onclick="showToast(\''+day+' 活动GMV'+[1200,2300,3400,2800,4500,5600][i]+'元\')"><div style="width:50px;height:' + h + 'px;background:linear-gradient(180deg,#e02e24,#ff4d4f);border-radius:4px 4px 0 0"></div><div style="font-size:12px;color:#666;margin-top:8px">' + day + '</div></div>';
     }).join('') +
     '</div></div>' +
     '</div></div>';
@@ -2381,80 +2602,210 @@ function renderActivityDetail(activityId) {
 }
 
 // 发布商品向导
-function renderProductPublishWizard() {
+let publishWizardStep = 0;
+function renderProductPublishWizard(step) {
+  if(step !== undefined) publishWizardStep = step;
   const steps = ['选择类目','填写基本信息','设置SKU规格','编辑商品详情','设置物流信息','发布审核'];
-  const currentStep = 1;
-  
+  const s = publishWizardStep;
+
+  let stepContent = '';
+  if(s === 0){
+    stepContent = '<div class="detail-section"><h3>选择商品类目</h3>' +
+      '<div class="category-selector">' +
+      '<div class="category-col"><h4>一级类目</h4><div class="category-item active" onclick="wizardCatSelect(this)">数码配件</div><div class="category-item" onclick="wizardCatSelect(this)">手机通讯</div><div class="category-item" onclick="wizardCatSelect(this)">电脑办公</div><div class="category-item" onclick="wizardCatSelect(this)">家用电器</div></div>' +
+      '<div class="category-col"><h4>二级类目</h4><div class="category-item active" onclick="wizardCatSelect(this)">手机保护套/壳</div><div class="category-item" onclick="wizardCatSelect(this)">手机贴膜</div><div class="category-item" onclick="wizardCatSelect(this)">充电器</div><div class="category-item" onclick="wizardCatSelect(this)">数据线</div></div>' +
+      '<div class="category-col"><h4>三级类目</h4><div class="category-item active" onclick="wizardCatSelect(this)">软壳</div><div class="category-item" onclick="wizardCatSelect(this)">硬壳</div><div class="category-item" onclick="wizardCatSelect(this)">翻盖式</div><div class="category-item" onclick="wizardCatSelect(this)">磁吸壳</div></div>' +
+      '</div>' +
+      '<div class="selected-category" style="margin-top:16px;padding:12px;background:#e6f7ff;border-radius:4px">已选类目：数码配件 / 手机保护套/壳 / 软壳</div></div>';
+  } else if(s === 1){
+    stepContent = '<div class="detail-section"><h3>填写基本信息</h3>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
+      '<div class="form-item"><label class="required">商品名称</label><input class="input" placeholder="请输入商品名称" value="苹果15 Pro Max手机壳 全包防摔保护套"></div>' +
+      '<div class="form-item"><label class="required">商品副标题</label><input class="input" placeholder="请输入副标题"></div>' +
+      '<div class="form-item"><label class="required">商品价格</label><input class="input" type="number" value="29.9"></div>' +
+      '<div class="form-item"><label class="required">商品库存</label><input class="input" type="number" value="1000"></div>' +
+      '<div class="form-item"><label>商品品牌</label><select class="input"><option>无品牌</option><option>Apple</option><option>华为</option><option>小米</option></select></div>' +
+      '<div class="form-item"><label>计量单位</label><select class="input"><option>件</option><option>个</option><option>盒</option></select></div>' +
+      '</div></div>';
+  } else if(s === 2){
+    stepContent = '<div class="detail-section"><h3>设置SKU规格</h3>' +
+      '<div class="form-item"><label>规格类型</label><select class="input" style="width:200px"><option>颜色</option><option>尺码</option><option>颜色+尺码</option></select></div>' +
+      '<table class="detail-table" style="margin-top:12px"><thead><tr><th>颜色</th><th>价格</th><th>库存</th><th>SKU编码</th><th>操作</th></tr></thead><tbody>' +
+      '<tr><td>红色</td><td><input class="input" style="width:80px" value="29.9"></td><td><input class="input" style="width:80px" value="400"></td><td>SKU001</td><td><button class="btn btn-link btn-sm" onclick="showToast(\'删除SKU\')">删除</button></td></tr>' +
+      '<tr><td>蓝色</td><td><input class="input" style="width:80px" value="29.9"></td><td><input class="input" style="width:80px" value="300"></td><td>SKU002</td><td><button class="btn btn-link btn-sm" onclick="showToast(\'删除SKU\')">删除</button></td></tr>' +
+      '<tr><td>黑色</td><td><input class="input" style="width:80px" value="29.9"></td><td><input class="input" style="width:80px" value="300"></td><td>SKU003</td><td><button class="btn btn-link btn-sm" onclick="showToast(\'删除SKU\')">删除</button></td></tr>' +
+      '</tbody></table>' +
+      '<button class="btn btn-default btn-sm" style="margin-top:12px" onclick="showToast(\'添加SKU\')">+ 添加规格值</button></div>';
+  } else if(s === 3){
+    stepContent = '<div class="detail-section"><h3>编辑商品详情</h3>' +
+      '<div class="form-item"><label>商品主图</label><div style="display:flex;gap:8px;flex-wrap:wrap">' +
+      '<div style="width:100px;height:100px;border:1px dashed #d9d9d9;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#999" onclick="showToast(\'上传主图\')">📷 上传</div>' +
+      '<div style="width:100px;height:100px;border:1px dashed #d9d9d9;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#999" onclick="showToast(\'上传主图\')">📷 上传</div>' +
+      '<div style="width:100px;height:100px;border:1px dashed #d9d9d9;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#999" onclick="showToast(\'上传主图\')">📷 上传</div>' +
+      '</div></div>' +
+      '<div class="form-item"><label>商品描述</label><textarea class="input" rows="6" placeholder="请输入商品详细描述...">【产品特点】新款苹果15 Pro Max手机壳，全包防摔设计，轻薄磨砂手感，精准孔位，不影响无线充电。</textarea></div></div>';
+  } else if(s === 4){
+    stepContent = '<div class="detail-section"><h3>设置物流信息</h3>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
+      '<div class="form-item"><label class="required">发货地</label><select class="input"><option>上海</option><option>北京</option><option>广州</option><option>深圳</option></select></div>' +
+      '<div class="form-item"><label class="required">运费模板</label><select class="input"><option>全国包邮</option><option>偏远地区加收</option><option>自定义运费</option></select></div>' +
+      '<div class="form-item"><label class="required">发货时间</label><select class="input"><option>48小时内发货</option><option>24小时内发货</option><option>72小时内发货</option></select></div>' +
+      '<div class="form-item"><label>运费险</label><select class="input"><option>赠送运费险</option><option>不赠送</option></select></div>' +
+      '</div></div>';
+  } else {
+    stepContent = '<div class="detail-section"><h3>发布审核</h3>' +
+      '<div style="text-align:center;padding:40px">' +
+      '<div style="font-size:48px;margin-bottom:16px">✅</div>' +
+      '<div style="font-size:18px;font-weight:600;margin-bottom:8px">商品信息已填写完成</div>' +
+      '<div style="color:#999;margin-bottom:24px">确认信息无误后点击提交，平台将在1-2小时内完成审核</div>' +
+      '<div style="background:#f9f9f9;border-radius:8px;padding:16px;text-align:left;max-width:400px;margin:0 auto;font-size:13px;line-height:2">' +
+      '<div><span style="color:#999">商品名称：</span>苹果15 Pro Max手机壳</div>' +
+      '<div><span style="color:#999">商品价格：</span><span style="color:#e02e24;font-weight:600">¥29.90</span></div>' +
+      '<div><span style="color:#999">商品库存：</span>1,000件</div>' +
+      '<div><span style="color:#999">商品类目：</span>数码配件/手机保护套/壳/软壳</div>' +
+      '</div></div></div>';
+  }
+
   const html = '<div class="page" id="page-product-publish">' +
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'product-list\')">← 返回列表</button>' +
     '<h2 style="margin:0 16px">发布新商品</h2></div>' +
     '<div class="detail-body">' +
     '<div class="wizard-steps">' +
-    steps.map((step, i) => 
-      '<div class="wizard-step ' + (i < currentStep ? 'completed' : i === currentStep ? 'active' : '') + '">' +
-      '<div class="wizard-dot">' + (i < currentStep ? '✓' : i+1) + '</div>' +
+    steps.map((step, i) =>
+      '<div class="wizard-step ' + (i < s ? 'completed' : i === s ? 'active' : '') + '">' +
+      '<div class="wizard-dot">' + (i < s ? '✓' : i+1) + '</div>' +
       '<div class="wizard-label">' + step + '</div>' +
       (i < steps.length - 1 ? '<div class="wizard-line"></div>' : '') +
       '</div>'
     ).join('') +
     '</div>' +
-    '<div class="detail-section"><h3>选择商品类目</h3>' +
-    '<div class="category-selector">' +
-    '<div class="category-col"><h4>一级类目</h4><div class="category-item active">数码配件</div><div class="category-item">手机通讯</div><div class="category-item">电脑办公</div><div class="category-item">家用电器</div></div>' +
-    '<div class="category-col"><h4>二级类目</h4><div class="category-item active">手机保护套/壳</div><div class="category-item">手机贴膜</div><div class="category-item">充电器</div><div class="category-item">数据线</div></div>' +
-    '<div class="category-col"><h4>三级类目</h4><div class="category-item active">软壳</div><div class="category-item">硬壳</div><div class="category-item">翻盖式</div><div class="category-item">磁吸壳</div></div>' +
-    '</div>' +
-    '<div class="selected-category" style="margin-top:16px;padding:12px;background:#e6f7ff;border-radius:4px">已选类目：数码配件 / 手机保护套/壳 / 软壳</div>' +
-    '</div>' +
-    '<div class="wizard-footer"><button class="btn btn-default" onclick="renderPage(\'product-list\')">取消</button>' +
-    '<button class="btn btn-primary" onclick="showToast(\'进入下一步：填写基本信息\')">下一步 →</button></div>' +
-    '</div></div>';
-  
+    stepContent +
+    '<div class="wizard-footer">' +
+    '<button class="btn btn-default" onclick="renderPage(\'product-list\')">取消</button>' +
+    (s > 0 ? '<button class="btn btn-default" onclick="renderProductPublishWizard('+(s-1)+')">← 上一步</button>' : '') +
+    (s < steps.length-1 ? '<button class="btn btn-primary" onclick="renderProductPublishWizard('+(s+1)+')">下一步 →</button>' : '<button class="btn btn-primary" onclick="showToast(\'商品已提交审核\');renderPage(\'product-list\')">🚀 提交审核</button>') +
+    '</div></div></div>';
+
   document.getElementById('content').innerHTML = html;
   updateBreadcrumb('product-publish');
 }
+function wizardCatSelect(el){
+  el.parentElement.querySelectorAll('.category-item').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+}
 
 // 创建推广计划向导
-function renderPromoCreateWizard() {
+let promoWizardStep = 0;
+function renderPromoCreateWizard(step) {
+  if(step !== undefined) promoWizardStep = step;
   const steps = ['选择推广类型','设置计划信息','选择推广商品','设置关键词','设置出价预算','完成创建'];
-  const currentStep = 0;
-  
+  if(promoWizardStep === undefined) promoWizardStep = 0;
+  const s = promoWizardStep;
+
+  let stepContent = '';
+  if(s === 0){
+    stepContent = '<div class="detail-section"><h3>选择推广类型</h3>' +
+      '<div class="promo-type-grid">' +
+      '<div class="promo-type-card active" onclick="promoTypeSelect(this)">' +
+      '<div class="promo-type-icon">🔍</div><div class="promo-type-name">搜索推广</div>' +
+      '<div class="promo-type-desc">通过关键词搜索展示商品，精准引流，按点击付费</div></div>' +
+      '<div class="promo-type-card" onclick="promoTypeSelect(this)">' +
+      '<div class="promo-type-icon">🎯</div><div class="promo-type-name">场景推广</div>' +
+      '<div class="promo-type-desc">在商品详情页、分类页等场景展示，覆盖更多潜在买家</div></div>' +
+      '<div class="promo-type-card" onclick="promoTypeSelect(this)">' +
+      '<div class="promo-type-icon">📺</div><div class="promo-type-name">展示推广</div>' +
+      '<div class="promo-type-desc">在首页、个人中心等位置展示品牌广告，提升品牌曝光</div></div>' +
+      '<div class="promo-type-card" onclick="promoTypeSelect(this)">' +
+      '<div class="promo-type-icon">⭐</div><div class="promo-type-name">明星店铺</div>' +
+      '<div class="promo-type-desc">搜索品牌词时展示店铺信息，提升品牌认知和店铺流量</div></div>' +
+      '</div></div>';
+  } else if(s === 1){
+    stepContent = '<div class="detail-section"><h3>设置计划信息</h3>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
+      '<div class="form-item"><label class="required">计划名称</label><input class="input" value="苹果15手机壳-搜索推广"></div>' +
+      '<div class="form-item"><label class="required">日预算</label><input class="input" type="number" value="500"></div>' +
+      '<div class="form-item"><label>投放日期</label><input class="input" type="date" value="2026-09-16"></div>' +
+      '<div class="form-item"><label>结束日期</label><input class="input" type="date" value="2026-10-16"></div>' +
+      '<div class="form-item"><label>投放时段</label><select class="input"><option>全天投放</option><option>自定义时段</option><option>高峰时段</option></select></div>' +
+      '<div class="form-item"><label>投放地域</label><select class="input"><option>全国投放</option><option>指定省份</option></select></div>' +
+      '</div></div>';
+  } else if(s === 2){
+    stepContent = '<div class="detail-section"><h3>选择推广商品</h3>' +
+      '<table class="detail-table"><thead><tr><th style="width:40px"><input type="checkbox" checked></th><th>商品名称</th><th>价格</th><th>库存</th><th>销量</th></tr></thead><tbody>' +
+      '<tr><td><input type="checkbox" checked></td><td>苹果15 Pro Max手机壳</td><td>¥29.9</td><td>1,000</td><td>3,456</td></tr>' +
+      '<tr><td><input type="checkbox"></td><td>华为Mate60钢化膜</td><td>¥19.9</td><td>2,000</td><td>2,345</td></tr>' +
+      '<tr><td><input type="checkbox"></td><td>小米充电器65W</td><td>¥59.9</td><td>500</td><td>890</td></tr>' +
+      '</tbody></table></div>';
+  } else if(s === 3){
+    stepContent = '<div class="detail-section"><h3>设置关键词</h3>' +
+      '<div class="form-item"><label>添加关键词</label><div style="display:flex;gap:8px"><input class="input" id="kwInput" placeholder="输入关键词后回车添加" style="flex:1" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addKw()}"><button class="btn btn-primary" onclick="addKw()">添加</button></div></div>' +
+      '<div id="kwList" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">' +
+      '<span style="background:#e6f7ff;padding:4px 12px;border-radius:4px;font-size:13px">手机壳 <span style="cursor:pointer" onclick="this.parentElement.remove()">✕</span></span>' +
+      '<span style="background:#e6f7ff;padding:4px 12px;border-radius:4px;font-size:13px">苹果15手机壳 <span style="cursor:pointer" onclick="this.parentElement.remove()">✕</span></span>' +
+      '</div></div>';
+  } else if(s === 4){
+    stepContent = '<div class="detail-section"><h3>设置出价预算</h3>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
+      '<div class="form-item"><label class="required">点击出价</label><input class="input" type="number" value="1.5"></div>' +
+      '<div class="form-item"><label class="required">日预算</label><input class="input" type="number" value="500"></div>' +
+      '<div class="form-item"><label>出价方式</label><select class="input"><option>手动出价</option><option>智能出价</option></select></div>' +
+      '<div class="form-item"><label>预估ROI</label><input class="input" value="3.5" readonly style="background:#f5f5f5"></div>' +
+      '</div></div>';
+  } else {
+    stepContent = '<div class="detail-section"><h3>完成创建</h3>' +
+      '<div style="text-align:center;padding:40px">' +
+      '<div style="font-size:48px;margin-bottom:16px">🎉</div>' +
+      '<div style="font-size:18px;font-weight:600;margin-bottom:8px">推广计划创建成功！</div>' +
+      '<div style="color:#999;margin-bottom:24px">系统正在审核中，预计30分钟内生效</div>' +
+      '<div style="background:#f9f9f9;border-radius:8px;padding:16px;text-align:left;max-width:400px;margin:0 auto;font-size:13px;line-height:2">' +
+      '<div><span style="color:#999">计划名称：</span>苹果15手机壳-搜索推广</div>' +
+      '<div><span style="color:#999">日预算：</span>¥500.00</div>' +
+      '<div><span style="color:#999">点击出价：</span>¥1.50</div>' +
+      '<div><span style="color:#999">关键词数：</span>2个</div>' +
+      '</div></div></div>';
+  }
+
   const html = '<div class="page" id="page-promo-create">' +
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'promotion\')">← 返回列表</button>' +
     '<h2 style="margin:0 16px">创建推广计划</h2></div>' +
     '<div class="detail-body">' +
     '<div class="wizard-steps">' +
-    steps.map((step, i) => 
-      '<div class="wizard-step ' + (i < currentStep ? 'completed' : i === currentStep ? 'active' : '') + '">' +
-      '<div class="wizard-dot">' + (i < currentStep ? '✓' : i+1) + '</div>' +
+    steps.map((step, i) =>
+      '<div class="wizard-step ' + (i < s ? 'completed' : i === s ? 'active' : '') + '">' +
+      '<div class="wizard-dot">' + (i < s ? '✓' : i+1) + '</div>' +
       '<div class="wizard-label">' + step + '</div>' +
       (i < steps.length - 1 ? '<div class="wizard-line"></div>' : '') +
       '</div>'
     ).join('') +
     '</div>' +
-    '<div class="detail-section"><h3>选择推广类型</h3>' +
-    '<div class="promo-type-grid">' +
-    '<div class="promo-type-card active" onclick="this.classList.toggle(\'active\')">' +
-    '<div class="promo-type-icon">🔍</div><div class="promo-type-name">搜索推广</div>' +
-    '<div class="promo-type-desc">通过关键词搜索展示商品，精准引流，按点击付费</div></div>' +
-    '<div class="promo-type-card" onclick="this.classList.toggle(\'active\')">' +
-    '<div class="promo-type-icon">🎯</div><div class="promo-type-name">场景推广</div>' +
-    '<div class="promo-type-desc">在商品详情页、分类页等场景展示，覆盖更多潜在买家</div></div>' +
-    '<div class="promo-type-card" onclick="this.classList.toggle(\'active\')">' +
-    '<div class="promo-type-icon">📺</div><div class="promo-type-name">展示推广</div>' +
-    '<div class="promo-type-desc">在首页、个人中心等位置展示品牌广告，提升品牌曝光</div></div>' +
-    '<div class="promo-type-card" onclick="this.classList.toggle(\'active\')">' +
-    '<div class="promo-type-icon">⭐</div><div class="promo-type-name">明星店铺</div>' +
-    '<div class="promo-type-desc">搜索品牌词时展示店铺信息，提升品牌认知和店铺流量</div></div>' +
-    '</div></div>' +
-    '<div class="wizard-footer"><button class="btn btn-default" onclick="renderPage(\'promotion\')">取消</button>' +
-    '<button class="btn btn-primary" onclick="showToast(\'进入下一步：设置计划信息\')">下一步 →</button></div>' +
-    '</div></div>';
+    stepContent +
+    '<div class="wizard-footer">' +
+    '<button class="btn btn-default" onclick="renderPage(\'promotion\')">取消</button>' +
+    (s > 0 ? '<button class="btn btn-default" onclick="renderPromoCreateWizard('+(s-1)+')">← 上一步</button>' : '') +
+    (s < steps.length-1 ? '<button class="btn btn-primary" onclick="renderPromoCreateWizard('+(s+1)+')">下一步 →</button>' : '<button class="btn btn-primary" onclick="showToast(\'推广计划创建成功\');renderPage(\'promotion\')">🚀 完成创建</button>') +
+    '</div></div></div>';
   
   document.getElementById('content').innerHTML = html;
   updateBreadcrumb('promo-create');
+}
 
 // 发货详情页
+function promoTypeSelect(el){
+  document.querySelectorAll('.promo-type-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+}
+function addKw(){
+  const input = document.getElementById('kwInput');
+  if(input && input.value.trim()){
+    const list = document.getElementById('kwList');
+    const tag = document.createElement('span');
+    tag.style.cssText = 'background:#e6f7ff;padding:4px 12px;border-radius:4px;font-size:13px';
+    tag.innerHTML = input.value.trim() + ' <span style="cursor:pointer" onclick="this.parentElement.remove()">✕</span>';
+    list.appendChild(tag);
+    input.value = '';
+  }
+}
+
 function renderShipDetail(orderId) {
   const html = '<div class="page" id="page-ship-detail">' +
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'ship-order\')">← 返回列表</button>' +
@@ -2509,9 +2860,9 @@ function renderShipDetail(orderId) {
     '<div style="text-align:center;margin-top:16px;font-size:32px;letter-spacing:4px">|||| |||| ||||</div>' +
     '<div style="text-align:center;font-size:14px">7312 3456 7890 1</div>' +
     '</div>' +
-    '<div><button class="btn btn-primary" onclick="showToast(\'打印面单\')">🖨️ 打印面单</button>' +
-    '<button class="btn btn-default" style="margin-top:8px" onclick="showToast(\'预览面单\')">👁️ 预览面单</button>' +
-    '<button class="btn btn-default" style="margin-top:8px" onclick="showToast(\'修改模板\')">⚙️ 面单模板设置</button></div>' +
+    '<div><button class="btn btn-primary" onclick="showToast(\'电子面单已发送到打印机\')">🖨️ 打印面单</button>' +
+    '<button class="btn btn-default" style="margin-top:8px" onclick="showToast(\'面单预览窗口已打开\')">👁️ 预览面单</button>' +
+    '<button class="btn btn-default" style="margin-top:8px" onclick="showToast(\'面单模板设置\')">⚙️ 面单模板设置</button></div>' +
     '</div></div>' +
     '</div></div>';
   
@@ -2570,17 +2921,17 @@ function renderChatDetail(sessionId) {
     // 快捷短语
     '<div style="padding:8px 16px;border-top:1px solid #f0f0f0;display:flex;gap:8px;flex-wrap:wrap">' +
     '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">您好，欢迎光临</button>' +
-    '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">请稍等，我帮您查询</button>' +
-    '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">感谢您的支持</button>' +
-    '<button class="btn btn-default btn-xs" onclick="showToast(\'已插入快捷短语\')">祝您生活愉快</button>' +
-    '<button class="btn btn-link btn-xs" onclick="showToast(\'更多短语\')">更多短语 →</button>' +
+    '<button class="btn btn-default btn-xs" onclick="insertChatPhrase(\'请稍等，我帮您查询\')">请稍等，我帮您查询</button>' +
+    '<button class="btn btn-default btn-xs" onclick="insertChatPhrase(\'感谢您的支持\')">感谢您的支持</button>' +
+    '<button class="btn btn-default btn-xs" onclick="insertChatPhrase(\'祝您生活愉快\')">祝您生活愉快</button>' +
+    '<button class="btn btn-link btn-xs" onclick="showToast(\'更多快捷短语\')">更多短语 →</button>' +
     '</div>' +
     // 输入框
     '<div style="padding:12px 16px;border-top:1px solid #f0f0f0;display:flex;gap:8px">' +
-    '<textarea class="input" rows="2" placeholder="输入消息，按Enter发送..." style="flex:1;resize:none"></textarea>' +
+    '<textarea class="input" id="chatDetailInput" rows="2" placeholder="输入消息，按Enter发送..." style="flex:1;resize:none" onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();sendChatDetail()}"></textarea>' +
     '<div style="display:flex;flex-direction:column;gap:8px">' +
-    '<button class="btn btn-default btn-sm" onclick="showToast(\'发送图片\')">🖼️ 图片</button>' +
-    '<button class="btn btn-primary btn-sm" onclick="showToast(\'消息已发送\')">发送</button>' +
+    '<button class="btn btn-default btn-sm" onclick="showToast(\'图片选择器已打开\')">🖼️ 图片</button>' +
+    '<button class="btn btn-primary btn-sm" onclick="sendChatDetail()">发送</button>' +
     '</div></div></div>' +
     // 右侧订单/商品信息
     '<div style="width:280px;background:#fff;border-radius:8px;padding:16px;flex-shrink:0">' +
@@ -2602,6 +2953,29 @@ function renderChatDetail(sessionId) {
 }
 
 // 资金流水详情页
+function sendChatDetail(){
+  const input = document.getElementById('chatDetailInput');
+  if(!input || !input.value.trim()){ showToast('请输入消息内容'); return; }
+  const msg = input.value.trim();
+  input.value = '';
+  const chatBody = document.querySelector('#page-chat-detail-1 .chat-messages') || document.querySelector('.chat-messages');
+  if(chatBody){
+    const now = new Date().toTimeString().slice(0,5);
+    chatBody.innerHTML += '<div class="chat-msg me" style="text-align:right;margin:8px 0"><span style="display:inline-block;background:#1890ff;color:#fff;padding:8px 12px;border-radius:8px;max-width:70%">' + msg.replace(/</g,'&lt;') + '</span><div style="font-size:11px;color:#999;margin-top:4px">' + now + '</div></div>';
+    chatBody.scrollTop = chatBody.scrollHeight;
+    // 模拟买家自动回复
+    setTimeout(()=>{
+      chatBody.innerHTML += '<div class="chat-msg them" style="margin:8px 0"><span style="display:inline-block;background:#f5f5f5;padding:8px 12px;border-radius:8px;max-width:70%">好的，收到您的消息~</span><div style="font-size:11px;color:#999;margin-top:4px">' + new Date().toTimeString().slice(0,5) + '</div></div>';
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 1200);
+  }
+  showToast('消息已发送');
+}
+function insertChatPhrase(text){
+  const input = document.getElementById('chatDetailInput');
+  if(input){ input.value = (input.value ? input.value + ' ' : '') + text; input.focus(); }
+}
+
 function renderFundDetail(billId) {
   const html = '<div class="page" id="page-fund-detail">' +
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'fund-bill\')">← 返回列表</button>' +
@@ -2646,8 +3020,8 @@ function renderProductEdit(productId) {
     '<div class="detail-header"><button class="btn btn-default" onclick="renderPage(\'product-detail-' + (product?product.id:'P001') + '\')">← 返回详情</button>' +
     '<h2 style="margin:0 16px">编辑商品</h2>' +
     '<span class="badge badge-warning">草稿</span>' +
-    '<div style="margin-left:auto"><button class="btn btn-default" onclick="showToast(\'已保存草稿\')">💾 保存草稿</button>' +
-    '<button class="btn btn-primary" onclick="showToast(\'提交审核\')">✅ 提交审核</button></div></div>' +
+    '<div style="margin-left:auto"><button class="btn btn-default" onclick="showToast(\'草稿已保存\');renderPage(\'product-list\')">💾 保存草稿</button>' +
+    '<button class="btn btn-primary" onclick="showToast(\'修改已提交审核\');renderPage(\'product-list\')">✅ 提交审核</button></div></div>' +
     '<div class="detail-body" style="max-width:900px;margin:0 auto">' +
     // 基本信息
     '<div class="detail-section"><h3>基本信息</h3>' +
@@ -2668,17 +3042,17 @@ function renderProductEdit(productId) {
     '</div>' +
     // SKU规格
     '<div class="detail-section"><h3>SKU规格</h3>' +
-    '<div class="form-item"><label class="required">规格名称</label><div class="form-control" style="display:flex;gap:8px"><input type="text" class="input" value="颜色" style="flex:1"><button class="btn btn-default btn-sm">+ 添加规格</button></div></div>' +
+    '<div class="form-item"><label class="required">规格名称</label><div class="form-control" style="display:flex;gap:8px"><input type="text" class="input" value="颜色" style="flex:1"><button class="btn btn-default btn-sm" onclick="showToast(\'添加规格维度\')">+ 添加规格</button></div></div>' +
     '<div class="form-item"><label class="required">规格值</label><div class="form-control"><div style="display:flex;gap:8px;flex-wrap:wrap">' +
-    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px">红色 ×</span>' +
-    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px">蓝色 ×</span>' +
-    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px">黑色 ×</span>' +
+    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px;cursor:pointer" onclick="this.remove()">红色 ✕</span>' +
+    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px;cursor:pointer" onclick="this.remove()">蓝色 ✕</span>' +
+    '<span style="padding:4px 12px;background:#e6f7ff;border:1px solid #91d5ff;border-radius:4px;font-size:13px;cursor:pointer" onclick="this.remove()">黑色 ✕</span>' +
     '<span style="padding:4px 12px;border:1px dashed #d9d9d9;border-radius:4px;font-size:13px;cursor:pointer;color:#999" onclick="showToast(\'添加规格值\')">+ 添加</span>' +
     '</div></div></div>' +
     '<table class="detail-table" style="margin-top:16px"><thead><tr><th>规格</th><th>价格(元)</th><th>库存</th><th>SKU编码</th><th>重量(kg)</th><th>操作</th></tr></thead><tbody>' +
-    '<tr><td>红色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="568" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001RED" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm">删除</button></td></tr>' +
-    '<tr><td>蓝色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="423" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001BLUE" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm">删除</button></td></tr>' +
-    '<tr><td>黑色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="389" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001BLACK" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm">删除</button></td></tr>' +
+    '<tr><td>红色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="568" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001RED" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm" onclick="if(confirm(\'确定删除SKU：红色？\'))showToast(\'已删除SKU：红色\')">删除</button></td></tr>' +
+    '<tr><td>蓝色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="423" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001BLUE" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm" onclick="if(confirm(\'确定删除SKU：蓝色？\'))showToast(\'已删除SKU：蓝色\')">删除</button></td></tr>' +
+    '<tr><td>黑色</td><td><input type="number" class="input input-sm" value="29.9" style="width:100px"></td><td><input type="number" class="input input-sm" value="389" style="width:100px"></td><td><input type="text" class="input input-sm" value="SKU001BLACK" style="width:120px"></td><td><input type="number" class="input input-sm" value="0.2" style="width:80px"></td><td><button class="btn btn-link btn-sm" onclick="if(confirm(\'确定删除SKU：黑色？\'))showToast(\'已删除SKU：黑色\')">删除</button></td></tr>' +
     '</tbody></table>' +
     '</div>' +
     // 商品详情
@@ -2707,8 +3081,8 @@ function renderProductEdit(productId) {
     '<div class="form-item"><label>运费险</label><div class="form-control"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" checked> 为买家购买运费险（0.8元/单）</label></div></div>' +
     '<div class="form-item"><label>假一赔十</label><div class="form-control"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox"> 承诺假一赔十</label></div></div>' +
     '</div>' +
-    '<div style="text-align:center;padding:24px 0"><button class="btn btn-default" style="margin-right:12px" onclick="showToast(\'已保存草稿\')">💾 保存草稿</button>' +
-    '<button class="btn btn-primary btn-lg" onclick="showToast(\'提交审核，预计24小时内完成审核\')">✅ 提交审核</button></div>' +
+    '<div style="text-align:center;padding:24px 0"><button class="btn btn-default" style="margin-right:12px" onclick="showToast(\'草稿已保存\');renderPage(\'product-list\')">💾 保存草稿</button>' +
+    '<button class="btn btn-primary btn-lg" onclick="showToast(\'修改已提交审核，预计24小时内完成\');renderPage(\'product-list\')">✅ 提交审核</button></div>' +
     '</div></div>';
   
   document.getElementById('content').innerHTML = html;
@@ -2769,7 +3143,6 @@ function renderLogisticsDetail(trackingNo) {
   updateBreadcrumb('logistics-detail-' + trackingNo);
 }
 }
-}
 
 
 function toggleSidebar() {
@@ -2793,6 +3166,55 @@ function showToast(msg) {
 }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 function openModal(id) { document.getElementById(id).classList.add('show'); }
+
+// 全局：点击modal遮罩外部关闭弹窗
+document.addEventListener('click', function(e){
+  if(e.target.classList && e.target.classList.contains('modal-mask')){
+    e.target.classList.remove('show');
+  }
+});
+
+// 帮助中心
+function openHelpModal(){ openModal('helpModal'); }
+function filterHelpDocs(){
+  const kw = (document.getElementById('helpSearch').value||'').toLowerCase();
+  document.querySelectorAll('#helpDocList > div').forEach(d=>{
+    d.style.display = d.textContent.toLowerCase().includes(kw) ? '' : 'none';
+  });
+}
+
+// 通用页面分页状态
+let genericPageState = {}; // {pageId: {page:1, filter:'', status:''}}
+function getGenericPageState(pageId){
+  if(!genericPageState[pageId]) genericPageState[pageId] = {page:1, filter:'', status:''};
+  return genericPageState[pageId];
+}
+
+// 通用操作执行
+function genericAction(pageId, action, rowIdx){
+  showToast(action + ' 操作成功');
+  closeModal('genericDetailModal');
+  renderGenericPage(pageId);
+}
+
+function genericAdd(pageId){
+  const cfg = pageConfig[pageId];
+  if(!cfg){ showToast('新增功能'); return; }
+  const formCfg = editFormConfig[pageId] || editFormConfig['default'];
+  currentEditPage = pageId;
+  currentEditRow = null;
+  document.getElementById('genericEditTitle').textContent = '新增 - ' + cfg.title;
+  let formHTML = '';
+  (formCfg.fields||[]).forEach(f=>{
+    formHTML += '<div class="form-item"><label class="'+(f.required?'required':'')+'">'+f.label+'</label><div class="form-control">';
+    if(f.type==='textarea') formHTML += '<textarea id="edit_'+f.key+'" rows="3" placeholder="请输入'+f.label+'"></textarea>';
+    else if(f.type==='select') formHTML += '<select id="edit_'+f.key+'">'+(f.options||[]).map(o=>'<option value="'+o+'">'+o+'</option>').join('')+'</select>';
+    else formHTML += '<input type="'+(f.type||'text')+'" id="edit_'+f.key+'" placeholder="请输入'+f.label+'">';
+    formHTML += '</div></div>';
+  });
+  document.getElementById('genericEditBody').innerHTML = formHTML;
+  openModal('genericEditModal');
+}
 function fmtMoney(n) { return '¥'+parseFloat(n).toFixed(2); }
 function fmtTime(iso) { const d=new Date(iso); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0'); }
 
@@ -2820,6 +3242,35 @@ function addBill(type, name, amount, orderNo) {
 
 // ==================== 工作台 ====================
 function renderDashboard() {
+  // 如果dashboard DOM不存在（被详情页innerHTML替换后），重新注入完整模板
+  if(!document.getElementById('dashStats')){
+    document.getElementById('content').innerHTML =
+      '<div class="page active" id="page-dashboard">' +
+      '<div class="page-header"><h2>工作台</h2><div class="actions">' +
+      '<button class="btn btn-default btn-sm" onclick="refreshDashboard()">🔄 刷新数据</button>' +
+      '<button class="btn btn-default btn-sm" onclick="exportOrdersCSV()">📊 导出报表</button></div></div>' +
+      '<div class="stat-cards" id="dashStats"></div>' +
+      '<div class="row">' +
+      '<div class="col col-3"><div class="card"><div class="card-header"><div class="title">近7天交易趋势</div><div class="extra"><span style="color:#1890ff">● 支付金额</span><span style="color:#52c41a">● 订单数</span></div></div>' +
+      '<div class="card-body"><div class="chart-container"><div class="bar-chart" id="trendChart"></div></div></div></div></div>' +
+      '<div class="col"><div class="card"><div class="card-header"><div class="title">实时动态</div><div class="extra"><span class="status-dot online" style="font-size:11px">实时</span></div></div>' +
+      '<div class="card-body" style="padding:0 16px"><div class="realtime-list" id="realtimeList"></div></div></div></div></div>' +
+      '<div class="row">' +
+      '<div class="col"><div class="card"><div class="card-header"><div class="title">待办事项</div></div><div class="card-body"><ul class="todo-list" id="todoList"></ul></div></div></div>' +
+      '<div class="col"><div class="card"><div class="card-header"><div class="title">商品销售排行 TOP5</div></div><div class="card-body"><ul class="rank-list" id="rankList"></ul></div></div></div>' +
+      '<div class="col"><div class="card"><div class="card-header"><div class="title">流量来源</div></div><div class="card-body"><div class="pie-chart" id="trafficPie"></div></div></div></div>' +
+      '<div class="row">' +
+      '<div class="col col-2"><div class="card"><div class="card-header"><div class="title">推广概况</div><div class="extra"><a class="btn-link" onclick="navTo(\'promotion\',\'推广中心\',\'推广概况\')">推广中心 ›</a></div></div>' +
+      '<div class="card-body"><div class="stat-cards" style="grid-template-columns:repeat(4,1fr);margin-bottom:0" id="promoStats"></div>' +
+      '<div style="margin-top:12px;font-size:12px;color:#666">推广计划运行状态：<span id="promoPlanStatus"></span></div></div></div></div>' +
+      '<div class="col"><div class="card"><div class="card-header"><div class="title">活动提醒</div><div class="extra"><a class="btn-link" onclick="navTo(\'marketing\',\'营销中心\',\'活动报名\')">活动报名 ›</a></div></div>' +
+      '<div class="card-body" style="padding:0 16px" id="activityReminder"></div></div></div></div>' +
+      '</div>';
+  }
+  // 确保dashboard页面可见
+  const dashPage = document.getElementById('page-dashboard');
+  if(dashPage){ document.querySelectorAll('.page').forEach(p=>p.style.display='none'); dashPage.style.display='block'; }
+
   const orders = Store.get('orders',[]);
   const products = Store.get('products',[]);
   const todayOrders = orders.filter(o=>fmtDate(o.createTime)===fmtDate(new Date().toISOString()));
@@ -2829,12 +3280,12 @@ function renderDashboard() {
   const onlineProducts = products.filter(p=>p.status==='online').length;
 
   document.getElementById('dashStats').innerHTML = `
-    <div class="stat-card"><div class="label">今日支付金额</div><div class="value">¥${todayGMV.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}</div><div class="trend up">↑ 18.5% 较昨日</div></div>
-    <div class="stat-card"><div class="label">今日订单数</div><div class="value">${todayOrders.length}<span class="unit">单</span></div><div class="trend up">↑ 12.3% 较昨日</div></div>
-    <div class="stat-card"><div class="label">在售商品</div><div class="value">${onlineProducts}<span class="unit">款</span></div><div class="trend">共${products.length}款商品</div></div>
-    <div class="stat-card"><div class="label">待发货</div><div class="value" style="color:${pendingShip>0?'#e02e24':'#333'}">${pendingShip}<span class="unit">单</span></div><div class="trend ${pendingShip>0?'up':'down'}">${pendingShip>0?'请及时发货':'暂无待发货'}</div></div>
-    <div class="stat-card"><div class="label">退款/售后</div><div class="value" style="color:${refunding>0?'#fa8c16':'#333'}">${refunding}<span class="unit">单</span></div><div class="trend">退款率2.3%</div></div>
-    <div class="stat-card"><div class="label">店铺评分</div><div class="value">4.8<span class="unit">分</span></div><div class="trend down">描述4.8 服务4.9 物流4.8</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="navTo('data-trade','数据中心','交易数据')" title="查看交易数据"><div class="label">今日支付金额</div><div class="value">¥${todayGMV.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}</div><div class="trend up">↑ 18.5% 较昨日</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="navTo('order-list','订单管理','订单列表')" title="查看订单列表"><div class="label">今日订单数</div><div class="value">${todayOrders.length}<span class="unit">单</span></div><div class="trend up">↑ 12.3% 较昨日</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="navTo('product-list','商品管理','商品列表')" title="查看商品列表"><div class="label">在售商品</div><div class="value">${onlineProducts}<span class="unit">款</span></div><div class="trend">共${products.length}款商品</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="navTo('order-list','订单管理','订单列表','pending_ship')" title="查看待发货订单"><div class="label">待发货</div><div class="value" style="color:${pendingShip>0?'#e02e24':'#333'}">${pendingShip}<span class="unit">单</span></div><div class="trend ${pendingShip>0?'up':'down'}">${pendingShip>0?'请及时发货':'暂无待发货'}</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="navTo('order-refund','售后管理','退款/售后')" title="查看退款售后"><div class="label">退款/售后</div><div class="value" style="color:${refunding>0?'#fa8c16':'#333'}">${refunding}<span class="unit">单</span></div><div class="trend">退款率2.3%</div></div>
+    <div class="stat-card" style="cursor:pointer" onclick="navTo('data-service','数据中心','服务数据')" title="查看服务数据"><div class="label">店铺评分</div><div class="value">4.8<span class="unit">分</span></div><div class="trend down">描述4.8 服务4.9 物流4.8</div></div>
   `;
 
   // 趋势图
@@ -2848,7 +3299,7 @@ function renderDashboard() {
   }
   const maxGmv=Math.max(...gmvs,1);
   document.getElementById('trendChart').innerHTML=days.map((d,i)=>`
-    <div class="bar-wrap"><div class="bar" style="height:${gmvs[i]/maxGmv*85}%"><span class="val">¥${(gmvs[i]/1000).toFixed(1)}k</span></div><div class="label">${d}</div></div>
+    <div class="bar-wrap"><div class="bar" style="height:${gmvs[i]/maxGmv*85}%;cursor:pointer" onclick="showDayDetail('${d}', ${gmvs[i].toFixed(0)}, ${ordCnt[i]})"><span class="val">¥${(gmvs[i]/1000).toFixed(1)}k</span></div><div class="label" style="cursor:pointer" onclick="showDayDetail('${d}', ${gmvs[i].toFixed(0)}, ${ordCnt[i]})">${d}</div></div>
   `).join('');
 
   // 实时动态
@@ -2858,7 +3309,7 @@ function renderDashboard() {
     const tt=rtTypes[Math.floor(Math.random()*rtTypes.length)];
     const t=new Date(Date.now()-i*Math.floor(Math.random()*300+60)*1000);
     const amt=tt.t==='新订单'||tt.t==='支付成功'?fmtMoney(Math.random()*500+50):'';
-    rtHtml+=`<div class="realtime-item"><span class="time">${t.toTimeString().slice(0,8)}</span><span class="type ${tt.c}">${tt.t}</span><span class="content">用户***${Math.floor(Math.random()*90+10)} ${tt.m[Math.floor(Math.random()*tt.m.length)]}</span><span class="amount">${amt}</span></div>`;
+    rtHtml+=`<div class="realtime-item" style="cursor:pointer" onclick="showRealtimeDetail('${tt.t}','用户***${Math.floor(Math.random()*90+10)} ${tt.m[Math.floor(Math.random()*tt.m.length)]}','${amt}')"><span class="time">${t.toTimeString().slice(0,8)}</span><span class="type ${tt.c}">${tt.t}</span><span class="content">用户***${Math.floor(Math.random()*90+10)} ${tt.m[Math.floor(Math.random()*tt.m.length)]}</span><span class="amount">${amt}</span></div>`;
   }
   document.getElementById('realtimeList').innerHTML=rtHtml;
 
@@ -2880,7 +3331,7 @@ function renderDashboard() {
   // 排行
   const topProducts=products.filter(p=>p.status==='online').sort((a,b)=>b.sales-a.sales).slice(0,5);
   document.getElementById('rankList').innerHTML=topProducts.map((p,i)=>`
-    <li><span class="rank-num ${i<3?'top'+(i+1):'other'}">${i+1}</span><span style="font-size:18px;margin-right:4px">${p.emoji}</span><span class="rank-name">${p.name.substring(0,18)}...</span><span class="rank-val">${p.sales}件</span></li>
+    <li style="cursor:pointer" onclick="renderPage('product-detail-'+${p.id})"><span class="rank-num ${i<3?'top'+(i+1):'other'}">${i+1}</span><span style="font-size:18px;margin-right:4px">${p.emoji}</span><span class="rank-name">${p.name.substring(0,18)}...</span><span class="rank-val">${p.sales}件</span></li>
   `).join('');
 
   // 流量饼图
@@ -2889,12 +3340,12 @@ function renderDashboard() {
       <div class="pie-center"><div class="num">${todayOrders.length*18+500}</div><div class="label">总访客</div></div>
     </div>
     <div class="pie-legend">
-      <div class="legend-item"><span class="dot" style="background:#1890ff"></span><span class="name">搜索流量</span><span class="val">35%</span></div>
-      <div class="legend-item"><span class="dot" style="background:#52c41a"></span><span class="name">推荐流量</span><span class="val">20%</span></div>
-      <div class="legend-item"><span class="dot" style="background:#faad14"></span><span class="name">活动流量</span><span class="val">17%</span></div>
-      <div class="legend-item"><span class="dot" style="background:#722ed1"></span><span class="name">推广流量</span><span class="val">13%</span></div>
-      <div class="legend-item"><span class="dot" style="background:#ff4d4f"></span><span class="name">店铺收藏</span><span class="val">8%</span></div>
-      <div class="legend-item"><span class="dot" style="background:#bfbfbf"></span><span class="name">其他</span><span class="val">7%</span></div>
+      <div class="legend-item" style="cursor:pointer" onclick="showTrafficDetail('搜索流量','35%','3,456','7.8%')"><span class="dot" style="background:#1890ff"></span><span class="name">搜索流量</span><span class="val">35%</span></div>
+      <div class="legend-item" style="cursor:pointer" onclick="showTrafficDetail('推荐流量','20%','2,345','6.5%')"><span class="dot" style="background:#52c41a"></span><span class="name">推荐流量</span><span class="val">20%</span></div>
+      <div class="legend-item" style="cursor:pointer" onclick="showTrafficDetail('活动流量','17%','1,567','8.2%')"><span class="dot" style="background:#faad14"></span><span class="name">活动流量</span><span class="val">17%</span></div>
+      <div class="legend-item" style="cursor:pointer" onclick="showTrafficDetail('推广流量','13%','1,167','5.8%')"><span class="dot" style="background:#722ed1"></span><span class="name">推广流量</span><span class="val">13%</span></div>
+      <div class="legend-item" style="cursor:pointer" onclick="showTrafficDetail('店铺收藏','8%','720','9.2%')"><span class="dot" style="background:#ff4d4f"></span><span class="name">店铺收藏</span><span class="val">8%</span></div>
+      <div class="legend-item" style="cursor:pointer" onclick="showTrafficDetail('其他','7%','638','4.2%')"><span class="dot" style="background:#bfbfbf"></span><span class="name">其他</span><span class="val">7%</span></div>
     </div>`;
 
   // 推广概况
@@ -2913,7 +3364,7 @@ function renderDashboard() {
   // 活动提醒
   const acts=Store.get('activities',[]);
   document.getElementById('activityReminder').innerHTML=acts.slice(0,4).map(a=>`
-    <div style="padding:10px 0;border-bottom:1px solid #f5f5f5">
+    <div style="padding:10px 0;border-bottom:1px solid #f5f5f5;cursor:pointer" onclick="navTo('marketing','营销中心','活动报名')">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <span style="font-size:13px;font-weight:600">${a.name}</span>
         <span class="tag ${a.status==='running'?'tag-green':a.status==='pending'?'tag-blue':'tag-orange'}">${a.status==='running'?'进行中':a.status==='pending'?'待开始':'审核中'}</span>
@@ -2927,6 +3378,63 @@ function renderDashboard() {
   const unread=chats.reduce((s,c)=>s+c.unread,0);
   document.getElementById('msgBadge').textContent=unread;
   document.getElementById('msgBadge').style.display=unread>0?'block':'none';
+}
+
+// 工作台交互辅助函数
+function refreshDashboard(){
+  renderDashboard();
+  showToast('数据已刷新');
+}
+function showDayDetail(day, gmv, orderCnt){
+  document.getElementById('genericDetailTitle').textContent = '近7天交易详情 - ' + day;
+  document.getElementById('genericDetailBody').innerHTML =
+    '<div style="margin-bottom:16px"><div style="font-weight:600;font-size:15px;margin-bottom:10px;color:#1890ff">📊 ' + day + ' 交易概览</div>' +
+    '<div style="background:#f9f9f9;border-radius:8px;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;line-height:2">' +
+    '<div><span style="color:#999">支付金额：</span><span style="font-weight:600;color:#e02e24;font-size:18px">¥' + gmv + '</span></div>' +
+    '<div><span style="color:#999">订单数：</span><span style="font-weight:600;font-size:18px">' + orderCnt + ' 单</span></div>' +
+    '<div><span style="color:#999">客单价：</span><span style="font-weight:600">¥' + (orderCnt>0?(gmv/orderCnt).toFixed(2):'0.00') + '</span></div>' +
+    '<div><span style="color:#999">转化率：</span><span style="font-weight:600">6.8%</span></div>' +
+    '</div></div>' +
+    '<div><div style="font-weight:600;font-size:15px;margin-bottom:10px;color:#1890ff">📈 同比环比</div>' +
+    '<div style="background:#f9f9f9;border-radius:8px;padding:12px;font-size:13px;line-height:2">' +
+    '<div>较昨日同期：<span style="color:#52c41a">+' + (Math.random()*15+5).toFixed(1) + '%</span></div>' +
+    '<div>较上周同日：<span style="color:#52c41a">+' + (Math.random()*10+3).toFixed(1) + '%</span></div>' +
+    '<div>行业均值排名：前15%</div>' +
+    '</div></div>';
+  document.getElementById('genericDetailFooter').innerHTML =
+    '<button class="btn btn-default" onclick="closeModal(\'genericDetailModal\')">关闭</button>' +
+    '<button class="btn btn-primary" onclick="closeModal(\'genericDetailModal\');navTo(\'data-trade\',\'数据中心\',\'交易数据\')">查看完整报表</button>';
+  openModal('genericDetailModal');
+}
+function showRealtimeDetail(type, content, amount){
+  document.getElementById('genericDetailTitle').textContent = '实时动态详情';
+  document.getElementById('genericDetailBody').innerHTML =
+    '<div style="background:#f9f9f9;border-radius:8px;padding:16px;font-size:13px;line-height:2">' +
+    '<div><span style="color:#999">事件类型：</span><span style="font-weight:600">' + type + '</span></div>' +
+    '<div><span style="color:#999">事件内容：</span><span style="font-weight:500">' + content + '</span></div>' +
+    (amount ? '<div><span style="color:#999">交易金额：</span><span style="font-weight:600;color:#e02e24">' + amount + '</span></div>' : '') +
+    '<div><span style="color:#999">发生时间：</span><span>' + new Date().toLocaleString() + '</span></div>' +
+    '</div>';
+  document.getElementById('genericDetailFooter').innerHTML =
+    '<button class="btn btn-default" onclick="closeModal(\'genericDetailModal\')">关闭</button>' +
+    (type==='新订单'||type==='支付成功' ? '<button class="btn btn-primary" onclick="closeModal(\'genericDetailModal\');navTo(\'order-list\',\'订单管理\',\'订单列表\')">查看订单</button>' : '');
+  openModal('genericDetailModal');
+}
+function showTrafficDetail(name, percent, visitors, convRate){
+  document.getElementById('genericDetailTitle').textContent = '流量来源详情 - ' + name;
+  document.getElementById('genericDetailBody').innerHTML =
+    '<div style="background:#f9f9f9;border-radius:8px;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;line-height:2">' +
+    '<div><span style="color:#999">来源渠道：</span><span style="font-weight:600">' + name + '</span></div>' +
+    '<div><span style="color:#999">访客占比：</span><span style="font-weight:600">' + percent + '</span></div>' +
+    '<div><span style="color:#999">今日访客：</span><span style="font-weight:600">' + visitors + '</span></div>' +
+    '<div><span style="color:#999">转化率：</span><span style="font-weight:600">' + convRate + '</span></div>' +
+    '<div><span style="color:#999">平均停留：</span><span>2分45秒</span></div>' +
+    '<div><span style="color:#999">下单金额：</span><span style="color:#e02e24;font-weight:600">¥' + (parseInt(visitors.replace(/,/g,''))*120).toLocaleString() + '</span></div>' +
+    '</div>';
+  document.getElementById('genericDetailFooter').innerHTML =
+    '<button class="btn btn-default" onclick="closeModal(\'genericDetailModal\')">关闭</button>' +
+    '<button class="btn btn-primary" onclick="closeModal(\'genericDetailModal\');navTo(\'traffic-source\',\'流量管理\',\'流量来源\')">查看完整分析</button>';
+  openModal('genericDetailModal');
 }
 
 // ==================== 商品管理 ====================
@@ -3776,7 +4284,11 @@ function renderMarketingPage(){
       listEl.innerHTML='<div class="card"><div class="card-body">'+coupons.map(c=>'<div style="display:flex;align-items:center;gap:16px;padding:12px;border-bottom:1px solid #f0f0f0"><div style="width:80px;height:80px;background:linear-gradient(135deg,#e02e24,#ff6b6b);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff"><div style="font-size:20px;font-weight:700">¥'+c.amount+'</div><div style="font-size:10px">满'+c.threshold+'可用</div></div><div style="flex:1"><div style="font-weight:600">'+c.name+'</div><div style="font-size:12px;color:#999;margin-top:4px">有效期：'+c.startDate+' 至 '+c.endDate+'</div><div style="margin-top:4px"><span class="tag tag-green">领取'+(c.received||0)+'张</span> <span class="tag tag-blue">使用'+(c.used||0)+'张</span> <span class="tag '+(c.status==='active'?'tag-green':'tag-gray')+'">'+(c.status==='active'?'进行中':'已停用')+'</span></div></div><div><button class="btn btn-default btn-sm" onclick="toggleCouponStatus(\''+c.id+'\')">'+(c.status==='active'?'停用':'启用')+'</button></div></div>').join('')+'</div></div>';
     }
   }else{
-    listEl.innerHTML='<div style="text-align:center;padding:60px;color:#999">'+(marketingTab==='limit'?'限时优惠配置开发中':'多件优惠配置开发中')+'</div>';
+    const isLimit = marketingTab === 'limit';
+    listEl.innerHTML='<div class="card"><div class="card-header"><div class="title">'+(isLimit?'限时优惠配置':'多件优惠配置')+'</div><div class="extra"><button class="btn btn-primary btn-sm" onclick="showToast(\'新建'+(isLimit?'限时优惠':'多件优惠')+'活动\')">+ 新建活动</button></div></div><div class="card-body" style="padding:0"><table class="detail-table"><thead><tr><th>活动名称</th><th>优惠规则</th><th>活动时间</th><th>覆盖商品</th><th>状态</th><th>操作</th></tr></thead><tbody>'+
+      '<tr><td>'+(isLimit?'618限时特惠':'第二件半价')+'</td><td>'+(isLimit?'全场8折起':'第二件5折')+'</td><td>2026-09-01 至 2026-09-30</td><td>'+(isLimit?'12个':'8个')+'个商品</td><td><span class="tag tag-green">进行中</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑活动\')">编辑</button><button class="btn btn-link btn-sm" onclick="showToast(\'活动已暂停\')">暂停</button></td></tr>'+
+      '<tr><td>'+(isLimit?'国庆限时秒杀':'满3件8折')+'</td><td>'+(isLimit?'秒杀价¥9.9起':'满3件享8折')+'</td><td>2026-10-01 至 2026-10-07</td><td>'+(isLimit?'5个':'15个')+'个商品</td><td><span class="tag tag-blue">待开始</span></td><td><button class="btn btn-link btn-sm" onclick="showToast(\'编辑活动\')">编辑</button><button class="btn btn-link btn-sm" onclick="showToast(\'活动已删除\')">删除</button></td></tr>'+
+      '</tbody></table></div></div>';
   }
 }
 
