@@ -882,7 +882,14 @@ const Store = {
     try { const v = localStorage.getItem('pdd_'+key); return v ? JSON.parse(v) : def; }
     catch(e) { return def; }
   },
-  set(key, val) { localStorage.setItem('pdd_'+key, JSON.stringify(val)); }
+  set(key, val) {
+    try { localStorage.setItem('pdd_'+key, JSON.stringify(val)); }
+    catch(e) { /* localStorage不可用时静默失败 */ }
+  },
+  remove(key) {
+    try { localStorage.removeItem('pdd_'+key); }
+    catch(e) {}
+  }
 };
 
 // 初始数据
@@ -1023,7 +1030,7 @@ function initData() {
     Store.set('initialized', true);
   }
 }
-initData();
+try { initData(); } catch(e) { console.warn('initData error:', e); }
 
 // 全局状态
 let currentPage = 'dashboard';
@@ -4632,12 +4639,14 @@ function confirmWithdraw() {
 
 // ==================== 初始化 ====================
 // 先渲染菜单框架
-renderMenu();
-// 默认展开商品管理菜单
-document.querySelectorAll('.menu-group')[1]?.classList.add('open');
+try {
+  renderMenu();
+  // 默认展开商品管理菜单
+  document.querySelectorAll('.menu-group')[1]?.classList.add('open');
+} catch(e) { console.error('renderMenu error:', e); }
 // 延迟渲染工作台内容，避免阻塞
 setTimeout(function(){
-  renderDashboard();
+  try { renderDashboard(); } catch(e) { console.error('renderDashboard error:', e); }
   // 隐藏loading
   var loading = document.getElementById('loadingOverlay');
   if(loading){ loading.style.opacity = '0'; loading.style.transition = 'opacity .3s'; setTimeout(function(){ loading.style.display = 'none'; }, 300); }
