@@ -3255,6 +3255,8 @@ function addBill(type, name, amount, orderNo) {
 
 // ==================== 工作台 ====================
 function renderDashboard() {
+  // 如果当前不是dashboard页面，不执行（避免覆盖其他页面）
+  if(currentPage !== 'dashboard') return;
   // 如果dashboard DOM不存在（被详情页innerHTML替换后），重新注入完整模板
   if(!document.getElementById('dashStats')){
     document.getElementById('content').innerHTML =
