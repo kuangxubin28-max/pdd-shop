@@ -2201,14 +2201,20 @@ function toggleMenu(idx) {
 
 function navTo(page, parent, child, tab, action) {
   currentPage = page;
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  // 清除所有page的内联display样式（renderGenericPage可能设置了内联样式）
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+    p.style.display = '';
+  });
   const targetPage = document.getElementById('page-'+page);
   if(targetPage){
     targetPage.classList.add('active');
+    targetPage.style.display = 'block';
   }else if(pageConfig[page]){
     // 动态渲染通用页面
     renderGenericPage(page);
-    document.getElementById('page-'+page)?.classList.add('active');
+    const newPage = document.getElementById('page-'+page);
+    if(newPage){ newPage.classList.add('active'); newPage.style.display = 'block'; }
   }
   document.querySelectorAll('.submenu-item').forEach(i=>i.classList.remove('active'));
   document.querySelector(`.submenu-item[data-page="${page}"]`)?.classList.add('active');
